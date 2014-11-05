@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+  <script src="js/passiomusicae.js"></script>
+  <title>Passio Musicae</title>
+  <style>
+    div#tubesContainer {
+      text-align: center;
+    }
+    svg#tubes {
+      background-color: grey;
+    }
+    circle.tube {
+      stroke: black;
+      stroke-width: 2px;
+    }
+    circle.tube.idle {
+      fill: none;
+    }
+  </style>
+</head>
+
+<body>
+  <form id="perform">
+    <input name="fromDate" type="text" value="2014-11-04T22:02:49.539Z" />
+    <input name="toDate" type="text" value="2014-11-04T22:02:55.539Z"/>
+    <input type="submit" value="perform"/>
+  </form>
+  <div id="tubesContainer">
+    <svg id="tubes" width="500"></svg>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "passiomusicae",
+  "version": "0.1.0",
+  "author": "Sébastien Piquemal <sebpiq@gmail.com>",
+  "dependencies": {
+    "express": "4.10.x",
+    "gulp": "3.8.x",
+    "browserify": "6.2.x",
+    "gulp-concat": "2.4.x",
+    "vinyl-source-stream": "1.0.x",
+    "gulp-util": "3.0.x",
+    "run-sequence": "1.0.x",
+    "csv": "0.4.x",
+    "underscore": "1.7.x"
+  },
+  "devDependencies": {}
+}
