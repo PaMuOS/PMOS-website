@@ -18409,8 +18409,8 @@ var querystring = require('querystring')
   , async = require('async')
   , tubeViews = require('./src/tube-views')
   , tubeModels = require('./src/tube-models')
-  , perform = require('./src/perform')
-  , config = require('./src/config')
+  , tubeEventViews = require('./src/tubeEvent-views')
+  , config = require('./config')
 
 rhizome.start(function() {
   rhizome.send('/sys/subscribe', ['/tube/on'])
@@ -18419,22 +18419,21 @@ rhizome.start(function() {
 
 rhizome.on('message', function(address, args) {
   if (address === '/tube') {
-    var userId = args[1]
-      , tubeState = args[2]
-      , tubeId = args[3]
-    if (tubeState === 'on') tubeViews.setPlaying(userId, tubeId)
-    else if (tubeState === 'off') tubeViews.setIdle(userId, tubeId)
-    else throw new Error('invalid tube state ' + tubeState)
+    tubeEventViews.perform({ userId: args[1], tubeId: args[2], state: args[3] })
 
   } else if (address === '/sys/subscribed') {
     console.log(address, args[0])
+
   } else console.log('unknown address')
 })
 
 window.onload = function() {
   $('form#perform').submit(function(event) {
     event.preventDefault()
-    perform.betweenDates(new Date(this.elements[0].value), new Date(this.elements[1].value))
+    tubeEventViews.startPerformance(
+      +(new Date(this.elements[0].value)),
+      +(new Date(this.elements[1].value))
+    )
   })
 
   async.series([
@@ -18445,7 +18444,13 @@ window.onload = function() {
     console.log('loaded successfully')
   })
 }
-},{"./src/config":35,"./src/perform":36,"./src/tube-models":37,"./src/tube-views":38,"async":2,"querystring":13,"underscore":34}],2:[function(require,module,exports){
+},{"./config":2,"./src/tube-models":36,"./src/tube-views":37,"./src/tubeEvent-views":39,"async":3,"querystring":14,"underscore":35}],2:[function(require,module,exports){
+module.exports = {
+  dScale: 0.2, // Scale the tube diameters
+  performanceGranularity: 500 // milliseconds
+}
+
+},{}],3:[function(require,module,exports){
 (function (process){
 /*!
  * async
@@ -19572,7 +19577,7 @@ window.onload = function() {
 }());
 
 }).call(this,require('_process'))
-},{"_process":10}],3:[function(require,module,exports){
+},{"_process":11}],4:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -20625,7 +20630,7 @@ function decodeUtf8Char (str) {
   }
 }
 
-},{"base64-js":4,"ieee754":5,"is-array":6}],4:[function(require,module,exports){
+},{"base64-js":5,"ieee754":6,"is-array":7}],5:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 ;(function (exports) {
@@ -20747,7 +20752,7 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	exports.fromByteArray = uint8ToBase64
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 exports.read = function(buffer, offset, isLE, mLen, nBytes) {
   var e, m,
       eLen = nBytes * 8 - mLen - 1,
@@ -20833,7 +20838,7 @@ exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128;
 };
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 
 /**
  * isArray
@@ -20868,7 +20873,7 @@ module.exports = isArray || function (val) {
   return !! val && '[object Array]' == str.call(val);
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -21171,7 +21176,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -21196,12 +21201,12 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -21289,7 +21294,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -21375,7 +21380,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -21462,16 +21467,16 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":11,"./encode":12}],14:[function(require,module,exports){
+},{"./decode":12,"./encode":13}],15:[function(require,module,exports){
 module.exports = require("./lib/_stream_duplex.js")
 
-},{"./lib/_stream_duplex.js":15}],15:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":16}],16:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -21564,7 +21569,7 @@ function forEach (xs, f) {
 }
 
 }).call(this,require('_process'))
-},{"./_stream_readable":17,"./_stream_writable":19,"_process":10,"core-util-is":20,"inherits":8}],16:[function(require,module,exports){
+},{"./_stream_readable":18,"./_stream_writable":20,"_process":11,"core-util-is":21,"inherits":9}],17:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -21612,7 +21617,7 @@ PassThrough.prototype._transform = function(chunk, encoding, cb) {
   cb(null, chunk);
 };
 
-},{"./_stream_transform":18,"core-util-is":20,"inherits":8}],17:[function(require,module,exports){
+},{"./_stream_transform":19,"core-util-is":21,"inherits":9}],18:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -22598,7 +22603,7 @@ function indexOf (xs, x) {
 }
 
 }).call(this,require('_process'))
-},{"_process":10,"buffer":3,"core-util-is":20,"events":7,"inherits":8,"isarray":9,"stream":25,"string_decoder/":26}],18:[function(require,module,exports){
+},{"_process":11,"buffer":4,"core-util-is":21,"events":8,"inherits":9,"isarray":10,"stream":26,"string_decoder/":27}],19:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -22810,7 +22815,7 @@ function done(stream, er) {
   return stream.push(null);
 }
 
-},{"./_stream_duplex":15,"core-util-is":20,"inherits":8}],19:[function(require,module,exports){
+},{"./_stream_duplex":16,"core-util-is":21,"inherits":9}],20:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -23200,7 +23205,7 @@ function endWritable(stream, state, cb) {
 }
 
 }).call(this,require('_process'))
-},{"./_stream_duplex":15,"_process":10,"buffer":3,"core-util-is":20,"inherits":8,"stream":25}],20:[function(require,module,exports){
+},{"./_stream_duplex":16,"_process":11,"buffer":4,"core-util-is":21,"inherits":9,"stream":26}],21:[function(require,module,exports){
 (function (Buffer){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -23310,10 +23315,10 @@ function objectToString(o) {
   return Object.prototype.toString.call(o);
 }
 }).call(this,require("buffer").Buffer)
-},{"buffer":3}],21:[function(require,module,exports){
+},{"buffer":4}],22:[function(require,module,exports){
 module.exports = require("./lib/_stream_passthrough.js")
 
-},{"./lib/_stream_passthrough.js":16}],22:[function(require,module,exports){
+},{"./lib/_stream_passthrough.js":17}],23:[function(require,module,exports){
 var Stream = require('stream'); // hack to fix a circular dependency issue when used with browserify
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = Stream;
@@ -23323,13 +23328,13 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":15,"./lib/_stream_passthrough.js":16,"./lib/_stream_readable.js":17,"./lib/_stream_transform.js":18,"./lib/_stream_writable.js":19,"stream":25}],23:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":16,"./lib/_stream_passthrough.js":17,"./lib/_stream_readable.js":18,"./lib/_stream_transform.js":19,"./lib/_stream_writable.js":20,"stream":26}],24:[function(require,module,exports){
 module.exports = require("./lib/_stream_transform.js")
 
-},{"./lib/_stream_transform.js":18}],24:[function(require,module,exports){
+},{"./lib/_stream_transform.js":19}],25:[function(require,module,exports){
 module.exports = require("./lib/_stream_writable.js")
 
-},{"./lib/_stream_writable.js":19}],25:[function(require,module,exports){
+},{"./lib/_stream_writable.js":20}],26:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -23458,7 +23463,7 @@ Stream.prototype.pipe = function(dest, options) {
   return dest;
 };
 
-},{"events":7,"inherits":8,"readable-stream/duplex.js":14,"readable-stream/passthrough.js":21,"readable-stream/readable.js":22,"readable-stream/transform.js":23,"readable-stream/writable.js":24}],26:[function(require,module,exports){
+},{"events":8,"inherits":9,"readable-stream/duplex.js":15,"readable-stream/passthrough.js":22,"readable-stream/readable.js":23,"readable-stream/transform.js":24,"readable-stream/writable.js":25}],27:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -23681,14 +23686,14 @@ function base64DetectIncompleteChar(buffer) {
   this.charLength = this.charReceived ? 3 : 0;
 }
 
-},{"buffer":3}],27:[function(require,module,exports){
+},{"buffer":4}],28:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -24278,7 +24283,7 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":27,"_process":10,"inherits":8}],29:[function(require,module,exports){
+},{"./support/isBuffer":28,"_process":11,"inherits":9}],30:[function(require,module,exports){
 // Generated by CoffeeScript 1.7.1
 var generate, parse, stringify, transform;
 
@@ -24298,7 +24303,7 @@ module.exports.transform = transform;
 
 module.exports.stringify = stringify;
 
-},{"csv-generate":30,"csv-parse":31,"csv-stringify":32,"stream-transform":33}],30:[function(require,module,exports){
+},{"csv-generate":31,"csv-parse":32,"csv-stringify":33,"stream-transform":34}],31:[function(require,module,exports){
 // Generated by CoffeeScript 1.7.1
 var Generator, stream, util;
 
@@ -24564,7 +24569,7 @@ module.exports = function() {
 
 module.exports.Generator = Generator;
 
-},{"stream":25,"util":28}],31:[function(require,module,exports){
+},{"stream":26,"util":29}],32:[function(require,module,exports){
 (function (process,Buffer){
 // Generated by CoffeeScript 1.7.1
 var Parser, stream, util;
@@ -24886,7 +24891,7 @@ Parser.prototype.__write = function(chars, end, callback) {
 };
 
 }).call(this,require('_process'),require("buffer").Buffer)
-},{"_process":10,"buffer":3,"stream":25,"util":28}],32:[function(require,module,exports){
+},{"_process":11,"buffer":4,"stream":26,"util":29}],33:[function(require,module,exports){
 (function (process){
 // Generated by CoffeeScript 1.7.1
 var Stringifier, stream, util;
@@ -25159,7 +25164,7 @@ Stringifier.prototype.stringify = function(line) {
 };
 
 }).call(this,require('_process'))
-},{"_process":10,"stream":25,"util":28}],33:[function(require,module,exports){
+},{"_process":11,"stream":26,"util":29}],34:[function(require,module,exports){
 (function (process){
 // Generated by CoffeeScript 1.7.1
 var Transformer, stream, util,
@@ -25320,7 +25325,7 @@ Transformer.prototype._done = function(err, chunks, cb) {
 };
 
 }).call(this,require('_process'))
-},{"_process":10,"stream":25,"util":28}],34:[function(require,module,exports){
+},{"_process":11,"stream":26,"util":29}],35:[function(require,module,exports){
 //     Underscore.js 1.7.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -26737,82 +26742,9 @@ Transformer.prototype._done = function(err, chunks, cb) {
   }
 }.call(this));
 
-},{}],35:[function(require,module,exports){
-module.exports = {
-  dScale: 0.2, // Scale the tube diameters
-  performanceGranularity: 500 // milliseconds
-}
-
 },{}],36:[function(require,module,exports){
-var querystring = require('querystring')
-  , _ = require('underscore')
-  , tubeViews = require('./tube-views')
-  , config = require('./config')
-
-var performanceQueue = []
-  , performanceInterval = null
-
-exports.betweenDates = function(fromDate, toDate) {
-  clearPerformance()
-  fetchTubeEvents(fromDate, toDate, function(err, data) {
-    if (err) throw err
-    performanceQueue = data
-    startPerforming(fromDate)
-  })
-}
-
-var fetchTubeEvents = function(fromDate, toDate, done) {
-  debugger
-  var url = '/tubes/?' + querystring.stringify({
-    fromDate: fromDate.toISOString(),
-    toDate: toDate.toISOString()
-  })
-
-  $.getJSON(url, function(data) {
-    done(null, _.map(data, function(tubeEvent) {
-      tubeEvent.date = new Date(tubeEvent.date)
-      return tubeEvent
-    }))
-  })
-}
-
-var performTubeEvent = function(tubeEvent) {
-  if (tubeEvent.type === 'on') tubeViews.setPlaying(tubeEvent.userId, tubeEvent.tubeId)
-  else if (tubeEvent.type === 'off') tubeViews.setIdle(tubeEvent.userId, tubeEvent.tubeId)
-  else throw new Error('invalid event type ' + tubeEvent.type)
-}
-
-var startPerforming = function(fromDate) {
-  console.log('start performing')
-  var performanceDateOffset = +(Date.now()) - fromDate
-
-  performanceInterval = setInterval(function() {
-    var currentDate = new Date(+(Date.now()) - performanceDateOffset)
-    document.getElementById('performanceClock').innerHTML = currentDate
-    
-    if (performanceQueue.length === 0) {
-      console.log('performance over')
-      clearPerformance()
-
-    } else if (+(performanceQueue[0].date) + performanceDateOffset < +(Date.now())) {
-      var tubeEvent = performanceQueue.shift()
-      console.log('tube ' + tubeEvent.tubeId + ' ' + tubeEvent.type)
-      performTubeEvent(tubeEvent)
-    }
-
-  }, config.performanceGranularity)
-}
-
-var clearPerformance = function() {
-  clearInterval(performanceInterval)
-  tubeViews.setAllIdle()
-  performanceInterval = null
-  performanceQueue = []
-  document.getElementById('performanceClock').innerHTML = ''
-}
-},{"./config":35,"./tube-views":38,"querystring":13,"underscore":34}],37:[function(require,module,exports){
 var _ = require('underscore')
-  , config = require('./config')
+  , config = require('../config')
   , csv = require('csv')
 
 exports.load = function(done) {
@@ -26831,10 +26763,10 @@ exports.load = function(done) {
 }
 
 exports.all = []
-},{"./config":35,"csv":29,"underscore":34}],38:[function(require,module,exports){
+},{"../config":2,"csv":30,"underscore":35}],37:[function(require,module,exports){
 var _ = require('underscore')
   , tubeModels = require('./tube-models')
-  , config = require('./config')
+  , config = require('../config')
 
 exports.setPlaying = function(userId, tubeId) {
   var user = getUser(userId)
@@ -26907,4 +26839,93 @@ var getUser = function(userId) {
   }
   return user
 }
-},{"./config":35,"./tube-models":37,"underscore":34}]},{},[1]);
+},{"../config":2,"./tube-models":36,"underscore":35}],38:[function(require,module,exports){
+var _ = require('underscore')
+  , querystring = require('querystring')
+
+exports.load = function(fromTime, toTime, done) {
+  var url = '/tubeEvents/?' + querystring.stringify({
+    fromTime: fromTime,
+    toTime: toTime
+  })
+
+  $.getJSON(url, function(data) {
+    done(null, _.map(data, function(tubeEvent) {
+      return tubeEvent
+    }))
+  })
+}
+},{"querystring":14,"underscore":35}],39:[function(require,module,exports){
+var _ = require('underscore')
+  , async = require('async')
+  , tubeViews = require('./tube-views')
+  , tubeEventModels = require('./tubeEvent-models')
+  , config = require('../config')
+
+var perform = exports.perform = function(tubeEvent) {
+  console.log('perform tube ' + tubeEvent.tubeId + ' ' + tubeEvent.state)
+  if (tubeEvent.state === 'on') tubeViews.setPlaying(tubeEvent.userId, tubeEvent.tubeId)
+  else if (tubeEvent.state === 'off') tubeViews.setIdle(tubeEvent.userId, tubeEvent.tubeId)
+  else throw new Error('invalid event state ' + tubeEvent.state)
+}
+
+exports.startPerformance = function(fromTime, toTime) { 
+  return new Performance(fromTime, toTime)
+}
+
+var Performance = function(fromTime, toTime) {
+  var self = this
+  if (Performance.current) Performance.current.clear()
+  Performance.current = this
+  this.fromTime = fromTime
+  this.toTime = toTime
+  this.load(function(err) {
+    if (err) throw err
+    self.start()
+  })
+}
+Performance.current = null
+
+
+_.extend(Performance.prototype, {
+
+  load: function(done) {
+    var self = this
+    tubeEventModels.load(this.fromTime, this.toTime, function(err, tubeEvents) {
+      if (err) return done(err)
+      console.log('performance loaded')
+      self.queue = tubeEvents
+      done()
+    })
+  },
+
+  clear: function() {
+    clearInterval(this.intervalHandle)
+    tubeViews.setAllIdle()
+    Performance.current = null
+    document.getElementById('performanceClock').innerHTML = ''
+  },
+
+  start: function() {
+    console.log('start performing')
+    var self = this
+    this.timeOffset = +(Date.now()) - this.fromTime
+
+    this.intervalHandle = setInterval(function() {
+      var currentDate = new Date(+(Date.now()) - self.timeOffset)
+      document.getElementById('performanceClock').innerHTML = currentDate
+      
+      if (self.queue.length === 0) {
+        console.log('performance over')
+        self.clear()
+
+      } else if (self.queue[0].timestamp + self.timeOffset < +(Date.now())) {
+        perform(self.queue.shift())
+      }
+
+    }, config.performanceGranularity)
+  }
+
+})
+
+},{"../config":2,"./tube-views":37,"./tubeEvent-models":38,"async":3,"underscore":35}]},{},[1]);

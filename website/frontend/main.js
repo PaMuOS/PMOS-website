@@ -3,8 +3,8 @@ var querystring = require('querystring')
   , async = require('async')
   , tubeViews = require('./src/tube-views')
   , tubeModels = require('./src/tube-models')
-  , perform = require('./src/perform')
-  , config = require('./src/config')
+  , tubeEventViews = require('./src/tubeEvent-views')
+  , config = require('./config')
 
 rhizome.start(function() {
   rhizome.send('/sys/subscribe', ['/tube/on'])
@@ -13,22 +13,21 @@ rhizome.start(function() {
 
 rhizome.on('message', function(address, args) {
   if (address === '/tube') {
-    var userId = args[1]
-      , tubeState = args[2]
-      , tubeId = args[3]
-    if (tubeState === 'on') tubeViews.setPlaying(userId, tubeId)
-    else if (tubeState === 'off') tubeViews.setIdle(userId, tubeId)
-    else throw new Error('invalid tube state ' + tubeState)
+    tubeEventViews.perform({ userId: args[1], tubeId: args[2], state: args[3] })
 
   } else if (address === '/sys/subscribed') {
     console.log(address, args[0])
+
   } else console.log('unknown address')
 })
 
 window.onload = function() {
   $('form#perform').submit(function(event) {
     event.preventDefault()
-    perform.betweenDates(new Date(this.elements[0].value), new Date(this.elements[1].value))
+    tubeEventViews.startPerformance(
+      +(new Date(this.elements[0].value)),
+      +(new Date(this.elements[1].value))
+    )
   })
 
   async.series([

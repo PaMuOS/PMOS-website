@@ -1,6 +1,6 @@
 var _ = require('underscore')
   , tubeModels = require('./tube-models')
-  , config = require('./config')
+  , config = require('../config')
 
 exports.setPlaying = function(userId, tubeId) {
   var user = getUser(userId)

@@ -6,13 +6,13 @@ var gulp = require('gulp')
   , source = require('vinyl-source-stream')
   , path = require('path')
 
-var watcher = gulp.watch(['./index.js', './src/*.js'], ['default'])
+var watcher = gulp.watch(['./main.js', './src/*.js'], ['default'])
 watcher.on('change', function(event) {
   console.log('File '+event.path+' was '+event.type+', running tasks...')
 })
 
 gulp.task('browserify', function() {
-  return browserify({ entries: './index.js' })
+  return browserify({ entries: './main.js' })
     .bundle()
     .on('error', gutil.log)
     .pipe(source('browserified.js'))

@@ -1,5 +1,5 @@
 var _ = require('underscore')
-  , config = require('./config')
+  , config = require('../config')
   , csv = require('csv')
 
 exports.load = function(done) {
