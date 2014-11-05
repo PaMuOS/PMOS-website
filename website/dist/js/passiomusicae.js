@@ -18405,70 +18405,12 @@ return jQuery;
 ;!function t(e,n,r){function i(s,u){if(!n[s]){if(!e[s]){var a="function"==typeof require&&require;if(!u&&a)return a(s,!0);if(o)return o(s,!0);var c=new Error("Cannot find module '"+s+"'");throw c.code="MODULE_NOT_FOUND",c}var f=n[s]={exports:{}};e[s][0].call(f.exports,function(t){var n=e[s][1][t];return i(n?n:t)},f,f.exports,t,e,n,r)}return n[s].exports}for(var o="function"==typeof require&&require,s=0;s<r.length;s++)i(r[s]);return i}({1:[function(t,e,n){(function(e){var r=t("underscore"),i=n.Blob="undefined"==typeof window?e:window.Blob;n.throttle=function(t,e){var n=null,r=!1,i=!1,o=function(){e(n),r=!0,i=!1,setTimeout(function(){i===!0?o():r=!1},t)},s=function(t){i=!0,n=t,r===!1&&o()};return s};var o=n.sendJSON=function(t,e){t.send(JSON.stringify(e))};n.validateArgs=function(t){if(!r.isArray(t))return"`args` should be an array";var e,n,o;for(n=0,o=t.length;o>n;n++)if(e=t[n],!(r.isString(e)||r.isNumber(e)||e instanceof i))return"argument "+n+", invalid type";return null},n.argsToString=function(t){return"["+t.map(function(t){return t instanceof i?"Blob("+t.length+")":t})+"]"};n.normalizeAddress=function(t){return"/"===t?t:"/"===r.last(t)?t.slice(0,-1):t};n.validateAddressForSub=function(t){return"/"!==t[0]?"should start with /":s.exec(t)?"system addresses are reserved for the system":null},n.validateAddressForSend=function(t){return"/"!==t[0]?"should start with /":u.exec(t)?"broadcast addresses are reserved for the system":null};var s=n.sysAddressRe=/^\/sys.*$/;n.configureAddress="/sys/config",n.configuredAddress="/sys/configured",n.subscribeAddress="/sys/subscribe",n.subscribedAddress="/sys/subscribed",n.sendBlobAddress="/sys/blob",n.errorAddress="/sys/error",n.resendAddress="/sys/resend";var u=n.broadcastAddressRe=/^\/broadcast.*$/;n.connectionCloseAddress="/broadcast/websockets/close",n.connectionOpenAddress="/broadcast/websockets/open";var a=n.BlobTransaction=function(t,e,n,r){this.eventEmitter=r,this.socket=t,this.sendCommand=e,this.receiveCommand=n,this._receiveLock=!1,this._sendLock=!1,this._sendQueue=[]};r.extend(a.prototype,{send:function(t,e){this._sendQueue.push({address:t,args:e}),this._nextTransaction()},_nextTransaction:function(){if(!this._sendLock&&this._sendQueue.length>0){this._sendLock=!0;var t=this,e=this._sendQueue.shift(),n=e.args,s=[],u=[];r.forEach(n,function(t,e){t instanceof i&&(s.push(t),u.push(e),n[e]=null)}),o(this.socket,{command:this.sendCommand,address:e.address,args:n,blobArgIndices:u}),this._sendBlobs(s,function(e){if(e)throw e;t._sendLock=!1,t._nextTransaction()})}},_sendBlobs:function(t,e){var n=this;this.eventEmitter.once("command:"+n.sendCommand,function(r){n.socket.send(t.shift()),t.length?n._sendBlobs(t,e):0===r.status?e():e(new Error(r.error))})},receive:function(t){var e=this;if(this._receiveLock)throw new Error("a transaction is already happening");this._receiveLock=!0,o(this.socket,{command:this.receiveCommand,status:0}),this._receiveBlobs(t,function(){e._receiveLock=!1,e.eventEmitter.emit("command:message",{command:"message",address:t.address,args:t.args})})},_receiveBlobs:function(t,e){var n=this;this.eventEmitter.once("blob",function(r){t.args[t.blobArgIndices.shift()]=r,o(n.socket,{command:n.receiveCommand,status:0}),t.blobArgIndices.length>0?n._receiveBlobs(t,e):e(null,t)})}})}).call(this,t("buffer").Buffer)},{buffer:4,underscore:9}],2:[function(t,e,n){(function(e){var r=t("underscore"),i=t("../shared"),o=i.sendJSON,s=t("events").EventEmitter,u=t("ws"),a="undefined"!=typeof window;r.extend(n,new s);var c,f,l,h=a?window.Blob:e,p=a?"ws://"+window.location.hostname+":"+window.location.port+"/":"ws://localhost:8000/";if(u)var d=r.object([[u.CONNECTING,"stopped"],[u.OPEN,"started"],[u.CLOSING,"stopped"],[u.CLOSED,"stopped"]]);n.userId=null,n.config={reconnect:function(t){if(!r.isNumber(t))throw new Error("`time` should be a number");v.reconnect=t},queueIfFull:function(t){if(c)throw new Error("this setting cannot be changed once the client is started");if(!r.isBoolean(t))throw new Error("`queueIfFull` should be boolean");v.queueIfFull=t}};var v={reconnect:1e3,queueIfFull:!0};n.start=function(t){n.isSupported()||T(t,"the current browser is not supported"),c&&(c.close(),m()),f=new s,g(),f.once("connection:success",function(){f.removeAllListeners("connection:failure"),n.emit("connected"),t&&t()}),f.once("connection:failure",function(e){f.removeAllListeners("connection:success"),t&&t(e)})},n.stop=function(t){c?c.readyState===c.OPEN?(f.removeListener("close",E),c.close(),f.once("close",function(){m(),t&&t(null)})):(m(),t&&t(null)):t&&t(null)},n.send=function(t,e){e=e||[],S(i.validateAddressForSend,t),S(i.validateArgs,e),r.some(e,function(t){return t instanceof h})?l.send(t,e):o(c,{command:"message",address:t,args:e})},n.status=function(){return c?null===n.userId?"stopped":d[c.readyState]:"stopped"},n.log=function(){},n.isSupported=function(){return r.isFunction(u)&&2===u.prototype.CLOSING};var g=function(){c=new u(p+"?queueIfFull="+JSON.stringify(v.queueIfFull)),l=new i.BlobTransaction(c,"blobFromWeb","blobFromServer",f),c.addEventListener("open",x,!1),c.addEventListener("close",R,!1),c.addEventListener("message",k,!1),c.addEventListener("error",U,!1),f.once("open",w),f.once("error",b)},m=function(){n.userId=null,c.removeEventListener("open",x,!1),c.removeEventListener("close",R,!1),c.removeEventListener("message",k,!1),c.removeEventListener("error",U,!1),f=null,c=null},y=function(){setTimeout(function(){n.log("socket reconnecting"),g(),f.once("connection:success",function(){f.removeAllListeners("connection:failure"),_()}),f.once("connection:failure",function(t){f.removeAllListeners("connection:success"),n.log("socket failed reconnecting "+t.toString()),setTimeout(y,v.reconnect)})},v.reconnect)},w=function(){f.removeListener("error",b),f.once("command:connect",A),n.log("socket connected")},b=function(){f.removeListener("open",w),f.emit("connection:failure",new Error("socket error"))},E=function(){n.emit("connection lost"),f.removeAllListeners(),v.reconnect&&y()},_=function(){n.emit("reconnected")},A=function(t){0===t.status?(f.on("command:message",L),f.on("command:blobFromServer",r.bind(l.receive,l)),f.on("error",I),f.on("close",B),f.once("close",E),n.userId=t.userId,f.emit("connection:success")):1===t.status&&(n.emit("server full"),v.queueIfFull?f.once("command:connect",A):(f.emit("connection:failure",t.error),c.close(),m()))},L=function(t){n.log("socket message received"),n.emit("message",t.address,t.args)},I=function(t){n.listeners("error").length&&n.emit("error",t),n.log("socket error ",t.toString())},B=function(){n.log("socket closed")},T=function(t,e){if(!e&&t)t(null);else{if(e=e instanceof Error?e:new Error(e),!t)throw e;t(e)}},S=function(t,e){var n=t(e);if(null!==n)throw new Error(n)},x=function(t){f.emit("open",t)},R=function(t){f.emit("close",t)},U=function(){f.emit("error",new Error("socket error"))},k=function(t){if(t.data instanceof h)f.emit("blob",t.data);else{var e=JSON.parse(t.data);f.emit("command:"+e.command,e)}}}).call(this,t("buffer").Buffer)},{"../shared":1,buffer:4,events:8,underscore:9,ws:10}],3:[function(t){var e=t("../shared");window.rhizome=t("./client"),window.rhizome.utils={},window.rhizome.utils.throttle=e.throttle},{"../shared":1,"./client":2}],4:[function(t,e,n){function r(t,e,n){if(!(this instanceof r))return new r(t,e,n);var i,o=typeof t;if("number"===o)i=t>0?t>>>0:0;else if("string"===o)"base64"===e&&(t=A(t)),i=r.byteLength(t,e);else{if("object"!==o||null===t)throw new TypeError("must start with number, buffer, array or string");"Buffer"===t.type&&F(t.data)&&(t=t.data),i=+t.length>0?Math.floor(+t.length):0}if(this.length>N)throw new RangeError("Attempt to allocate Buffer larger than maximum size: 0x"+N.toString(16)+" bytes");var s;r.TYPED_ARRAY_SUPPORT?s=r._augment(new Uint8Array(i)):(s=this,s.length=i,s._isBuffer=!0);var u;if(r.TYPED_ARRAY_SUPPORT&&"number"==typeof t.byteLength)s._set(t);else if(I(t))if(r.isBuffer(t))for(u=0;i>u;u++)s[u]=t.readUInt8(u);else for(u=0;i>u;u++)s[u]=(t[u]%256+256)%256;else if("string"===o)s.write(t,0,e);else if("number"===o&&!r.TYPED_ARRAY_SUPPORT&&!n)for(u=0;i>u;u++)s[u]=0;return s}function i(t,e,n,r){n=Number(n)||0;var i=t.length-n;r?(r=Number(r),r>i&&(r=i)):r=i;var o=e.length;if(o%2!==0)throw new Error("Invalid hex string");r>o/2&&(r=o/2);for(var s=0;r>s;s++){var u=parseInt(e.substr(2*s,2),16);if(isNaN(u))throw new Error("Invalid hex string");t[n+s]=u}return s}function o(t,e,n,r){var i=U(T(e),t,n,r);return i}function s(t,e,n,r){var i=U(S(e),t,n,r);return i}function u(t,e,n,r){return s(t,e,n,r)}function a(t,e,n,r){var i=U(R(e),t,n,r);return i}function c(t,e,n,r){var i=U(x(e),t,n,r);return i}function f(t,e,n){return O.fromByteArray(0===e&&n===t.length?t:t.slice(e,n))}function l(t,e,n){var r="",i="";n=Math.min(t.length,n);for(var o=e;n>o;o++)t[o]<=127?(r+=k(i)+String.fromCharCode(t[o]),i=""):i+="%"+t[o].toString(16);return r+k(i)}function h(t,e,n){var r="";n=Math.min(t.length,n);for(var i=e;n>i;i++)r+=String.fromCharCode(t[i]);return r}function p(t,e,n){return h(t,e,n)}function d(t,e,n){var r=t.length;(!e||0>e)&&(e=0),(!n||0>n||n>r)&&(n=r);for(var i="",o=e;n>o;o++)i+=B(t[o]);return i}function v(t,e,n){for(var r=t.slice(e,n),i="",o=0;o<r.length;o+=2)i+=String.fromCharCode(r[o]+256*r[o+1]);return i}function g(t,e,n){if(t%1!==0||0>t)throw new RangeError("offset is not uint");if(t+e>n)throw new RangeError("Trying to access beyond buffer length")}function m(t,e,n,i,o,s){if(!r.isBuffer(t))throw new TypeError("buffer must be a Buffer instance");if(e>o||s>e)throw new TypeError("value is out of bounds");if(n+i>t.length)throw new TypeError("index out of range")}function y(t,e,n,r){0>e&&(e=65535+e+1);for(var i=0,o=Math.min(t.length-n,2);o>i;i++)t[n+i]=(e&255<<8*(r?i:1-i))>>>8*(r?i:1-i)}function w(t,e,n,r){0>e&&(e=4294967295+e+1);for(var i=0,o=Math.min(t.length-n,4);o>i;i++)t[n+i]=e>>>8*(r?i:3-i)&255}function b(t,e,n,r,i,o){if(e>i||o>e)throw new TypeError("value is out of bounds");if(n+r>t.length)throw new TypeError("index out of range")}function E(t,e,n,r,i){return i||b(t,e,n,4,3.4028234663852886e38,-3.4028234663852886e38),P.write(t,e,n,r,23,4),n+4}function _(t,e,n,r,i){return i||b(t,e,n,8,1.7976931348623157e308,-1.7976931348623157e308),P.write(t,e,n,r,52,8),n+8}function A(t){for(t=L(t).replace(C,"");t.length%4!==0;)t+="=";return t}function L(t){return t.trim?t.trim():t.replace(/^\s+|\s+$/g,"")}function I(t){return F(t)||r.isBuffer(t)||t&&"object"==typeof t&&"number"==typeof t.length}function B(t){return 16>t?"0"+t.toString(16):t.toString(16)}function T(t){for(var e=[],n=0;n<t.length;n++){var r=t.charCodeAt(n);if(127>=r)e.push(r);else{var i=n;r>=55296&&57343>=r&&n++;for(var o=encodeURIComponent(t.slice(i,n+1)).substr(1).split("%"),s=0;s<o.length;s++)e.push(parseInt(o[s],16))}}return e}function S(t){for(var e=[],n=0;n<t.length;n++)e.push(255&t.charCodeAt(n));return e}function x(t){for(var e,n,r,i=[],o=0;o<t.length;o++)e=t.charCodeAt(o),n=e>>8,r=e%256,i.push(r),i.push(n);return i}function R(t){return O.toByteArray(t)}function U(t,e,n,r){for(var i=0;r>i&&!(i+n>=e.length||i>=t.length);i++)e[i+n]=t[i];return i}function k(t){try{return decodeURIComponent(t)}catch(e){return String.fromCharCode(65533)}}var O=t("base64-js"),P=t("ieee754"),F=t("is-array");n.Buffer=r,n.SlowBuffer=r,n.INSPECT_MAX_BYTES=50,r.poolSize=8192;var N=1073741823;r.TYPED_ARRAY_SUPPORT=function(){try{var t=new ArrayBuffer(0),e=new Uint8Array(t);return e.foo=function(){return 42},42===e.foo()&&"function"==typeof e.subarray&&0===new Uint8Array(1).subarray(1,1).byteLength}catch(n){return!1}}(),r.isBuffer=function(t){return!(null==t||!t._isBuffer)},r.compare=function(t,e){if(!r.isBuffer(t)||!r.isBuffer(e))throw new TypeError("Arguments must be Buffers");for(var n=t.length,i=e.length,o=0,s=Math.min(n,i);s>o&&t[o]===e[o];o++);return o!==s&&(n=t[o],i=e[o]),i>n?-1:n>i?1:0},r.isEncoding=function(t){switch(String(t).toLowerCase()){case"hex":case"utf8":case"utf-8":case"ascii":case"binary":case"base64":case"raw":case"ucs2":case"ucs-2":case"utf16le":case"utf-16le":return!0;default:return!1}},r.concat=function(t,e){if(!F(t))throw new TypeError("Usage: Buffer.concat(list[, length])");if(0===t.length)return new r(0);if(1===t.length)return t[0];var n;if(void 0===e)for(e=0,n=0;n<t.length;n++)e+=t[n].length;var i=new r(e),o=0;for(n=0;n<t.length;n++){var s=t[n];s.copy(i,o),o+=s.length}return i},r.byteLength=function(t,e){var n;switch(t+="",e||"utf8"){case"ascii":case"binary":case"raw":n=t.length;break;case"ucs2":case"ucs-2":case"utf16le":case"utf-16le":n=2*t.length;break;case"hex":n=t.length>>>1;break;case"utf8":case"utf-8":n=T(t).length;break;case"base64":n=R(t).length;break;default:n=t.length}return n},r.prototype.length=void 0,r.prototype.parent=void 0,r.prototype.toString=function(t,e,n){var r=!1;if(e>>>=0,n=void 0===n||1/0===n?this.length:n>>>0,t||(t="utf8"),0>e&&(e=0),n>this.length&&(n=this.length),e>=n)return"";for(;;)switch(t){case"hex":return d(this,e,n);case"utf8":case"utf-8":return l(this,e,n);case"ascii":return h(this,e,n);case"binary":return p(this,e,n);case"base64":return f(this,e,n);case"ucs2":case"ucs-2":case"utf16le":case"utf-16le":return v(this,e,n);default:if(r)throw new TypeError("Unknown encoding: "+t);t=(t+"").toLowerCase(),r=!0}},r.prototype.equals=function(t){if(!r.isBuffer(t))throw new TypeError("Argument must be a Buffer");return 0===r.compare(this,t)},r.prototype.inspect=function(){var t="",e=n.INSPECT_MAX_BYTES;return this.length>0&&(t=this.toString("hex",0,e).match(/.{2}/g).join(" "),this.length>e&&(t+=" ... ")),"<Buffer "+t+">"},r.prototype.compare=function(t){if(!r.isBuffer(t))throw new TypeError("Argument must be a Buffer");return r.compare(this,t)},r.prototype.get=function(t){return console.log(".get() is deprecated. Access using array indexes instead."),this.readUInt8(t)},r.prototype.set=function(t,e){return console.log(".set() is deprecated. Access using array indexes instead."),this.writeUInt8(t,e)},r.prototype.write=function(t,e,n,r){if(isFinite(e))isFinite(n)||(r=n,n=void 0);else{var f=r;r=e,e=n,n=f}e=Number(e)||0;var l=this.length-e;n?(n=Number(n),n>l&&(n=l)):n=l,r=String(r||"utf8").toLowerCase();var h;switch(r){case"hex":h=i(this,t,e,n);break;case"utf8":case"utf-8":h=o(this,t,e,n);break;case"ascii":h=s(this,t,e,n);break;case"binary":h=u(this,t,e,n);break;case"base64":h=a(this,t,e,n);break;case"ucs2":case"ucs-2":case"utf16le":case"utf-16le":h=c(this,t,e,n);break;default:throw new TypeError("Unknown encoding: "+r)}return h},r.prototype.toJSON=function(){return{type:"Buffer",data:Array.prototype.slice.call(this._arr||this,0)}},r.prototype.slice=function(t,e){var n=this.length;if(t=~~t,e=void 0===e?n:~~e,0>t?(t+=n,0>t&&(t=0)):t>n&&(t=n),0>e?(e+=n,0>e&&(e=0)):e>n&&(e=n),t>e&&(e=t),r.TYPED_ARRAY_SUPPORT)return r._augment(this.subarray(t,e));for(var i=e-t,o=new r(i,void 0,!0),s=0;i>s;s++)o[s]=this[s+t];return o},r.prototype.readUInt8=function(t,e){return e||g(t,1,this.length),this[t]},r.prototype.readUInt16LE=function(t,e){return e||g(t,2,this.length),this[t]|this[t+1]<<8},r.prototype.readUInt16BE=function(t,e){return e||g(t,2,this.length),this[t]<<8|this[t+1]},r.prototype.readUInt32LE=function(t,e){return e||g(t,4,this.length),(this[t]|this[t+1]<<8|this[t+2]<<16)+16777216*this[t+3]},r.prototype.readUInt32BE=function(t,e){return e||g(t,4,this.length),16777216*this[t]+(this[t+1]<<16|this[t+2]<<8|this[t+3])},r.prototype.readInt8=function(t,e){return e||g(t,1,this.length),128&this[t]?-1*(255-this[t]+1):this[t]},r.prototype.readInt16LE=function(t,e){e||g(t,2,this.length);var n=this[t]|this[t+1]<<8;return 32768&n?4294901760|n:n},r.prototype.readInt16BE=function(t,e){e||g(t,2,this.length);var n=this[t+1]|this[t]<<8;return 32768&n?4294901760|n:n},r.prototype.readInt32LE=function(t,e){return e||g(t,4,this.length),this[t]|this[t+1]<<8|this[t+2]<<16|this[t+3]<<24},r.prototype.readInt32BE=function(t,e){return e||g(t,4,this.length),this[t]<<24|this[t+1]<<16|this[t+2]<<8|this[t+3]},r.prototype.readFloatLE=function(t,e){return e||g(t,4,this.length),P.read(this,t,!0,23,4)},r.prototype.readFloatBE=function(t,e){return e||g(t,4,this.length),P.read(this,t,!1,23,4)},r.prototype.readDoubleLE=function(t,e){return e||g(t,8,this.length),P.read(this,t,!0,52,8)},r.prototype.readDoubleBE=function(t,e){return e||g(t,8,this.length),P.read(this,t,!1,52,8)},r.prototype.writeUInt8=function(t,e,n){return t=+t,e>>>=0,n||m(this,t,e,1,255,0),r.TYPED_ARRAY_SUPPORT||(t=Math.floor(t)),this[e]=t,e+1},r.prototype.writeUInt16LE=function(t,e,n){return t=+t,e>>>=0,n||m(this,t,e,2,65535,0),r.TYPED_ARRAY_SUPPORT?(this[e]=t,this[e+1]=t>>>8):y(this,t,e,!0),e+2},r.prototype.writeUInt16BE=function(t,e,n){return t=+t,e>>>=0,n||m(this,t,e,2,65535,0),r.TYPED_ARRAY_SUPPORT?(this[e]=t>>>8,this[e+1]=t):y(this,t,e,!1),e+2},r.prototype.writeUInt32LE=function(t,e,n){return t=+t,e>>>=0,n||m(this,t,e,4,4294967295,0),r.TYPED_ARRAY_SUPPORT?(this[e+3]=t>>>24,this[e+2]=t>>>16,this[e+1]=t>>>8,this[e]=t):w(this,t,e,!0),e+4},r.prototype.writeUInt32BE=function(t,e,n){return t=+t,e>>>=0,n||m(this,t,e,4,4294967295,0),r.TYPED_ARRAY_SUPPORT?(this[e]=t>>>24,this[e+1]=t>>>16,this[e+2]=t>>>8,this[e+3]=t):w(this,t,e,!1),e+4},r.prototype.writeInt8=function(t,e,n){return t=+t,e>>>=0,n||m(this,t,e,1,127,-128),r.TYPED_ARRAY_SUPPORT||(t=Math.floor(t)),0>t&&(t=255+t+1),this[e]=t,e+1},r.prototype.writeInt16LE=function(t,e,n){return t=+t,e>>>=0,n||m(this,t,e,2,32767,-32768),r.TYPED_ARRAY_SUPPORT?(this[e]=t,this[e+1]=t>>>8):y(this,t,e,!0),e+2},r.prototype.writeInt16BE=function(t,e,n){return t=+t,e>>>=0,n||m(this,t,e,2,32767,-32768),r.TYPED_ARRAY_SUPPORT?(this[e]=t>>>8,this[e+1]=t):y(this,t,e,!1),e+2},r.prototype.writeInt32LE=function(t,e,n){return t=+t,e>>>=0,n||m(this,t,e,4,2147483647,-2147483648),r.TYPED_ARRAY_SUPPORT?(this[e]=t,this[e+1]=t>>>8,this[e+2]=t>>>16,this[e+3]=t>>>24):w(this,t,e,!0),e+4},r.prototype.writeInt32BE=function(t,e,n){return t=+t,e>>>=0,n||m(this,t,e,4,2147483647,-2147483648),0>t&&(t=4294967295+t+1),r.TYPED_ARRAY_SUPPORT?(this[e]=t>>>24,this[e+1]=t>>>16,this[e+2]=t>>>8,this[e+3]=t):w(this,t,e,!1),e+4},r.prototype.writeFloatLE=function(t,e,n){return E(this,t,e,!0,n)},r.prototype.writeFloatBE=function(t,e,n){return E(this,t,e,!1,n)},r.prototype.writeDoubleLE=function(t,e,n){return _(this,t,e,!0,n)},r.prototype.writeDoubleBE=function(t,e,n){return _(this,t,e,!1,n)},r.prototype.copy=function(t,e,n,i){var o=this;if(n||(n=0),i||0===i||(i=this.length),e||(e=0),i!==n&&0!==t.length&&0!==o.length){if(n>i)throw new TypeError("sourceEnd < sourceStart");if(0>e||e>=t.length)throw new TypeError("targetStart out of bounds");if(0>n||n>=o.length)throw new TypeError("sourceStart out of bounds");if(0>i||i>o.length)throw new TypeError("sourceEnd out of bounds");i>this.length&&(i=this.length),t.length-e<i-n&&(i=t.length-e+n);var s=i-n;if(1e3>s||!r.TYPED_ARRAY_SUPPORT)for(var u=0;s>u;u++)t[u+e]=this[u+n];else t._set(this.subarray(n,n+s),e)}},r.prototype.fill=function(t,e,n){if(t||(t=0),e||(e=0),n||(n=this.length),e>n)throw new TypeError("end < start");if(n!==e&&0!==this.length){if(0>e||e>=this.length)throw new TypeError("start out of bounds");if(0>n||n>this.length)throw new TypeError("end out of bounds");var r;if("number"==typeof t)for(r=e;n>r;r++)this[r]=t;else{var i=T(t.toString()),o=i.length;for(r=e;n>r;r++)this[r]=i[r%o]}return this}},r.prototype.toArrayBuffer=function(){if("undefined"!=typeof Uint8Array){if(r.TYPED_ARRAY_SUPPORT)return new r(this).buffer;for(var t=new Uint8Array(this.length),e=0,n=t.length;n>e;e+=1)t[e]=this[e];return t.buffer}throw new TypeError("Buffer.toArrayBuffer not supported in this browser")};var j=r.prototype;r._augment=function(t){return t.constructor=r,t._isBuffer=!0,t._get=t.get,t._set=t.set,t.get=j.get,t.set=j.set,t.write=j.write,t.toString=j.toString,t.toLocaleString=j.toString,t.toJSON=j.toJSON,t.equals=j.equals,t.compare=j.compare,t.copy=j.copy,t.slice=j.slice,t.readUInt8=j.readUInt8,t.readUInt16LE=j.readUInt16LE,t.readUInt16BE=j.readUInt16BE,t.readUInt32LE=j.readUInt32LE,t.readUInt32BE=j.readUInt32BE,t.readInt8=j.readInt8,t.readInt16LE=j.readInt16LE,t.readInt16BE=j.readInt16BE,t.readInt32LE=j.readInt32LE,t.readInt32BE=j.readInt32BE,t.readFloatLE=j.readFloatLE,t.readFloatBE=j.readFloatBE,t.readDoubleLE=j.readDoubleLE,t.readDoubleBE=j.readDoubleBE,t.writeUInt8=j.writeUInt8,t.writeUInt16LE=j.writeUInt16LE,t.writeUInt16BE=j.writeUInt16BE,t.writeUInt32LE=j.writeUInt32LE,t.writeUInt32BE=j.writeUInt32BE,t.writeInt8=j.writeInt8,t.writeInt16LE=j.writeInt16LE,t.writeInt16BE=j.writeInt16BE,t.writeInt32LE=j.writeInt32LE,t.writeInt32BE=j.writeInt32BE,t.writeFloatLE=j.writeFloatLE,t.writeFloatBE=j.writeFloatBE,t.writeDoubleLE=j.writeDoubleLE,t.writeDoubleBE=j.writeDoubleBE,t.fill=j.fill,t.inspect=j.inspect,t.toArrayBuffer=j.toArrayBuffer,t};var C=/[^+\/0-9A-z]/g},{"base64-js":5,ieee754:6,"is-array":7}],5:[function(t,e,n){var r="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";!function(t){"use strict";function e(t){var e=t.charCodeAt(0);return e===s?62:e===u?63:a>e?-1:a+10>e?e-a+26+26:f+26>e?e-f:c+26>e?e-c+26:void 0}function n(t){function n(t){c[l++]=t}var r,i,s,u,a,c;if(t.length%4>0)throw new Error("Invalid string. Length must be a multiple of 4");var f=t.length;a="="===t.charAt(f-2)?2:"="===t.charAt(f-1)?1:0,c=new o(3*t.length/4-a),s=a>0?t.length-4:t.length;var l=0;for(r=0,i=0;s>r;r+=4,i+=3)u=e(t.charAt(r))<<18|e(t.charAt(r+1))<<12|e(t.charAt(r+2))<<6|e(t.charAt(r+3)),n((16711680&u)>>16),n((65280&u)>>8),n(255&u);return 2===a?(u=e(t.charAt(r))<<2|e(t.charAt(r+1))>>4,n(255&u)):1===a&&(u=e(t.charAt(r))<<10|e(t.charAt(r+1))<<4|e(t.charAt(r+2))>>2,n(u>>8&255),n(255&u)),c}function i(t){function e(t){return r.charAt(t)}function n(t){return e(t>>18&63)+e(t>>12&63)+e(t>>6&63)+e(63&t)}var i,o,s,u=t.length%3,a="";for(i=0,s=t.length-u;s>i;i+=3)o=(t[i]<<16)+(t[i+1]<<8)+t[i+2],a+=n(o);switch(u){case 1:o=t[t.length-1],a+=e(o>>2),a+=e(o<<4&63),a+="==";break;case 2:o=(t[t.length-2]<<8)+t[t.length-1],a+=e(o>>10),a+=e(o>>4&63),a+=e(o<<2&63),a+="="}return a}var o="undefined"!=typeof Uint8Array?Uint8Array:Array,s="+".charCodeAt(0),u="/".charCodeAt(0),a="0".charCodeAt(0),c="a".charCodeAt(0),f="A".charCodeAt(0);t.toByteArray=n,t.fromByteArray=i}("undefined"==typeof n?this.base64js={}:n)},{}],6:[function(t,e,n){n.read=function(t,e,n,r,i){var o,s,u=8*i-r-1,a=(1<<u)-1,c=a>>1,f=-7,l=n?i-1:0,h=n?-1:1,p=t[e+l];for(l+=h,o=p&(1<<-f)-1,p>>=-f,f+=u;f>0;o=256*o+t[e+l],l+=h,f-=8);for(s=o&(1<<-f)-1,o>>=-f,f+=r;f>0;s=256*s+t[e+l],l+=h,f-=8);if(0===o)o=1-c;else{if(o===a)return s?0/0:1/0*(p?-1:1);s+=Math.pow(2,r),o-=c}return(p?-1:1)*s*Math.pow(2,o-r)},n.write=function(t,e,n,r,i,o){var s,u,a,c=8*o-i-1,f=(1<<c)-1,l=f>>1,h=23===i?Math.pow(2,-24)-Math.pow(2,-77):0,p=r?0:o-1,d=r?1:-1,v=0>e||0===e&&0>1/e?1:0;for(e=Math.abs(e),isNaN(e)||1/0===e?(u=isNaN(e)?1:0,s=f):(s=Math.floor(Math.log(e)/Math.LN2),e*(a=Math.pow(2,-s))<1&&(s--,a*=2),e+=s+l>=1?h/a:h*Math.pow(2,1-l),e*a>=2&&(s++,a/=2),s+l>=f?(u=0,s=f):s+l>=1?(u=(e*a-1)*Math.pow(2,i),s+=l):(u=e*Math.pow(2,l-1)*Math.pow(2,i),s=0));i>=8;t[n+p]=255&u,p+=d,u/=256,i-=8);for(s=s<<i|u,c+=i;c>0;t[n+p]=255&s,p+=d,s/=256,c-=8);t[n+p-d]|=128*v}},{}],7:[function(t,e){var n=Array.isArray,r=Object.prototype.toString;e.exports=n||function(t){return!!t&&"[object Array]"==r.call(t)}},{}],8:[function(t,e){function n(){this._events=this._events||{},this._maxListeners=this._maxListeners||void 0}function r(t){return"function"==typeof t}function i(t){return"number"==typeof t}function o(t){return"object"==typeof t&&null!==t}function s(t){return void 0===t}e.exports=n,n.EventEmitter=n,n.prototype._events=void 0,n.prototype._maxListeners=void 0,n.defaultMaxListeners=10,n.prototype.setMaxListeners=function(t){if(!i(t)||0>t||isNaN(t))throw TypeError("n must be a positive number");return this._maxListeners=t,this},n.prototype.emit=function(t){var e,n,i,u,a,c;if(this._events||(this._events={}),"error"===t&&(!this._events.error||o(this._events.error)&&!this._events.error.length)){if(e=arguments[1],e instanceof Error)throw e;throw TypeError('Uncaught, unspecified "error" event.')}if(n=this._events[t],s(n))return!1;if(r(n))switch(arguments.length){case 1:n.call(this);break;case 2:n.call(this,arguments[1]);break;case 3:n.call(this,arguments[1],arguments[2]);break;default:for(i=arguments.length,u=new Array(i-1),a=1;i>a;a++)u[a-1]=arguments[a];n.apply(this,u)}else if(o(n)){for(i=arguments.length,u=new Array(i-1),a=1;i>a;a++)u[a-1]=arguments[a];for(c=n.slice(),i=c.length,a=0;i>a;a++)c[a].apply(this,u)}return!0},n.prototype.addListener=function(t,e){var i;if(!r(e))throw TypeError("listener must be a function");if(this._events||(this._events={}),this._events.newListener&&this.emit("newListener",t,r(e.listener)?e.listener:e),this._events[t]?o(this._events[t])?this._events[t].push(e):this._events[t]=[this._events[t],e]:this._events[t]=e,o(this._events[t])&&!this._events[t].warned){var i;i=s(this._maxListeners)?n.defaultMaxListeners:this._maxListeners,i&&i>0&&this._events[t].length>i&&(this._events[t].warned=!0,console.error("(node) warning: possible EventEmitter memory leak detected. %d listeners added. Use emitter.setMaxListeners() to increase limit.",this._events[t].length),"function"==typeof console.trace&&console.trace())}return this},n.prototype.on=n.prototype.addListener,n.prototype.once=function(t,e){function n(){this.removeListener(t,n),i||(i=!0,e.apply(this,arguments))}if(!r(e))throw TypeError("listener must be a function");var i=!1;return n.listener=e,this.on(t,n),this},n.prototype.removeListener=function(t,e){var n,i,s,u;if(!r(e))throw TypeError("listener must be a function");if(!this._events||!this._events[t])return this;if(n=this._events[t],s=n.length,i=-1,n===e||r(n.listener)&&n.listener===e)delete this._events[t],this._events.removeListener&&this.emit("removeListener",t,e);else if(o(n)){for(u=s;u-->0;)if(n[u]===e||n[u].listener&&n[u].listener===e){i=u;break}if(0>i)return this;1===n.length?(n.length=0,delete this._events[t]):n.splice(i,1),this._events.removeListener&&this.emit("removeListener",t,e)}return this},n.prototype.removeAllListeners=function(t){var e,n;if(!this._events)return this;if(!this._events.removeListener)return 0===arguments.length?this._events={}:this._events[t]&&delete this._events[t],this;if(0===arguments.length){for(e in this._events)"removeListener"!==e&&this.removeAllListeners(e);return this.removeAllListeners("removeListener"),this._events={},this}if(n=this._events[t],r(n))this.removeListener(t,n);else for(;n.length;)this.removeListener(t,n[n.length-1]);return delete this._events[t],this},n.prototype.listeners=function(t){var e;return e=this._events&&this._events[t]?r(this._events[t])?[this._events[t]]:this._events[t].slice():[]},n.listenerCount=function(t,e){var n;return n=t._events&&t._events[e]?r(t._events[e])?1:t._events[e].length:0}},{}],9:[function(t,e,n){(function(){var t=this,r=t._,i={},o=Array.prototype,s=Object.prototype,u=Function.prototype,a=o.push,c=o.slice,f=o.concat,l=s.toString,h=s.hasOwnProperty,p=o.forEach,d=o.map,v=o.reduce,g=o.reduceRight,m=o.filter,y=o.every,w=o.some,b=o.indexOf,E=o.lastIndexOf,_=Array.isArray,A=Object.keys,L=u.bind,I=function(t){return t instanceof I?t:this instanceof I?void(this._wrapped=t):new I(t)};"undefined"!=typeof n?("undefined"!=typeof e&&e.exports&&(n=e.exports=I),n._=I):t._=I,I.VERSION="1.5.2";var B=I.each=I.forEach=function(t,e,n){if(null!=t)if(p&&t.forEach===p)t.forEach(e,n);else if(t.length===+t.length){for(var r=0,o=t.length;o>r;r++)if(e.call(n,t[r],r,t)===i)return}else for(var s=I.keys(t),r=0,o=s.length;o>r;r++)if(e.call(n,t[s[r]],s[r],t)===i)return};I.map=I.collect=function(t,e,n){var r=[];return null==t?r:d&&t.map===d?t.map(e,n):(B(t,function(t,i,o){r.push(e.call(n,t,i,o))}),r)};var T="Reduce of empty array with no initial value";I.reduce=I.foldl=I.inject=function(t,e,n,r){var i=arguments.length>2;if(null==t&&(t=[]),v&&t.reduce===v)return r&&(e=I.bind(e,r)),i?t.reduce(e,n):t.reduce(e);if(B(t,function(t,o,s){i?n=e.call(r,n,t,o,s):(n=t,i=!0)}),!i)throw new TypeError(T);return n},I.reduceRight=I.foldr=function(t,e,n,r){var i=arguments.length>2;if(null==t&&(t=[]),g&&t.reduceRight===g)return r&&(e=I.bind(e,r)),i?t.reduceRight(e,n):t.reduceRight(e);var o=t.length;if(o!==+o){var s=I.keys(t);o=s.length}if(B(t,function(u,a,c){a=s?s[--o]:--o,i?n=e.call(r,n,t[a],a,c):(n=t[a],i=!0)}),!i)throw new TypeError(T);return n},I.find=I.detect=function(t,e,n){var r;return S(t,function(t,i,o){return e.call(n,t,i,o)?(r=t,!0):void 0}),r},I.filter=I.select=function(t,e,n){var r=[];return null==t?r:m&&t.filter===m?t.filter(e,n):(B(t,function(t,i,o){e.call(n,t,i,o)&&r.push(t)}),r)},I.reject=function(t,e,n){return I.filter(t,function(t,r,i){return!e.call(n,t,r,i)},n)},I.every=I.all=function(t,e,n){e||(e=I.identity);var r=!0;return null==t?r:y&&t.every===y?t.every(e,n):(B(t,function(t,o,s){return(r=r&&e.call(n,t,o,s))?void 0:i}),!!r)};var S=I.some=I.any=function(t,e,n){e||(e=I.identity);var r=!1;return null==t?r:w&&t.some===w?t.some(e,n):(B(t,function(t,o,s){return r||(r=e.call(n,t,o,s))?i:void 0}),!!r)};I.contains=I.include=function(t,e){return null==t?!1:b&&t.indexOf===b?-1!=t.indexOf(e):S(t,function(t){return t===e})},I.invoke=function(t,e){var n=c.call(arguments,2),r=I.isFunction(e);return I.map(t,function(t){return(r?e:t[e]).apply(t,n)})},I.pluck=function(t,e){return I.map(t,function(t){return t[e]})},I.where=function(t,e,n){return I.isEmpty(e)?n?void 0:[]:I[n?"find":"filter"](t,function(t){for(var n in e)if(e[n]!==t[n])return!1;return!0})},I.findWhere=function(t,e){return I.where(t,e,!0)},I.max=function(t,e,n){if(!e&&I.isArray(t)&&t[0]===+t[0]&&t.length<65535)return Math.max.apply(Math,t);if(!e&&I.isEmpty(t))return-1/0;var r={computed:-1/0,value:-1/0};return B(t,function(t,i,o){var s=e?e.call(n,t,i,o):t;s>r.computed&&(r={value:t,computed:s})}),r.value},I.min=function(t,e,n){if(!e&&I.isArray(t)&&t[0]===+t[0]&&t.length<65535)return Math.min.apply(Math,t);if(!e&&I.isEmpty(t))return 1/0;var r={computed:1/0,value:1/0};return B(t,function(t,i,o){var s=e?e.call(n,t,i,o):t;s<r.computed&&(r={value:t,computed:s})}),r.value},I.shuffle=function(t){var e,n=0,r=[];return B(t,function(t){e=I.random(n++),r[n-1]=r[e],r[e]=t}),r},I.sample=function(t,e,n){return arguments.length<2||n?t[I.random(t.length-1)]:I.shuffle(t).slice(0,Math.max(0,e))};var x=function(t){return I.isFunction(t)?t:function(e){return e[t]}};I.sortBy=function(t,e,n){var r=x(e);return I.pluck(I.map(t,function(t,e,i){return{value:t,index:e,criteria:r.call(n,t,e,i)}}).sort(function(t,e){var n=t.criteria,r=e.criteria;if(n!==r){if(n>r||void 0===n)return 1;if(r>n||void 0===r)return-1}return t.index-e.index}),"value")};var R=function(t){return function(e,n,r){var i={},o=null==n?I.identity:x(n);return B(e,function(n,s){var u=o.call(r,n,s,e);t(i,u,n)}),i}};I.groupBy=R(function(t,e,n){(I.has(t,e)?t[e]:t[e]=[]).push(n)}),I.indexBy=R(function(t,e,n){t[e]=n}),I.countBy=R(function(t,e){I.has(t,e)?t[e]++:t[e]=1}),I.sortedIndex=function(t,e,n,r){n=null==n?I.identity:x(n);for(var i=n.call(r,e),o=0,s=t.length;s>o;){var u=o+s>>>1;n.call(r,t[u])<i?o=u+1:s=u}return o},I.toArray=function(t){return t?I.isArray(t)?c.call(t):t.length===+t.length?I.map(t,I.identity):I.values(t):[]},I.size=function(t){return null==t?0:t.length===+t.length?t.length:I.keys(t).length},I.first=I.head=I.take=function(t,e,n){return null==t?void 0:null==e||n?t[0]:c.call(t,0,e)},I.initial=function(t,e,n){return c.call(t,0,t.length-(null==e||n?1:e))},I.last=function(t,e,n){return null==t?void 0:null==e||n?t[t.length-1]:c.call(t,Math.max(t.length-e,0))},I.rest=I.tail=I.drop=function(t,e,n){return c.call(t,null==e||n?1:e)},I.compact=function(t){return I.filter(t,I.identity)};var U=function(t,e,n){return e&&I.every(t,I.isArray)?f.apply(n,t):(B(t,function(t){I.isArray(t)||I.isArguments(t)?e?a.apply(n,t):U(t,e,n):n.push(t)}),n)};I.flatten=function(t,e){return U(t,e,[])},I.without=function(t){return I.difference(t,c.call(arguments,1))},I.uniq=I.unique=function(t,e,n,r){I.isFunction(e)&&(r=n,n=e,e=!1);var i=n?I.map(t,n,r):t,o=[],s=[];
 return B(i,function(n,r){(e?r&&s[s.length-1]===n:I.contains(s,n))||(s.push(n),o.push(t[r]))}),o},I.union=function(){return I.uniq(I.flatten(arguments,!0))},I.intersection=function(t){var e=c.call(arguments,1);return I.filter(I.uniq(t),function(t){return I.every(e,function(e){return I.indexOf(e,t)>=0})})},I.difference=function(t){var e=f.apply(o,c.call(arguments,1));return I.filter(t,function(t){return!I.contains(e,t)})},I.zip=function(){for(var t=I.max(I.pluck(arguments,"length").concat(0)),e=new Array(t),n=0;t>n;n++)e[n]=I.pluck(arguments,""+n);return e},I.object=function(t,e){if(null==t)return{};for(var n={},r=0,i=t.length;i>r;r++)e?n[t[r]]=e[r]:n[t[r][0]]=t[r][1];return n},I.indexOf=function(t,e,n){if(null==t)return-1;var r=0,i=t.length;if(n){if("number"!=typeof n)return r=I.sortedIndex(t,e),t[r]===e?r:-1;r=0>n?Math.max(0,i+n):n}if(b&&t.indexOf===b)return t.indexOf(e,n);for(;i>r;r++)if(t[r]===e)return r;return-1},I.lastIndexOf=function(t,e,n){if(null==t)return-1;var r=null!=n;if(E&&t.lastIndexOf===E)return r?t.lastIndexOf(e,n):t.lastIndexOf(e);for(var i=r?n:t.length;i--;)if(t[i]===e)return i;return-1},I.range=function(t,e,n){arguments.length<=1&&(e=t||0,t=0),n=arguments[2]||1;for(var r=Math.max(Math.ceil((e-t)/n),0),i=0,o=new Array(r);r>i;)o[i++]=t,t+=n;return o};var k=function(){};I.bind=function(t,e){var n,r;if(L&&t.bind===L)return L.apply(t,c.call(arguments,1));if(!I.isFunction(t))throw new TypeError;return n=c.call(arguments,2),r=function(){if(!(this instanceof r))return t.apply(e,n.concat(c.call(arguments)));k.prototype=t.prototype;var i=new k;k.prototype=null;var o=t.apply(i,n.concat(c.call(arguments)));return Object(o)===o?o:i}},I.partial=function(t){var e=c.call(arguments,1);return function(){return t.apply(this,e.concat(c.call(arguments)))}},I.bindAll=function(t){var e=c.call(arguments,1);if(0===e.length)throw new Error("bindAll must be passed function names");return B(e,function(e){t[e]=I.bind(t[e],t)}),t},I.memoize=function(t,e){var n={};return e||(e=I.identity),function(){var r=e.apply(this,arguments);return I.has(n,r)?n[r]:n[r]=t.apply(this,arguments)}},I.delay=function(t,e){var n=c.call(arguments,2);return setTimeout(function(){return t.apply(null,n)},e)},I.defer=function(t){return I.delay.apply(I,[t,1].concat(c.call(arguments,1)))},I.throttle=function(t,e,n){var r,i,o,s=null,u=0;n||(n={});var a=function(){u=n.leading===!1?0:new Date,s=null,o=t.apply(r,i)};return function(){var c=new Date;u||n.leading!==!1||(u=c);var f=e-(c-u);return r=this,i=arguments,0>=f?(clearTimeout(s),s=null,u=c,o=t.apply(r,i)):s||n.trailing===!1||(s=setTimeout(a,f)),o}},I.debounce=function(t,e,n){var r,i,o,s,u;return function(){o=this,i=arguments,s=new Date;var a=function(){var c=new Date-s;e>c?r=setTimeout(a,e-c):(r=null,n||(u=t.apply(o,i)))},c=n&&!r;return r||(r=setTimeout(a,e)),c&&(u=t.apply(o,i)),u}},I.once=function(t){var e,n=!1;return function(){return n?e:(n=!0,e=t.apply(this,arguments),t=null,e)}},I.wrap=function(t,e){return function(){var n=[t];return a.apply(n,arguments),e.apply(this,n)}},I.compose=function(){var t=arguments;return function(){for(var e=arguments,n=t.length-1;n>=0;n--)e=[t[n].apply(this,e)];return e[0]}},I.after=function(t,e){return function(){return--t<1?e.apply(this,arguments):void 0}},I.keys=A||function(t){if(t!==Object(t))throw new TypeError("Invalid object");var e=[];for(var n in t)I.has(t,n)&&e.push(n);return e},I.values=function(t){for(var e=I.keys(t),n=e.length,r=new Array(n),i=0;n>i;i++)r[i]=t[e[i]];return r},I.pairs=function(t){for(var e=I.keys(t),n=e.length,r=new Array(n),i=0;n>i;i++)r[i]=[e[i],t[e[i]]];return r},I.invert=function(t){for(var e={},n=I.keys(t),r=0,i=n.length;i>r;r++)e[t[n[r]]]=n[r];return e},I.functions=I.methods=function(t){var e=[];for(var n in t)I.isFunction(t[n])&&e.push(n);return e.sort()},I.extend=function(t){return B(c.call(arguments,1),function(e){if(e)for(var n in e)t[n]=e[n]}),t},I.pick=function(t){var e={},n=f.apply(o,c.call(arguments,1));return B(n,function(n){n in t&&(e[n]=t[n])}),e},I.omit=function(t){var e={},n=f.apply(o,c.call(arguments,1));for(var r in t)I.contains(n,r)||(e[r]=t[r]);return e},I.defaults=function(t){return B(c.call(arguments,1),function(e){if(e)for(var n in e)void 0===t[n]&&(t[n]=e[n])}),t},I.clone=function(t){return I.isObject(t)?I.isArray(t)?t.slice():I.extend({},t):t},I.tap=function(t,e){return e(t),t};var O=function(t,e,n,r){if(t===e)return 0!==t||1/t==1/e;if(null==t||null==e)return t===e;t instanceof I&&(t=t._wrapped),e instanceof I&&(e=e._wrapped);var i=l.call(t);if(i!=l.call(e))return!1;switch(i){case"[object String]":return t==String(e);case"[object Number]":return t!=+t?e!=+e:0==t?1/t==1/e:t==+e;case"[object Date]":case"[object Boolean]":return+t==+e;case"[object RegExp]":return t.source==e.source&&t.global==e.global&&t.multiline==e.multiline&&t.ignoreCase==e.ignoreCase}if("object"!=typeof t||"object"!=typeof e)return!1;for(var o=n.length;o--;)if(n[o]==t)return r[o]==e;var s=t.constructor,u=e.constructor;if(s!==u&&!(I.isFunction(s)&&s instanceof s&&I.isFunction(u)&&u instanceof u))return!1;n.push(t),r.push(e);var a=0,c=!0;if("[object Array]"==i){if(a=t.length,c=a==e.length)for(;a--&&(c=O(t[a],e[a],n,r)););}else{for(var f in t)if(I.has(t,f)&&(a++,!(c=I.has(e,f)&&O(t[f],e[f],n,r))))break;if(c){for(f in e)if(I.has(e,f)&&!a--)break;c=!a}}return n.pop(),r.pop(),c};I.isEqual=function(t,e){return O(t,e,[],[])},I.isEmpty=function(t){if(null==t)return!0;if(I.isArray(t)||I.isString(t))return 0===t.length;for(var e in t)if(I.has(t,e))return!1;return!0},I.isElement=function(t){return!(!t||1!==t.nodeType)},I.isArray=_||function(t){return"[object Array]"==l.call(t)},I.isObject=function(t){return t===Object(t)},B(["Arguments","Function","String","Number","Date","RegExp"],function(t){I["is"+t]=function(e){return l.call(e)=="[object "+t+"]"}}),I.isArguments(arguments)||(I.isArguments=function(t){return!(!t||!I.has(t,"callee"))}),"function"!=typeof/./&&(I.isFunction=function(t){return"function"==typeof t}),I.isFinite=function(t){return isFinite(t)&&!isNaN(parseFloat(t))},I.isNaN=function(t){return I.isNumber(t)&&t!=+t},I.isBoolean=function(t){return t===!0||t===!1||"[object Boolean]"==l.call(t)},I.isNull=function(t){return null===t},I.isUndefined=function(t){return void 0===t},I.has=function(t,e){return h.call(t,e)},I.noConflict=function(){return t._=r,this},I.identity=function(t){return t},I.times=function(t,e,n){for(var r=Array(Math.max(0,t)),i=0;t>i;i++)r[i]=e.call(n,i);return r},I.random=function(t,e){return null==e&&(e=t,t=0),t+Math.floor(Math.random()*(e-t+1))};var P={escape:{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#x27;"}};P.unescape=I.invert(P.escape);var F={escape:new RegExp("["+I.keys(P.escape).join("")+"]","g"),unescape:new RegExp("("+I.keys(P.unescape).join("|")+")","g")};I.each(["escape","unescape"],function(t){I[t]=function(e){return null==e?"":(""+e).replace(F[t],function(e){return P[t][e]})}}),I.result=function(t,e){if(null==t)return void 0;var n=t[e];return I.isFunction(n)?n.call(t):n},I.mixin=function(t){B(I.functions(t),function(e){var n=I[e]=t[e];I.prototype[e]=function(){var t=[this._wrapped];return a.apply(t,arguments),D.call(this,n.apply(I,t))}})};var N=0;I.uniqueId=function(t){var e=++N+"";return t?t+e:e},I.templateSettings={evaluate:/<%([\s\S]+?)%>/g,interpolate:/<%=([\s\S]+?)%>/g,escape:/<%-([\s\S]+?)%>/g};var j=/(.)^/,C={"'":"'","\\":"\\","\r":"r","\n":"n","	":"t","\u2028":"u2028","\u2029":"u2029"},M=/\\|'|\r|\n|\t|\u2028|\u2029/g;I.template=function(t,e,n){var r;n=I.defaults({},n,I.templateSettings);var i=new RegExp([(n.escape||j).source,(n.interpolate||j).source,(n.evaluate||j).source].join("|")+"|$","g"),o=0,s="__p+='";t.replace(i,function(e,n,r,i,u){return s+=t.slice(o,u).replace(M,function(t){return"\\"+C[t]}),n&&(s+="'+\n((__t=("+n+"))==null?'':_.escape(__t))+\n'"),r&&(s+="'+\n((__t=("+r+"))==null?'':__t)+\n'"),i&&(s+="';\n"+i+"\n__p+='"),o=u+e.length,e}),s+="';\n",n.variable||(s="with(obj||{}){\n"+s+"}\n"),s="var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};\n"+s+"return __p;\n";try{r=new Function(n.variable||"obj","_",s)}catch(u){throw u.source=s,u}if(e)return r(e,I);var a=function(t){return r.call(this,t,I)};return a.source="function("+(n.variable||"obj")+"){\n"+s+"}",a},I.chain=function(t){return I(t).chain()};var D=function(t){return this._chain?I(t).chain():t};I.mixin(I),B(["pop","push","reverse","shift","sort","splice","unshift"],function(t){var e=o[t];I.prototype[t]=function(){var n=this._wrapped;return e.apply(n,arguments),"shift"!=t&&"splice"!=t||0!==n.length||delete n[0],D.call(this,n)}}),B(["concat","join","slice"],function(t){var e=o[t];I.prototype[t]=function(){return D.call(this,e.apply(this._wrapped,arguments))}}),I.extend(I.prototype,{chain:function(){return this._chain=!0,this},value:function(){return this._wrapped}})}).call(this)},{}],10:[function(t,e){function n(t,e){var n;return n=e?new i(t,e):new i(t)}var r=function(){return this}(),i=r.WebSocket||r.MozWebSocket;e.exports=i?n:null,i&&(n.prototype=i.prototype)},{}]},{},[3]);;(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var querystring = require('querystring')
-  , csv = require('csv')
   , _ = require('underscore')
-
-var config = {
-  dScale: 0.2, // Scale the tube diameters
-  performanceGranularity: 500 // milliseconds
-}
-
-var tubeList
-  , tubesSvg, width, height
-
-var performanceQueue = []
-  , performanceInterval = null
-
-var fetchTubeEvents = function(fromDate, toDate, done) {
-  var url = '/tubes/?' + querystring.stringify({
-    fromDate: fromDate,
-    toDate: toDate
-  })
-
-  $.getJSON(url, function(data) {
-    done(null, _.map(data, function(tubeEvent) {
-      tubeEvent.date = new Date(tubeEvent.date)
-      return tubeEvent
-    }))
-  })
-}
-
-var schedulePerfomance = function(fromDate, toDate) {
-  fetchTubeEvents(fromDate, toDate, function(err, data) {
-    if (err) throw err
-    performanceQueue = data
-    startPerforming(fromDate)
-  })
-}
-
-var performTubeEvent = function(tubeEvent) {
-  var selection = d3.selectAll('circle.tube').filter(function(d) { return d.id === tubeEvent.tubeId })
-  if (tubeEvent.type === 'on') {
-    selection
-      .classed('idle', false)
-      .attr('fill', 'red')
-  } else if (tubeEvent.type === 'off') {
-    selection
-      .classed('idle', true)
-      .attr('fill', 'none')
-  } else throw new Error('invalid event type ' + tubeEvent.type)
-}
-
-var startPerforming = function(fromDate) {
-  console.log('start performing')
-  performanceDateOffset = +(Date.now()) - fromDate
-  // TODO reset tubes
-  if (!performanceInterval) {
-    performanceInterval = setInterval(function() {
-      if (performanceQueue.length === 0) clearInterval(performanceInterval)
-      else if (+(performanceQueue[0].date) + performanceDateOffset < +(Date.now())) {
-        var tubeEvent = performanceQueue.shift()
-        console.log('tube ' + tubeEvent.tubeId + ' ' + tubeEvent.type)
-        performTubeEvent(tubeEvent)
-      }
-    }, config.performanceGranularity)
-  }
-}
+  , async = require('async')
+  , tubeViews = require('./src/tube-views')
+  , tubeModels = require('./src/tube-models')
+  , perform = require('./src/perform')
+  , config = require('./src/config')
 
 rhizome.start(function() {
   rhizome.send('/sys/subscribe', ['/tube/on'])
@@ -18476,17 +18418,13 @@ rhizome.start(function() {
 })
 
 rhizome.on('message', function(address, args) {
-  if (address === '/tube/on') {
-    var tubeId = args[0]
-    d3.selectAll('circle.tube').filter(function(d) { return d.id === tubeId })
-      .classed('idle', false)
-      .attr('fill', 'red')
-
-  } else if (address === '/tube/off') {
-    var tubeId = args[0]
-    d3.selectAll('circle.tube').filter(function(d) { return d.id === tubeId })
-      .classed('idle', true)
-      .attr('fill', 'none')
+  if (address === '/tube') {
+    var userId = args[1]
+      , tubeState = args[2]
+      , tubeId = args[3]
+    if (tubeState === 'on') tubeViews.setPlaying(userId, tubeId)
+    else if (tubeState === 'off') tubeViews.setIdle(userId, tubeId)
+    else throw new Error('invalid tube state ' + tubeState)
 
   } else if (address === '/sys/subscribed') {
     console.log(address, args[0])
@@ -18494,53 +18432,1147 @@ rhizome.on('message', function(address, args) {
 })
 
 window.onload = function() {
-  tubesSvg = d3.select('svg#tubes')
-  width = tubesSvg.attr('width')
-  height = tubesSvg.attr('height')
-
   $('form#perform').submit(function(event) {
     event.preventDefault()
-    schedulePerfomance(new Date(this.elements[0].value), new Date(this.elements[1].value))
+    perform.betweenDates(new Date(this.elements[0].value), new Date(this.elements[1].value))
   })
 
-  $.get('/data/tubes.csv', function(data) {
-    csv.parse(data, function(err, data){
-      if (err) throw err
-      var scale, hScale
-        , x1s = [], x2s = []
-        , y1s = [], y2s = []
-        , xMin, bbW, yMin, bbH
-
-      tubeList = data.map(function(row, i) {
-        var x = parseFloat(row[4])
-          , y = parseFloat(row[5])
-          , d = parseFloat(row[3]) * config.dScale
-        x1s.push(x - d / 2)
-        x2s.push(x + d / 2)
-        y1s.push(y - d / 2)
-        y2s.push(y + d / 2)
-        var tube = { id: i, d: d, x: x, y: y }
-        return tube
-      })
-
-      xMin = _.min(x1s)
-      bbW = _.max(x2s) - xMin
-      yMin = _.min(y1s)
-      bbH = _.max(y2s) - yMin
-      scale = width / bbW
-      height = bbH * scale
-      tubesSvg.attr('height', height)
-
-      tubesSvg.selectAll('circle.tube').data(tubeList)
-        .enter().append('circle').classed({'tube': true, 'idle': true})
-        .attr('cx', function(t) { return (t.x - xMin) * scale })
-        .attr('cy', function(t) { return (t.y - yMin) * scale })
-        .attr('r', function(t) { return scale * t.d / 2 })
-    })
+  async.series([
+    _.bind(tubeModels.load, tubeModels),
+    _.bind(tubeViews.load, tubeViews)
+  ], function(err) {
+    if (err) throw err
+    console.log('loaded successfully')
   })
-
 }
-},{"csv":28,"querystring":12,"underscore":33}],2:[function(require,module,exports){
+},{"./src/config":35,"./src/perform":36,"./src/tube-models":37,"./src/tube-views":38,"async":2,"querystring":13,"underscore":34}],2:[function(require,module,exports){
+(function (process){
+/*!
+ * async
+ * https://github.com/caolan/async
+ *
+ * Copyright 2010-2014 Caolan McMahon
+ * Released under the MIT license
+ */
+/*jshint onevar: false, indent:4 */
+/*global setImmediate: false, setTimeout: false, console: false */
+(function () {
+
+    var async = {};
+
+    // global on the server, window in the browser
+    var root, previous_async;
+
+    root = this;
+    if (root != null) {
+      previous_async = root.async;
+    }
+
+    async.noConflict = function () {
+        root.async = previous_async;
+        return async;
+    };
+
+    function only_once(fn) {
+        var called = false;
+        return function() {
+            if (called) throw new Error("Callback was already called.");
+            called = true;
+            fn.apply(root, arguments);
+        }
+    }
+
+    //// cross-browser compatiblity functions ////
+
+    var _toString = Object.prototype.toString;
+
+    var _isArray = Array.isArray || function (obj) {
+        return _toString.call(obj) === '[object Array]';
+    };
+
+    var _each = function (arr, iterator) {
+        if (arr.forEach) {
+            return arr.forEach(iterator);
+        }
+        for (var i = 0; i < arr.length; i += 1) {
+            iterator(arr[i], i, arr);
+        }
+    };
+
+    var _map = function (arr, iterator) {
+        if (arr.map) {
+            return arr.map(iterator);
+        }
+        var results = [];
+        _each(arr, function (x, i, a) {
+            results.push(iterator(x, i, a));
+        });
+        return results;
+    };
+
+    var _reduce = function (arr, iterator, memo) {
+        if (arr.reduce) {
+            return arr.reduce(iterator, memo);
+        }
+        _each(arr, function (x, i, a) {
+            memo = iterator(memo, x, i, a);
+        });
+        return memo;
+    };
+
+    var _keys = function (obj) {
+        if (Object.keys) {
+            return Object.keys(obj);
+        }
+        var keys = [];
+        for (var k in obj) {
+            if (obj.hasOwnProperty(k)) {
+                keys.push(k);
+            }
+        }
+        return keys;
+    };
+
+    //// exported async module functions ////
+
+    //// nextTick implementation with browser-compatible fallback ////
+    if (typeof process === 'undefined' || !(process.nextTick)) {
+        if (typeof setImmediate === 'function') {
+            async.nextTick = function (fn) {
+                // not a direct alias for IE10 compatibility
+                setImmediate(fn);
+            };
+            async.setImmediate = async.nextTick;
+        }
+        else {
+            async.nextTick = function (fn) {
+                setTimeout(fn, 0);
+            };
+            async.setImmediate = async.nextTick;
+        }
+    }
+    else {
+        async.nextTick = process.nextTick;
+        if (typeof setImmediate !== 'undefined') {
+            async.setImmediate = function (fn) {
+              // not a direct alias for IE10 compatibility
+              setImmediate(fn);
+            };
+        }
+        else {
+            async.setImmediate = async.nextTick;
+        }
+    }
+
+    async.each = function (arr, iterator, callback) {
+        callback = callback || function () {};
+        if (!arr.length) {
+            return callback();
+        }
+        var completed = 0;
+        _each(arr, function (x) {
+            iterator(x, only_once(done) );
+        });
+        function done(err) {
+          if (err) {
+              callback(err);
+              callback = function () {};
+          }
+          else {
+              completed += 1;
+              if (completed >= arr.length) {
+                  callback();
+              }
+          }
+        }
+    };
+    async.forEach = async.each;
+
+    async.eachSeries = function (arr, iterator, callback) {
+        callback = callback || function () {};
+        if (!arr.length) {
+            return callback();
+        }
+        var completed = 0;
+        var iterate = function () {
+            iterator(arr[completed], function (err) {
+                if (err) {
+                    callback(err);
+                    callback = function () {};
+                }
+                else {
+                    completed += 1;
+                    if (completed >= arr.length) {
+                        callback();
+                    }
+                    else {
+                        iterate();
+                    }
+                }
+            });
+        };
+        iterate();
+    };
+    async.forEachSeries = async.eachSeries;
+
+    async.eachLimit = function (arr, limit, iterator, callback) {
+        var fn = _eachLimit(limit);
+        fn.apply(null, [arr, iterator, callback]);
+    };
+    async.forEachLimit = async.eachLimit;
+
+    var _eachLimit = function (limit) {
+
+        return function (arr, iterator, callback) {
+            callback = callback || function () {};
+            if (!arr.length || limit <= 0) {
+                return callback();
+            }
+            var completed = 0;
+            var started = 0;
+            var running = 0;
+
+            (function replenish () {
+                if (completed >= arr.length) {
+                    return callback();
+                }
+
+                while (running < limit && started < arr.length) {
+                    started += 1;
+                    running += 1;
+                    iterator(arr[started - 1], function (err) {
+                        if (err) {
+                            callback(err);
+                            callback = function () {};
+                        }
+                        else {
+                            completed += 1;
+                            running -= 1;
+                            if (completed >= arr.length) {
+                                callback();
+                            }
+                            else {
+                                replenish();
+                            }
+                        }
+                    });
+                }
+            })();
+        };
+    };
+
+
+    var doParallel = function (fn) {
+        return function () {
+            var args = Array.prototype.slice.call(arguments);
+            return fn.apply(null, [async.each].concat(args));
+        };
+    };
+    var doParallelLimit = function(limit, fn) {
+        return function () {
+            var args = Array.prototype.slice.call(arguments);
+            return fn.apply(null, [_eachLimit(limit)].concat(args));
+        };
+    };
+    var doSeries = function (fn) {
+        return function () {
+            var args = Array.prototype.slice.call(arguments);
+            return fn.apply(null, [async.eachSeries].concat(args));
+        };
+    };
+
+
+    var _asyncMap = function (eachfn, arr, iterator, callback) {
+        arr = _map(arr, function (x, i) {
+            return {index: i, value: x};
+        });
+        if (!callback) {
+            eachfn(arr, function (x, callback) {
+                iterator(x.value, function (err) {
+                    callback(err);
+                });
+            });
+        } else {
+            var results = [];
+            eachfn(arr, function (x, callback) {
+                iterator(x.value, function (err, v) {
+                    results[x.index] = v;
+                    callback(err);
+                });
+            }, function (err) {
+                callback(err, results);
+            });
+        }
+    };
+    async.map = doParallel(_asyncMap);
+    async.mapSeries = doSeries(_asyncMap);
+    async.mapLimit = function (arr, limit, iterator, callback) {
+        return _mapLimit(limit)(arr, iterator, callback);
+    };
+
+    var _mapLimit = function(limit) {
+        return doParallelLimit(limit, _asyncMap);
+    };
+
+    // reduce only has a series version, as doing reduce in parallel won't
+    // work in many situations.
+    async.reduce = function (arr, memo, iterator, callback) {
+        async.eachSeries(arr, function (x, callback) {
+            iterator(memo, x, function (err, v) {
+                memo = v;
+                callback(err);
+            });
+        }, function (err) {
+            callback(err, memo);
+        });
+    };
+    // inject alias
+    async.inject = async.reduce;
+    // foldl alias
+    async.foldl = async.reduce;
+
+    async.reduceRight = function (arr, memo, iterator, callback) {
+        var reversed = _map(arr, function (x) {
+            return x;
+        }).reverse();
+        async.reduce(reversed, memo, iterator, callback);
+    };
+    // foldr alias
+    async.foldr = async.reduceRight;
+
+    var _filter = function (eachfn, arr, iterator, callback) {
+        var results = [];
+        arr = _map(arr, function (x, i) {
+            return {index: i, value: x};
+        });
+        eachfn(arr, function (x, callback) {
+            iterator(x.value, function (v) {
+                if (v) {
+                    results.push(x);
+                }
+                callback();
+            });
+        }, function (err) {
+            callback(_map(results.sort(function (a, b) {
+                return a.index - b.index;
+            }), function (x) {
+                return x.value;
+            }));
+        });
+    };
+    async.filter = doParallel(_filter);
+    async.filterSeries = doSeries(_filter);
+    // select alias
+    async.select = async.filter;
+    async.selectSeries = async.filterSeries;
+
+    var _reject = function (eachfn, arr, iterator, callback) {
+        var results = [];
+        arr = _map(arr, function (x, i) {
+            return {index: i, value: x};
+        });
+        eachfn(arr, function (x, callback) {
+            iterator(x.value, function (v) {
+                if (!v) {
+                    results.push(x);
+                }
+                callback();
+            });
+        }, function (err) {
+            callback(_map(results.sort(function (a, b) {
+                return a.index - b.index;
+            }), function (x) {
+                return x.value;
+            }));
+        });
+    };
+    async.reject = doParallel(_reject);
+    async.rejectSeries = doSeries(_reject);
+
+    var _detect = function (eachfn, arr, iterator, main_callback) {
+        eachfn(arr, function (x, callback) {
+            iterator(x, function (result) {
+                if (result) {
+                    main_callback(x);
+                    main_callback = function () {};
+                }
+                else {
+                    callback();
+                }
+            });
+        }, function (err) {
+            main_callback();
+        });
+    };
+    async.detect = doParallel(_detect);
+    async.detectSeries = doSeries(_detect);
+
+    async.some = function (arr, iterator, main_callback) {
+        async.each(arr, function (x, callback) {
+            iterator(x, function (v) {
+                if (v) {
+                    main_callback(true);
+                    main_callback = function () {};
+                }
+                callback();
+            });
+        }, function (err) {
+            main_callback(false);
+        });
+    };
+    // any alias
+    async.any = async.some;
+
+    async.every = function (arr, iterator, main_callback) {
+        async.each(arr, function (x, callback) {
+            iterator(x, function (v) {
+                if (!v) {
+                    main_callback(false);
+                    main_callback = function () {};
+                }
+                callback();
+            });
+        }, function (err) {
+            main_callback(true);
+        });
+    };
+    // all alias
+    async.all = async.every;
+
+    async.sortBy = function (arr, iterator, callback) {
+        async.map(arr, function (x, callback) {
+            iterator(x, function (err, criteria) {
+                if (err) {
+                    callback(err);
+                }
+                else {
+                    callback(null, {value: x, criteria: criteria});
+                }
+            });
+        }, function (err, results) {
+            if (err) {
+                return callback(err);
+            }
+            else {
+                var fn = function (left, right) {
+                    var a = left.criteria, b = right.criteria;
+                    return a < b ? -1 : a > b ? 1 : 0;
+                };
+                callback(null, _map(results.sort(fn), function (x) {
+                    return x.value;
+                }));
+            }
+        });
+    };
+
+    async.auto = function (tasks, callback) {
+        callback = callback || function () {};
+        var keys = _keys(tasks);
+        var remainingTasks = keys.length
+        if (!remainingTasks) {
+            return callback();
+        }
+
+        var results = {};
+
+        var listeners = [];
+        var addListener = function (fn) {
+            listeners.unshift(fn);
+        };
+        var removeListener = function (fn) {
+            for (var i = 0; i < listeners.length; i += 1) {
+                if (listeners[i] === fn) {
+                    listeners.splice(i, 1);
+                    return;
+                }
+            }
+        };
+        var taskComplete = function () {
+            remainingTasks--
+            _each(listeners.slice(0), function (fn) {
+                fn();
+            });
+        };
+
+        addListener(function () {
+            if (!remainingTasks) {
+                var theCallback = callback;
+                // prevent final callback from calling itself if it errors
+                callback = function () {};
+
+                theCallback(null, results);
+            }
+        });
+
+        _each(keys, function (k) {
+            var task = _isArray(tasks[k]) ? tasks[k]: [tasks[k]];
+            var taskCallback = function (err) {
+                var args = Array.prototype.slice.call(arguments, 1);
+                if (args.length <= 1) {
+                    args = args[0];
+                }
+                if (err) {
+                    var safeResults = {};
+                    _each(_keys(results), function(rkey) {
+                        safeResults[rkey] = results[rkey];
+                    });
+                    safeResults[k] = args;
+                    callback(err, safeResults);
+                    // stop subsequent errors hitting callback multiple times
+                    callback = function () {};
+                }
+                else {
+                    results[k] = args;
+                    async.setImmediate(taskComplete);
+                }
+            };
+            var requires = task.slice(0, Math.abs(task.length - 1)) || [];
+            var ready = function () {
+                return _reduce(requires, function (a, x) {
+                    return (a && results.hasOwnProperty(x));
+                }, true) && !results.hasOwnProperty(k);
+            };
+            if (ready()) {
+                task[task.length - 1](taskCallback, results);
+            }
+            else {
+                var listener = function () {
+                    if (ready()) {
+                        removeListener(listener);
+                        task[task.length - 1](taskCallback, results);
+                    }
+                };
+                addListener(listener);
+            }
+        });
+    };
+
+    async.retry = function(times, task, callback) {
+        var DEFAULT_TIMES = 5;
+        var attempts = [];
+        // Use defaults if times not passed
+        if (typeof times === 'function') {
+            callback = task;
+            task = times;
+            times = DEFAULT_TIMES;
+        }
+        // Make sure times is a number
+        times = parseInt(times, 10) || DEFAULT_TIMES;
+        var wrappedTask = function(wrappedCallback, wrappedResults) {
+            var retryAttempt = function(task, finalAttempt) {
+                return function(seriesCallback) {
+                    task(function(err, result){
+                        seriesCallback(!err || finalAttempt, {err: err, result: result});
+                    }, wrappedResults);
+                };
+            };
+            while (times) {
+                attempts.push(retryAttempt(task, !(times-=1)));
+            }
+            async.series(attempts, function(done, data){
+                data = data[data.length - 1];
+                (wrappedCallback || callback)(data.err, data.result);
+            });
+        }
+        // If a callback is passed, run this as a controll flow
+        return callback ? wrappedTask() : wrappedTask
+    };
+
+    async.waterfall = function (tasks, callback) {
+        callback = callback || function () {};
+        if (!_isArray(tasks)) {
+          var err = new Error('First argument to waterfall must be an array of functions');
+          return callback(err);
+        }
+        if (!tasks.length) {
+            return callback();
+        }
+        var wrapIterator = function (iterator) {
+            return function (err) {
+                if (err) {
+                    callback.apply(null, arguments);
+                    callback = function () {};
+                }
+                else {
+                    var args = Array.prototype.slice.call(arguments, 1);
+                    var next = iterator.next();
+                    if (next) {
+                        args.push(wrapIterator(next));
+                    }
+                    else {
+                        args.push(callback);
+                    }
+                    async.setImmediate(function () {
+                        iterator.apply(null, args);
+                    });
+                }
+            };
+        };
+        wrapIterator(async.iterator(tasks))();
+    };
+
+    var _parallel = function(eachfn, tasks, callback) {
+        callback = callback || function () {};
+        if (_isArray(tasks)) {
+            eachfn.map(tasks, function (fn, callback) {
+                if (fn) {
+                    fn(function (err) {
+                        var args = Array.prototype.slice.call(arguments, 1);
+                        if (args.length <= 1) {
+                            args = args[0];
+                        }
+                        callback.call(null, err, args);
+                    });
+                }
+            }, callback);
+        }
+        else {
+            var results = {};
+            eachfn.each(_keys(tasks), function (k, callback) {
+                tasks[k](function (err) {
+                    var args = Array.prototype.slice.call(arguments, 1);
+                    if (args.length <= 1) {
+                        args = args[0];
+                    }
+                    results[k] = args;
+                    callback(err);
+                });
+            }, function (err) {
+                callback(err, results);
+            });
+        }
+    };
+
+    async.parallel = function (tasks, callback) {
+        _parallel({ map: async.map, each: async.each }, tasks, callback);
+    };
+
+    async.parallelLimit = function(tasks, limit, callback) {
+        _parallel({ map: _mapLimit(limit), each: _eachLimit(limit) }, tasks, callback);
+    };
+
+    async.series = function (tasks, callback) {
+        callback = callback || function () {};
+        if (_isArray(tasks)) {
+            async.mapSeries(tasks, function (fn, callback) {
+                if (fn) {
+                    fn(function (err) {
+                        var args = Array.prototype.slice.call(arguments, 1);
+                        if (args.length <= 1) {
+                            args = args[0];
+                        }
+                        callback.call(null, err, args);
+                    });
+                }
+            }, callback);
+        }
+        else {
+            var results = {};
+            async.eachSeries(_keys(tasks), function (k, callback) {
+                tasks[k](function (err) {
+                    var args = Array.prototype.slice.call(arguments, 1);
+                    if (args.length <= 1) {
+                        args = args[0];
+                    }
+                    results[k] = args;
+                    callback(err);
+                });
+            }, function (err) {
+                callback(err, results);
+            });
+        }
+    };
+
+    async.iterator = function (tasks) {
+        var makeCallback = function (index) {
+            var fn = function () {
+                if (tasks.length) {
+                    tasks[index].apply(null, arguments);
+                }
+                return fn.next();
+            };
+            fn.next = function () {
+                return (index < tasks.length - 1) ? makeCallback(index + 1): null;
+            };
+            return fn;
+        };
+        return makeCallback(0);
+    };
+
+    async.apply = function (fn) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        return function () {
+            return fn.apply(
+                null, args.concat(Array.prototype.slice.call(arguments))
+            );
+        };
+    };
+
+    var _concat = function (eachfn, arr, fn, callback) {
+        var r = [];
+        eachfn(arr, function (x, cb) {
+            fn(x, function (err, y) {
+                r = r.concat(y || []);
+                cb(err);
+            });
+        }, function (err) {
+            callback(err, r);
+        });
+    };
+    async.concat = doParallel(_concat);
+    async.concatSeries = doSeries(_concat);
+
+    async.whilst = function (test, iterator, callback) {
+        if (test()) {
+            iterator(function (err) {
+                if (err) {
+                    return callback(err);
+                }
+                async.whilst(test, iterator, callback);
+            });
+        }
+        else {
+            callback();
+        }
+    };
+
+    async.doWhilst = function (iterator, test, callback) {
+        iterator(function (err) {
+            if (err) {
+                return callback(err);
+            }
+            var args = Array.prototype.slice.call(arguments, 1);
+            if (test.apply(null, args)) {
+                async.doWhilst(iterator, test, callback);
+            }
+            else {
+                callback();
+            }
+        });
+    };
+
+    async.until = function (test, iterator, callback) {
+        if (!test()) {
+            iterator(function (err) {
+                if (err) {
+                    return callback(err);
+                }
+                async.until(test, iterator, callback);
+            });
+        }
+        else {
+            callback();
+        }
+    };
+
+    async.doUntil = function (iterator, test, callback) {
+        iterator(function (err) {
+            if (err) {
+                return callback(err);
+            }
+            var args = Array.prototype.slice.call(arguments, 1);
+            if (!test.apply(null, args)) {
+                async.doUntil(iterator, test, callback);
+            }
+            else {
+                callback();
+            }
+        });
+    };
+
+    async.queue = function (worker, concurrency) {
+        if (concurrency === undefined) {
+            concurrency = 1;
+        }
+        function _insert(q, data, pos, callback) {
+          if (!q.started){
+            q.started = true;
+          }
+          if (!_isArray(data)) {
+              data = [data];
+          }
+          if(data.length == 0) {
+             // call drain immediately if there are no tasks
+             return async.setImmediate(function() {
+                 if (q.drain) {
+                     q.drain();
+                 }
+             });
+          }
+          _each(data, function(task) {
+              var item = {
+                  data: task,
+                  callback: typeof callback === 'function' ? callback : null
+              };
+
+              if (pos) {
+                q.tasks.unshift(item);
+              } else {
+                q.tasks.push(item);
+              }
+
+              if (q.saturated && q.tasks.length === q.concurrency) {
+                  q.saturated();
+              }
+              async.setImmediate(q.process);
+          });
+        }
+
+        var workers = 0;
+        var q = {
+            tasks: [],
+            concurrency: concurrency,
+            saturated: null,
+            empty: null,
+            drain: null,
+            started: false,
+            paused: false,
+            push: function (data, callback) {
+              _insert(q, data, false, callback);
+            },
+            kill: function () {
+              q.drain = null;
+              q.tasks = [];
+            },
+            unshift: function (data, callback) {
+              _insert(q, data, true, callback);
+            },
+            process: function () {
+                if (!q.paused && workers < q.concurrency && q.tasks.length) {
+                    var task = q.tasks.shift();
+                    if (q.empty && q.tasks.length === 0) {
+                        q.empty();
+                    }
+                    workers += 1;
+                    var next = function () {
+                        workers -= 1;
+                        if (task.callback) {
+                            task.callback.apply(task, arguments);
+                        }
+                        if (q.drain && q.tasks.length + workers === 0) {
+                            q.drain();
+                        }
+                        q.process();
+                    };
+                    var cb = only_once(next);
+                    worker(task.data, cb);
+                }
+            },
+            length: function () {
+                return q.tasks.length;
+            },
+            running: function () {
+                return workers;
+            },
+            idle: function() {
+                return q.tasks.length + workers === 0;
+            },
+            pause: function () {
+                if (q.paused === true) { return; }
+                q.paused = true;
+                q.process();
+            },
+            resume: function () {
+                if (q.paused === false) { return; }
+                q.paused = false;
+                q.process();
+            }
+        };
+        return q;
+    };
+    
+    async.priorityQueue = function (worker, concurrency) {
+        
+        function _compareTasks(a, b){
+          return a.priority - b.priority;
+        };
+        
+        function _binarySearch(sequence, item, compare) {
+          var beg = -1,
+              end = sequence.length - 1;
+          while (beg < end) {
+            var mid = beg + ((end - beg + 1) >>> 1);
+            if (compare(item, sequence[mid]) >= 0) {
+              beg = mid;
+            } else {
+              end = mid - 1;
+            }
+          }
+          return beg;
+        }
+        
+        function _insert(q, data, priority, callback) {
+          if (!q.started){
+            q.started = true;
+          }
+          if (!_isArray(data)) {
+              data = [data];
+          }
+          if(data.length == 0) {
+             // call drain immediately if there are no tasks
+             return async.setImmediate(function() {
+                 if (q.drain) {
+                     q.drain();
+                 }
+             });
+          }
+          _each(data, function(task) {
+              var item = {
+                  data: task,
+                  priority: priority,
+                  callback: typeof callback === 'function' ? callback : null
+              };
+              
+              q.tasks.splice(_binarySearch(q.tasks, item, _compareTasks) + 1, 0, item);
+
+              if (q.saturated && q.tasks.length === q.concurrency) {
+                  q.saturated();
+              }
+              async.setImmediate(q.process);
+          });
+        }
+        
+        // Start with a normal queue
+        var q = async.queue(worker, concurrency);
+        
+        // Override push to accept second parameter representing priority
+        q.push = function (data, priority, callback) {
+          _insert(q, data, priority, callback);
+        };
+        
+        // Remove unshift function
+        delete q.unshift;
+
+        return q;
+    };
+
+    async.cargo = function (worker, payload) {
+        var working     = false,
+            tasks       = [];
+
+        var cargo = {
+            tasks: tasks,
+            payload: payload,
+            saturated: null,
+            empty: null,
+            drain: null,
+            drained: true,
+            push: function (data, callback) {
+                if (!_isArray(data)) {
+                    data = [data];
+                }
+                _each(data, function(task) {
+                    tasks.push({
+                        data: task,
+                        callback: typeof callback === 'function' ? callback : null
+                    });
+                    cargo.drained = false;
+                    if (cargo.saturated && tasks.length === payload) {
+                        cargo.saturated();
+                    }
+                });
+                async.setImmediate(cargo.process);
+            },
+            process: function process() {
+                if (working) return;
+                if (tasks.length === 0) {
+                    if(cargo.drain && !cargo.drained) cargo.drain();
+                    cargo.drained = true;
+                    return;
+                }
+
+                var ts = typeof payload === 'number'
+                            ? tasks.splice(0, payload)
+                            : tasks.splice(0, tasks.length);
+
+                var ds = _map(ts, function (task) {
+                    return task.data;
+                });
+
+                if(cargo.empty) cargo.empty();
+                working = true;
+                worker(ds, function () {
+                    working = false;
+
+                    var args = arguments;
+                    _each(ts, function (data) {
+                        if (data.callback) {
+                            data.callback.apply(null, args);
+                        }
+                    });
+
+                    process();
+                });
+            },
+            length: function () {
+                return tasks.length;
+            },
+            running: function () {
+                return working;
+            }
+        };
+        return cargo;
+    };
+
+    var _console_fn = function (name) {
+        return function (fn) {
+            var args = Array.prototype.slice.call(arguments, 1);
+            fn.apply(null, args.concat([function (err) {
+                var args = Array.prototype.slice.call(arguments, 1);
+                if (typeof console !== 'undefined') {
+                    if (err) {
+                        if (console.error) {
+                            console.error(err);
+                        }
+                    }
+                    else if (console[name]) {
+                        _each(args, function (x) {
+                            console[name](x);
+                        });
+                    }
+                }
+            }]));
+        };
+    };
+    async.log = _console_fn('log');
+    async.dir = _console_fn('dir');
+    /*async.info = _console_fn('info');
+    async.warn = _console_fn('warn');
+    async.error = _console_fn('error');*/
+
+    async.memoize = function (fn, hasher) {
+        var memo = {};
+        var queues = {};
+        hasher = hasher || function (x) {
+            return x;
+        };
+        var memoized = function () {
+            var args = Array.prototype.slice.call(arguments);
+            var callback = args.pop();
+            var key = hasher.apply(null, args);
+            if (key in memo) {
+                async.nextTick(function () {
+                    callback.apply(null, memo[key]);
+                });
+            }
+            else if (key in queues) {
+                queues[key].push(callback);
+            }
+            else {
+                queues[key] = [callback];
+                fn.apply(null, args.concat([function () {
+                    memo[key] = arguments;
+                    var q = queues[key];
+                    delete queues[key];
+                    for (var i = 0, l = q.length; i < l; i++) {
+                      q[i].apply(null, arguments);
+                    }
+                }]));
+            }
+        };
+        memoized.memo = memo;
+        memoized.unmemoized = fn;
+        return memoized;
+    };
+
+    async.unmemoize = function (fn) {
+      return function () {
+        return (fn.unmemoized || fn).apply(null, arguments);
+      };
+    };
+
+    async.times = function (count, iterator, callback) {
+        var counter = [];
+        for (var i = 0; i < count; i++) {
+            counter.push(i);
+        }
+        return async.map(counter, iterator, callback);
+    };
+
+    async.timesSeries = function (count, iterator, callback) {
+        var counter = [];
+        for (var i = 0; i < count; i++) {
+            counter.push(i);
+        }
+        return async.mapSeries(counter, iterator, callback);
+    };
+
+    async.seq = function (/* functions... */) {
+        var fns = arguments;
+        return function () {
+            var that = this;
+            var args = Array.prototype.slice.call(arguments);
+            var callback = args.pop();
+            async.reduce(fns, args, function (newargs, fn, cb) {
+                fn.apply(that, newargs.concat([function () {
+                    var err = arguments[0];
+                    var nextargs = Array.prototype.slice.call(arguments, 1);
+                    cb(err, nextargs);
+                }]))
+            },
+            function (err, results) {
+                callback.apply(that, [err].concat(results));
+            });
+        };
+    };
+
+    async.compose = function (/* functions... */) {
+      return async.seq.apply(null, Array.prototype.reverse.call(arguments));
+    };
+
+    var _applyEach = function (eachfn, fns /*args...*/) {
+        var go = function () {
+            var that = this;
+            var args = Array.prototype.slice.call(arguments);
+            var callback = args.pop();
+            return eachfn(fns, function (fn, cb) {
+                fn.apply(that, args.concat([cb]));
+            },
+            callback);
+        };
+        if (arguments.length > 2) {
+            var args = Array.prototype.slice.call(arguments, 2);
+            return go.apply(this, args);
+        }
+        else {
+            return go;
+        }
+    };
+    async.applyEach = doParallel(_applyEach);
+    async.applyEachSeries = doSeries(_applyEach);
+
+    async.forever = function (fn, callback) {
+        function next(err) {
+            if (err) {
+                if (callback) {
+                    return callback(err);
+                }
+                throw err;
+            }
+            fn(next);
+        }
+        next();
+    };
+
+    // Node.js
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = async;
+    }
+    // AMD / RequireJS
+    else if (typeof define !== 'undefined' && define.amd) {
+        define([], function () {
+            return async;
+        });
+    }
+    // included directly via <script> tag
+    else {
+        root.async = async;
+    }
+
+}());
+
+}).call(this,require('_process'))
+},{"_process":10}],3:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -19593,7 +20625,7 @@ function decodeUtf8Char (str) {
   }
 }
 
-},{"base64-js":3,"ieee754":4,"is-array":5}],3:[function(require,module,exports){
+},{"base64-js":4,"ieee754":5,"is-array":6}],4:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 ;(function (exports) {
@@ -19715,7 +20747,7 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	exports.fromByteArray = uint8ToBase64
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 exports.read = function(buffer, offset, isLE, mLen, nBytes) {
   var e, m,
       eLen = nBytes * 8 - mLen - 1,
@@ -19801,7 +20833,7 @@ exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128;
 };
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 
 /**
  * isArray
@@ -19836,7 +20868,7 @@ module.exports = isArray || function (val) {
   return !! val && '[object Array]' == str.call(val);
 };
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -20139,7 +21171,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -20164,12 +21196,12 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -20257,7 +21289,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -20343,7 +21375,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -20430,16 +21462,16 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":10,"./encode":11}],13:[function(require,module,exports){
+},{"./decode":11,"./encode":12}],14:[function(require,module,exports){
 module.exports = require("./lib/_stream_duplex.js")
 
-},{"./lib/_stream_duplex.js":14}],14:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":15}],15:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -20532,7 +21564,7 @@ function forEach (xs, f) {
 }
 
 }).call(this,require('_process'))
-},{"./_stream_readable":16,"./_stream_writable":18,"_process":9,"core-util-is":19,"inherits":7}],15:[function(require,module,exports){
+},{"./_stream_readable":17,"./_stream_writable":19,"_process":10,"core-util-is":20,"inherits":8}],16:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -20580,7 +21612,7 @@ PassThrough.prototype._transform = function(chunk, encoding, cb) {
   cb(null, chunk);
 };
 
-},{"./_stream_transform":17,"core-util-is":19,"inherits":7}],16:[function(require,module,exports){
+},{"./_stream_transform":18,"core-util-is":20,"inherits":8}],17:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -21566,7 +22598,7 @@ function indexOf (xs, x) {
 }
 
 }).call(this,require('_process'))
-},{"_process":9,"buffer":2,"core-util-is":19,"events":6,"inherits":7,"isarray":8,"stream":24,"string_decoder/":25}],17:[function(require,module,exports){
+},{"_process":10,"buffer":3,"core-util-is":20,"events":7,"inherits":8,"isarray":9,"stream":25,"string_decoder/":26}],18:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -21778,7 +22810,7 @@ function done(stream, er) {
   return stream.push(null);
 }
 
-},{"./_stream_duplex":14,"core-util-is":19,"inherits":7}],18:[function(require,module,exports){
+},{"./_stream_duplex":15,"core-util-is":20,"inherits":8}],19:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -22168,7 +23200,7 @@ function endWritable(stream, state, cb) {
 }
 
 }).call(this,require('_process'))
-},{"./_stream_duplex":14,"_process":9,"buffer":2,"core-util-is":19,"inherits":7,"stream":24}],19:[function(require,module,exports){
+},{"./_stream_duplex":15,"_process":10,"buffer":3,"core-util-is":20,"inherits":8,"stream":25}],20:[function(require,module,exports){
 (function (Buffer){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -22278,10 +23310,10 @@ function objectToString(o) {
   return Object.prototype.toString.call(o);
 }
 }).call(this,require("buffer").Buffer)
-},{"buffer":2}],20:[function(require,module,exports){
+},{"buffer":3}],21:[function(require,module,exports){
 module.exports = require("./lib/_stream_passthrough.js")
 
-},{"./lib/_stream_passthrough.js":15}],21:[function(require,module,exports){
+},{"./lib/_stream_passthrough.js":16}],22:[function(require,module,exports){
 var Stream = require('stream'); // hack to fix a circular dependency issue when used with browserify
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = Stream;
@@ -22291,13 +23323,13 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":14,"./lib/_stream_passthrough.js":15,"./lib/_stream_readable.js":16,"./lib/_stream_transform.js":17,"./lib/_stream_writable.js":18,"stream":24}],22:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":15,"./lib/_stream_passthrough.js":16,"./lib/_stream_readable.js":17,"./lib/_stream_transform.js":18,"./lib/_stream_writable.js":19,"stream":25}],23:[function(require,module,exports){
 module.exports = require("./lib/_stream_transform.js")
 
-},{"./lib/_stream_transform.js":17}],23:[function(require,module,exports){
+},{"./lib/_stream_transform.js":18}],24:[function(require,module,exports){
 module.exports = require("./lib/_stream_writable.js")
 
-},{"./lib/_stream_writable.js":18}],24:[function(require,module,exports){
+},{"./lib/_stream_writable.js":19}],25:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -22426,7 +23458,7 @@ Stream.prototype.pipe = function(dest, options) {
   return dest;
 };
 
-},{"events":6,"inherits":7,"readable-stream/duplex.js":13,"readable-stream/passthrough.js":20,"readable-stream/readable.js":21,"readable-stream/transform.js":22,"readable-stream/writable.js":23}],25:[function(require,module,exports){
+},{"events":7,"inherits":8,"readable-stream/duplex.js":14,"readable-stream/passthrough.js":21,"readable-stream/readable.js":22,"readable-stream/transform.js":23,"readable-stream/writable.js":24}],26:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -22649,14 +23681,14 @@ function base64DetectIncompleteChar(buffer) {
   this.charLength = this.charReceived ? 3 : 0;
 }
 
-},{"buffer":2}],26:[function(require,module,exports){
+},{"buffer":3}],27:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -23246,7 +24278,7 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":26,"_process":9,"inherits":7}],28:[function(require,module,exports){
+},{"./support/isBuffer":27,"_process":10,"inherits":8}],29:[function(require,module,exports){
 // Generated by CoffeeScript 1.7.1
 var generate, parse, stringify, transform;
 
@@ -23266,7 +24298,7 @@ module.exports.transform = transform;
 
 module.exports.stringify = stringify;
 
-},{"csv-generate":29,"csv-parse":30,"csv-stringify":31,"stream-transform":32}],29:[function(require,module,exports){
+},{"csv-generate":30,"csv-parse":31,"csv-stringify":32,"stream-transform":33}],30:[function(require,module,exports){
 // Generated by CoffeeScript 1.7.1
 var Generator, stream, util;
 
@@ -23532,7 +24564,7 @@ module.exports = function() {
 
 module.exports.Generator = Generator;
 
-},{"stream":24,"util":27}],30:[function(require,module,exports){
+},{"stream":25,"util":28}],31:[function(require,module,exports){
 (function (process,Buffer){
 // Generated by CoffeeScript 1.7.1
 var Parser, stream, util;
@@ -23854,7 +24886,7 @@ Parser.prototype.__write = function(chars, end, callback) {
 };
 
 }).call(this,require('_process'),require("buffer").Buffer)
-},{"_process":9,"buffer":2,"stream":24,"util":27}],31:[function(require,module,exports){
+},{"_process":10,"buffer":3,"stream":25,"util":28}],32:[function(require,module,exports){
 (function (process){
 // Generated by CoffeeScript 1.7.1
 var Stringifier, stream, util;
@@ -24127,7 +25159,7 @@ Stringifier.prototype.stringify = function(line) {
 };
 
 }).call(this,require('_process'))
-},{"_process":9,"stream":24,"util":27}],32:[function(require,module,exports){
+},{"_process":10,"stream":25,"util":28}],33:[function(require,module,exports){
 (function (process){
 // Generated by CoffeeScript 1.7.1
 var Transformer, stream, util,
@@ -24288,7 +25320,7 @@ Transformer.prototype._done = function(err, chunks, cb) {
 };
 
 }).call(this,require('_process'))
-},{"_process":9,"stream":24,"util":27}],33:[function(require,module,exports){
+},{"_process":10,"stream":25,"util":28}],34:[function(require,module,exports){
 //     Underscore.js 1.7.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -25705,4 +26737,174 @@ Transformer.prototype._done = function(err, chunks, cb) {
   }
 }.call(this));
 
-},{}]},{},[1]);
+},{}],35:[function(require,module,exports){
+module.exports = {
+  dScale: 0.2, // Scale the tube diameters
+  performanceGranularity: 500 // milliseconds
+}
+
+},{}],36:[function(require,module,exports){
+var querystring = require('querystring')
+  , _ = require('underscore')
+  , tubeViews = require('./tube-views')
+  , config = require('./config')
+
+var performanceQueue = []
+  , performanceInterval = null
+
+exports.betweenDates = function(fromDate, toDate) {
+  clearPerformance()
+  fetchTubeEvents(fromDate, toDate, function(err, data) {
+    if (err) throw err
+    performanceQueue = data
+    startPerforming(fromDate)
+  })
+}
+
+var fetchTubeEvents = function(fromDate, toDate, done) {
+  debugger
+  var url = '/tubes/?' + querystring.stringify({
+    fromDate: fromDate.toISOString(),
+    toDate: toDate.toISOString()
+  })
+
+  $.getJSON(url, function(data) {
+    done(null, _.map(data, function(tubeEvent) {
+      tubeEvent.date = new Date(tubeEvent.date)
+      return tubeEvent
+    }))
+  })
+}
+
+var performTubeEvent = function(tubeEvent) {
+  if (tubeEvent.type === 'on') tubeViews.setPlaying(tubeEvent.userId, tubeEvent.tubeId)
+  else if (tubeEvent.type === 'off') tubeViews.setIdle(tubeEvent.userId, tubeEvent.tubeId)
+  else throw new Error('invalid event type ' + tubeEvent.type)
+}
+
+var startPerforming = function(fromDate) {
+  console.log('start performing')
+  var performanceDateOffset = +(Date.now()) - fromDate
+
+  performanceInterval = setInterval(function() {
+    var currentDate = new Date(+(Date.now()) - performanceDateOffset)
+    document.getElementById('performanceClock').innerHTML = currentDate
+    
+    if (performanceQueue.length === 0) {
+      console.log('performance over')
+      clearPerformance()
+
+    } else if (+(performanceQueue[0].date) + performanceDateOffset < +(Date.now())) {
+      var tubeEvent = performanceQueue.shift()
+      console.log('tube ' + tubeEvent.tubeId + ' ' + tubeEvent.type)
+      performTubeEvent(tubeEvent)
+    }
+
+  }, config.performanceGranularity)
+}
+
+var clearPerformance = function() {
+  clearInterval(performanceInterval)
+  tubeViews.setAllIdle()
+  performanceInterval = null
+  performanceQueue = []
+  document.getElementById('performanceClock').innerHTML = ''
+}
+},{"./config":35,"./tube-views":38,"querystring":13,"underscore":34}],37:[function(require,module,exports){
+var _ = require('underscore')
+  , config = require('./config')
+  , csv = require('csv')
+
+exports.load = function(done) {
+  $.get('/data/tubes.csv', function(data) {
+    csv.parse(data, function(err, data){
+      if (err) return done(err)
+      exports.all = data.map(function(row, i) {
+        var x = parseFloat(row[4])
+          , y = parseFloat(row[5])
+          , d = parseFloat(row[3]) * config.dScale
+        return { id: i, d: d, x: x, y: y }
+      })
+      done(null, exports.all)
+    })
+  })
+}
+
+exports.all = []
+},{"./config":35,"csv":29,"underscore":34}],38:[function(require,module,exports){
+var _ = require('underscore')
+  , tubeModels = require('./tube-models')
+  , config = require('./config')
+
+exports.setPlaying = function(userId, tubeId) {
+  var user = getUser(userId)
+  d3.selectAll('circle.tube').filter(function(d) { return d.id === tubeId })
+    .classed('idle', false)
+    .attr('fill', user.color)
+}
+
+exports.setIdle = function(userId, tubeId) {
+  d3.selectAll('circle.tube').filter(function(d) { return d.id === tubeId })
+    .classed('idle', true)
+    .attr('fill', 'none')
+}
+
+exports.setAllIdle = function() {
+  d3.selectAll('circle.tube')
+    .classed('idle', true)
+    .attr('fill', 'none') 
+}
+
+exports.load = function(done) {
+  var tubesSvg = d3.select('svg#tubes')
+    , width = tubesSvg.attr('width')
+    , height = tubesSvg.attr('height')
+
+  var scale, hScale
+    , x1s = [], x2s = []
+    , y1s = [], y2s = []
+    , xMin, bbW, yMin, bbH
+
+  _.forEach(tubeModels.all, function(tube) {
+    x1s.push(tube.x - tube.d / 2)
+    x2s.push(tube.x + tube.d / 2)
+    y1s.push(tube.y - tube.d / 2)
+    y2s.push(tube.y + tube.d / 2)
+  })
+
+  xMin = _.min(x1s)
+  bbW = _.max(x2s) - xMin
+  yMin = _.min(y1s)
+  bbH = _.max(y2s) - yMin
+  scale = width / bbW
+  height = bbH * scale
+  tubesSvg.attr('height', height)
+
+  tubesSvg.selectAll('circle.tube').data(tubeModels.all)
+    .enter().append('circle').classed({'tube': true, 'idle': true})
+    .attr('cx', function(t) { return (t.x - xMin) * scale })
+    .attr('cy', function(t) { return (t.y - yMin) * scale })
+    .attr('r', function(t) { return scale * t.d / 2 })
+
+  done()
+
+}
+
+
+var currentUsers = []
+  , colorCounter = 0
+  , colorList = ['red', 'blue', 'green', 'yellow', 'purple', 'pink']
+
+var getUser = function(userId) {
+  var user = _.find(currentUsers, function(u) { return u.id === userId })
+  if (!user) {
+    colorCounter = (colorCounter + 1) % colorList.length
+    user = {
+      id: userId,
+      color: colorList[colorCounter]
+    }
+    currentUsers.push(user)
+  }
+  return user
+}
+},{"./config":35,"./tube-models":37,"underscore":34}]},{},[1]);

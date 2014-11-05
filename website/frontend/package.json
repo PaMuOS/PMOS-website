@@ -11,7 +11,8 @@
     "gulp-util": "3.0.x",
     "run-sequence": "1.0.x",
     "csv": "0.4.x",
-    "underscore": "1.7.x"
+    "underscore": "1.7.x",
+    "async": "0.9.x"
   },
   "devDependencies": {}
 }

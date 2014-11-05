@@ -1,19 +1,25 @@
 var querystring = require('querystring')
-  , csv = require('csv')
   , _ = require('underscore')
-
-var config = {
-  dScale: 0.2, // Scale the tube diameters
-  performanceGranularity: 500 // milliseconds
-}
+  , tubeViews = require('./tube-views')
+  , config = require('./config')
 
 var performanceQueue = []
   , performanceInterval = null
 
+exports.betweenDates = function(fromDate, toDate) {
+  clearPerformance()
+  fetchTubeEvents(fromDate, toDate, function(err, data) {
+    if (err) throw err
+    performanceQueue = data
+    startPerforming(fromDate)
+  })
+}
+
 var fetchTubeEvents = function(fromDate, toDate, done) {
+  debugger
   var url = '/tubes/?' + querystring.stringify({
-    fromDate: fromDate,
-    toDate: toDate
+    fromDate: fromDate.toISOString(),
+    toDate: toDate.toISOString()
   })
 
   $.getJSON(url, function(data) {
@@ -24,39 +30,37 @@ var fetchTubeEvents = function(fromDate, toDate, done) {
   })
 }
 
-var schedulePerfomance = function(fromDate, toDate) {
-  fetchTubeEvents(fromDate, toDate, function(err, data) {
-    if (err) throw err
-    performanceQueue = data
-    startPerforming(fromDate)
-  })
-}
-
 var performTubeEvent = function(tubeEvent) {
-  var selection = d3.selectAll('circle.tube').filter(function(d) { return d.id === tubeEvent.tubeId })
-  if (tubeEvent.type === 'on') {
-    selection
-      .classed('idle', false)
-      .attr('fill', 'red')
-  } else if (tubeEvent.type === 'off') {
-    selection
-      .classed('idle', true)
-      .attr('fill', 'none')
-  } else throw new Error('invalid event type ' + tubeEvent.type)
+  if (tubeEvent.type === 'on') tubeViews.setPlaying(tubeEvent.userId, tubeEvent.tubeId)
+  else if (tubeEvent.type === 'off') tubeViews.setIdle(tubeEvent.userId, tubeEvent.tubeId)
+  else throw new Error('invalid event type ' + tubeEvent.type)
 }
 
 var startPerforming = function(fromDate) {
   console.log('start performing')
-  performanceDateOffset = +(Date.now()) - fromDate
-  // TODO reset tubes
-  if (!performanceInterval) {
-    performanceInterval = setInterval(function() {
-      if (performanceQueue.length === 0) clearInterval(performanceInterval)
-      else if (+(performanceQueue[0].date) + performanceDateOffset < +(Date.now())) {
-        var tubeEvent = performanceQueue.shift()
-        console.log('tube ' + tubeEvent.tubeId + ' ' + tubeEvent.type)
-        performTubeEvent(tubeEvent)
-      }
-    }, config.performanceGranularity)
-  }
+  var performanceDateOffset = +(Date.now()) - fromDate
+
+  performanceInterval = setInterval(function() {
+    var currentDate = new Date(+(Date.now()) - performanceDateOffset)
+    document.getElementById('performanceClock').innerHTML = currentDate
+    
+    if (performanceQueue.length === 0) {
+      console.log('performance over')
+      clearPerformance()
+
+    } else if (+(performanceQueue[0].date) + performanceDateOffset < +(Date.now())) {
+      var tubeEvent = performanceQueue.shift()
+      console.log('tube ' + tubeEvent.tubeId + ' ' + tubeEvent.type)
+      performTubeEvent(tubeEvent)
+    }
+
+  }, config.performanceGranularity)
+}
+
+var clearPerformance = function() {
+  clearInterval(performanceInterval)
+  tubeViews.setAllIdle()
+  performanceInterval = null
+  performanceQueue = []
+  document.getElementById('performanceClock').innerHTML = ''
 }

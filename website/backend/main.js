@@ -10,12 +10,14 @@ var path = require('path')
   , websockets = require('rhizome-server').websockets
   , connections = require('rhizome-server').connections
   , osc = require('rhizome-server').osc
+  , config = require('./config')
 
 var mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/passiomusicae')
+mongoose.connect('mongodb://localhost/' + config.db.name)
 
 var TubeEvent = mongoose.model('TubeEvent', {
   type: { type: String, enum: ['on', 'off'] },
+  userId: Number,
   tubeId: Number,
   date: { type: Date, default: Date.now }
 })
@@ -69,7 +71,7 @@ app.get('/tubes/', function(req, res) {
   }
 
   dbQuery.exec(function(err, tubeEvents) {
-    tubeEvents = tubeEvents.map(function(t) { return _.pick(t, ['type', 'tubeId', 'date']) })
+    tubeEvents = tubeEvents.map(function(t) { return _.pick(t, ['type', 'tubeId', 'userId', 'date']) })
     res.set('Content-Type', 'application/json')
     res.status(200)
     res.end(JSON.stringify(tubeEvents))
