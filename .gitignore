@@ -1,3 +1,9 @@
+# mac Finder index files
+.DS_*
+
+# mac apps
+*.app*
+
 build
 node_modules
 *~
