@@ -1,4 +1,0 @@
-OpenFrameworks
---------------
-
-OpenFrameworks stuff here
