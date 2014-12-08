@@ -29,8 +29,8 @@ npm install
 gulp build
 ```
 
-OSC messages
---------------
+Websocket messages
+-------------------
 
 #### Coordinates
 
@@ -45,9 +45,9 @@ Timestamps are given in number of milliseconds since EPOCH.
 #### Messages
 
 ```
-/messages/<channel> <timestamp> <x> <y> <tubeId> <frequency>
+<timestamp> <x> <y> <tubeId> <frequency>
 ```
-Logs a message from the OF application to the website. 
+Logs a message from the OF application to the website. All parameters are separated by a space. 
 - **timestamp** : *number*, timestamp when the message was created.
 - **x** : *number*, x coordinate of the position of the user. 
 - **y** : *number*, y coordinate of the position of the user. 

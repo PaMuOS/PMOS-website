@@ -1,5 +1,5 @@
 var config = require('../config')
-  , fixtures = require('pow-mongodb-fixtures').connect(config.db.name)
+  , fixtures = require('pow-mongodb-fixtures').connect(config.db.url)
 
 var tubeEvents = [
   {
