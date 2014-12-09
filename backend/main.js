@@ -9,31 +9,27 @@ var path = require('path')
   , serveStatic = require('serve-static')
   , clc = require('cli-color')
   , config = require('./config')
-  . websockets = require('./websockets')
+  , websockets = require('./src/websockets')
   , views = require('./src/views')
   , models = require('./src/models')
-
 mongoose.connect(config.db.url)
 
 var app = express()
   , httpServer = require('http').createServer(app)
-  , packageRootPath = path.join(__dirname, '..')
-  , distDir = path.join(packageRootPath, 'dist')
-  , jsDir = path.join(packageRootPath, 'frontend', 'build')
+  , wsConfig = { server: httpServer }
 
 // Configure express app
 app.set('port', config.web.port)
 app.use(bodyParser.json())
-app.use('/', serveStatic(distDir))
+app.use('/', serveStatic(config.web.rootPath))
 views.declare(app)
 
 // Start everything
 async.parallel([
-  websockets.start.bind(websockets),
+  websockets.start.bind(websockets, wsConfig),
   httpServer.listen.bind(httpServer, config.web.port)
 ], function(err) {
   if (err) throw err
-  connectionManager.subscribe(loggingConnection, '/')
   console.log(clc.bold('server running') )
 })
 

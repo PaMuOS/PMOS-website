@@ -32,10 +32,10 @@ exports.load = function(done) {
     , xMin, bbW, yMin, bbH
 
   _.forEach(tubeModels.all, function(tube) {
-    x1s.push(tube.x - tube.d / 2)
-    x2s.push(tube.x + tube.d / 2)
-    y1s.push(tube.y - tube.d / 2)
-    y2s.push(tube.y + tube.d / 2)
+    x1s.push(tube.x - tube.diameter / 2)
+    x2s.push(tube.x + tube.diameter / 2)
+    y1s.push(tube.y - tube.diameter / 2)
+    y2s.push(tube.y + tube.diameter / 2)
   })
 
   xMin = _.min(x1s)
@@ -50,7 +50,7 @@ exports.load = function(done) {
     .enter().append('circle').classed({'tube': true, 'idle': true})
     .attr('cx', function(t) { return (t.x - xMin) * scale })
     .attr('cy', function(t) { return (t.y - yMin) * scale })
-    .attr('r', function(t) { return scale * t.d / 2 })
+    .attr('r', function(t) { return scale * t.diameter / 2 })
 
   done()
 

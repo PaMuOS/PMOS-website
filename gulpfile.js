@@ -1,46 +1,44 @@
 var gulp = require('gulp')
   , gutil = require('gulp-util')
   , browserify = require('browserify')
+  , uglify = require('gulp-uglify')
   , concat = require('gulp-concat')
   , runSequence = require('run-sequence')
   , source = require('vinyl-source-stream')
   , path = require('path')
 
-var watcher = gulp.watch(['./main.js', './src/*.js'], ['default'])
+var watcher = gulp.watch(['./frontend/main.js', './frontend/src/*.js'], ['default'])
 watcher.on('change', function(event) {
   console.log('File '+event.path+' was '+event.type+', running tasks...')
 })
 
 gulp.task('browserify', function() {
-  return browserify({ entries: './main.js' })
+  return browserify({ entries: './frontend/main.js' })
     .bundle()
     .on('error', gutil.log)
     .pipe(source('browserified.js'))
-    .pipe(gulp.dest('./build'))
+    .pipe(gulp.dest('./tmp'))
 })
 
 gulp.task('bundle', function() {
   return gulp.src([
-      './deps/*.js',
-      './build/rhizome.js',
-      './build/browserified.js'
+      './frontend/deps/*.js',
+      './tmp/browserified.js'
     ])
     .pipe(concat('passiomusicae.js', { newLine: ';' }))
-    .pipe(gulp.dest('./build'))
+    .pipe(gulp.dest('./tmp'))
 })
 
 gulp.task('copy', function(done) {
-  return gulp.src('./build/passiomusicae.js')
-    .pipe(gulp.dest('../dist/js'))
+  return gulp.src('./tmp/passiomusicae.js')
+    .pipe(gulp.dest('./dist/js'))
 })
 
-/*
 gulp.task('uglify', function() {
-  return gulp.src('./build/')
+  return gulp.src('./tmp/*.js')
     .pipe(uglify())
-    .pipe(gulp.dest('./build/'))
+    .pipe(gulp.dest('./dist/js'))
 })
-*/
 
 gulp.task('common', function(done) {
   runSequence('browserify', 'bundle', done)

@@ -45,9 +45,16 @@ Timestamps are given in number of milliseconds since EPOCH.
 #### Messages
 
 ```
-<channel> <timestamp> <x> <y> <num> <frequency>
+{
+  "channel": <channel>,
+  "timestamp": <timestamp>,
+  "x": <x>,
+  "y": <y>,
+  "num": <num>,
+  "frequency": <frequency>
+}
 ```
-Logs a message from the OF application to the website. All parameters are separated by a space. 
+Logs a message from the OF application to the website. Message should be sent as JSON.
 - **channel** : *int*, the user or channel that triggered that event.
 - **timestamp** : *int*, timestamp when the message was created.
 - **x** : *float*, x coordinate of the position of the user. 

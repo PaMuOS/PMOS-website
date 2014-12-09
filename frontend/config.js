@@ -1,4 +1,16 @@
 module.exports = {
-  dScale: 0.2, // Scale the tube diameters
-  performanceGranularity: 500 // milliseconds
+  
+  performance: {
+    granularity: 500 // milliseconds
+  },
+
+  tubes: {
+    diameterScale: 0.001, // Scale the tube diameters
+  },
+
+  web: {
+    hostname: window.location.hostname,
+    port: window.location.port,
+    reconnectTime: 2000
+  }
 }

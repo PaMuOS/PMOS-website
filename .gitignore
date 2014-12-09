@@ -4,7 +4,8 @@
 # mac apps
 *.app*
 
-build
+# node app
+tmp
 node_modules
 *~
 npm-debug.log

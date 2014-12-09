@@ -3,28 +3,29 @@ var querystring = require('querystring')
   , async = require('async')
   , tubeViews = require('./src/tube-views')
   , tubeModels = require('./src/tube-models')
-  , tubeEventViews = require('./src/tubeEvent-views')
+  , eventViews = require('./src/event-views')
+  , websocket = require('./src/websocket')
   , config = require('./config')
 
-rhizome.start(function() {
-  rhizome.send('/sys/subscribe', ['/tube/on'])
-  rhizome.send('/sys/subscribe', ['/tube/off'])
+websocket.start(_.pick(config.web, ['port', 'hostname', 'reconnectTime']), function(err) {
+  if (err) {
+    alert('Couldn\'t connect to the server')
+    throw err
+  }
 })
 
-rhizome.on('message', function(address, args) {
-  if (address === '/tube') {
-    tubeEventViews.perform({ userId: args[1], tubeId: args[2], state: args[3] })
+websocket.events.on('connected', function() {
+  console.log('websocket connected')
+})
 
-  } else if (address === '/sys/subscribed') {
-    console.log(address, args[0])
-
-  } else console.log('unknown address')
+websocket.events.on('connection lost', function() {
+  console.log('websocket connection lost')
 })
 
 window.onload = function() {
   $('form#perform').submit(function(event) {
     event.preventDefault()
-    tubeEventViews.startPerformance(
+    eventViews.startPerformance(
       +(new Date(this.elements[0].value)),
       +(new Date(this.elements[1].value))
     )

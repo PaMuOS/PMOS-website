@@ -1,7 +1,7 @@
 var _ = require('underscore')
   , async = require('async')
   , tubeViews = require('./tube-views')
-  , tubeEventModels = require('./tubeEvent-models')
+  , tubeEventModels = require('./tube-models')
   , config = require('../config')
 
 var perform = exports.perform = function(tubeEvent) {
@@ -65,7 +65,7 @@ _.extend(Performance.prototype, {
         perform(self.queue.shift())
       }
 
-    }, config.performanceGranularity)
+    }, config.performance.granularity)
   }
 
 })

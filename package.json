@@ -1,6 +1,6 @@
 {
   "name": "PMOS-website",
-  "version": "0.1.0-4",
+  "version": "0.1.0-7",
   "author": "Sébastien Piquemal <sebpiq@gmail.com>",
   "main": "",
   "repository": {
@@ -25,7 +25,8 @@
     "vinyl-source-stream": "1.0.x",
     "gulp-util": "3.0.x",
     "run-sequence": "1.0.x",
-    "ws": "0.6.x"
+    "ws": "0.6.x",
+    "gulp-uglify": "^1.0.2"
   },
   "devDependencies": {
     "pow-mongodb-fixtures": "0.10.x",
