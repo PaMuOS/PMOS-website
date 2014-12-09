@@ -1,15 +1,20 @@
 var mongoose = require('mongoose')
 
-exports.TubeEvent = mongoose.model('TubeEvent', {
-  timestamp: Number,
-  state: { type: String, enum: ['on', 'off'] },
-  userId: Number,
-  tubeId: Number
+var EventSchema = new mongoose.Schema({
+  channel: {type: Number, required: true},
+  timestamp: {type: Number, required: true},
+  x: {type: Number, required: true},
+  y: {type: Number, required: true},
+  num: {type: Number, required: true},
+  frequency: {type: Number, required: true}
 })
 
-exports.MoveEvent = mongoose.model('MoveEvent', {
-  timestamp: Number,
-  userId: Number,
-  x: Number,
-  y: Number
-})
+// Remove useless fields from the JSON
+EventSchema.methods.toJSON = function() {
+  var obj = this.toObject()
+  delete obj._id
+  delete obj.__v
+  return obj
+}
+
+exports.Event = mongoose.model('Event', EventSchema)

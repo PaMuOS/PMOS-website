@@ -1,3 +1,0 @@
-[submodule "backend/rhizome"]
-	path = backend/rhizome
-	url = https://github.com/sebpiq/rhizome.git

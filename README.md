@@ -45,11 +45,12 @@ Timestamps are given in number of milliseconds since EPOCH.
 #### Messages
 
 ```
-<timestamp> <x> <y> <tubeId> <frequency>
+<channel> <timestamp> <x> <y> <num> <frequency>
 ```
 Logs a message from the OF application to the website. All parameters are separated by a space. 
-- **timestamp** : *number*, timestamp when the message was created.
-- **x** : *number*, x coordinate of the position of the user. 
-- **y** : *number*, y coordinate of the position of the user. 
-- **tubeId** : *number*, the ID of the tube currently activated. If no tube?
-- **frequency** : *number*, the frequency of the associated synth. The frequency is 0 if no tube is activated.
+- **channel** : *int*, the user or channel that triggered that event.
+- **timestamp** : *int*, timestamp when the message was created.
+- **x** : *float*, x coordinate of the position of the user. 
+- **y** : *float*, y coordinate of the position of the user. 
+- **num** : *int*, the ID of the tube currently activated.
+- **frequency** : *float*, the frequency of the associated synth. The frequency is 0 if no tube is activated.

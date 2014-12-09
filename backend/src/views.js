@@ -3,22 +3,22 @@ var _ = require('underscore')
 
 exports.declare = function(app) {
 
-  app.get('/tubeEvents/', function(req, res) {
+  app.get('/replay/', function(req, res) {
     var fromTime = req.query.fromTime ? parseInt(req.query.fromTime, 10) : null
       , toTime = req.query.toTime ? parseInt(req.query.toTime, 10) : null
-      , dbQuery = models.TubeEvent.find({}).limit(30).sort('timestamp')
+      , dbQuery = models.Event.find({}).limit(30).sort('timestamp')
 
     if (fromTime || toTime) {
       dbQuery = dbQuery.where('timestamp')
-      if (fromTime) dbQuery = dbQuery.gt(fromTime)
+      if (fromTime) dbQuery = dbQuery.gte(fromTime)
       if (toTime) dbQuery = dbQuery.lt(toTime)
     }
 
-    dbQuery.exec(function(err, tubeEvents) {
-      tubeEvents = tubeEvents.map(function(t) { return _.pick(t, ['state', 'tubeId', 'userId', 'timestamp']) })
+    dbQuery.exec(function(err, events) {
+      events = events.map(function(event) { return event.toJSON() })
       res.set('Content-Type', 'application/json')
       res.status(200)
-      res.end(JSON.stringify(tubeEvents))
+      res.end(JSON.stringify(events))
     })
   })
 
