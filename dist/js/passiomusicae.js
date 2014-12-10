@@ -18406,12 +18406,13 @@ return jQuery;
 var querystring = require('querystring')
   , _ = require('underscore')
   , async = require('async')
-  , tubeViews = require('./src/tube-views')
-  , tubeModels = require('./src/tube-models')
-  , eventViews = require('./src/event-views')
+  , debug = require('debug') 
+  , tubeViews = require('./src/tubes/views')
+  , tubeModels = require('./src/tubes/models')
+  , eventViews = require('./src/events/views')
   , websocket = require('./src/websocket')
   , config = require('./config')
-
+debug.enable('*')
 websocket.start(_.pick(config.web, ['port', 'hostname', 'reconnectTime']), function(err) {
   if (err) {
     alert('Couldn\'t connect to the server')
@@ -18420,11 +18421,9 @@ websocket.start(_.pick(config.web, ['port', 'hostname', 'reconnectTime']), funct
 })
 
 websocket.events.on('connected', function() {
-  console.log('websocket connected')
 })
 
 websocket.events.on('connection lost', function() {
-  console.log('websocket connection lost')
 })
 
 window.onload = function() {
@@ -18437,18 +18436,24 @@ window.onload = function() {
   })
 
   async.series([
-    _.bind(tubeModels.load, tubeModels),
-    _.bind(tubeViews.load, tubeViews)
+    _.bind(tubeModels.load, tubeModels)
   ], function(err) {
     if (err) throw err
-    console.log('loaded successfully')
+    tubeViews.render()
   })
 }
-},{"./config":2,"./src/event-views":3,"./src/tube-models":4,"./src/tube-views":5,"./src/websocket":6,"async":7,"querystring":12,"underscore":13}],2:[function(require,module,exports){
+},{"./config":2,"./src/events/views":4,"./src/tubes/models":5,"./src/tubes/views":6,"./src/websocket":7,"async":8,"debug":14,"querystring":13,"underscore":17}],2:[function(require,module,exports){
 module.exports = {
   
   performance: {
-    granularity: 500 // milliseconds
+    granularity: 500, // milliseconds
+    channels: [
+      {id: 0, color: 'red'}, {id: 1, color: 'blue'},
+      {id: 2, color: 'green'}, {id: 3, color: 'yellow'},
+      {id: 4, color: 'purple'}, {id: 5, color: 'pink'},
+      {id: 6, color: '#337766'}, {id: 7, color: '#661100'},
+      {id: 8, color: '#0099a2'}, {id: 9, color: '#53a10b'} 
+    ]
   },
 
   tubes: {
@@ -18464,16 +18469,28 @@ module.exports = {
 
 },{}],3:[function(require,module,exports){
 var _ = require('underscore')
-  , async = require('async')
-  , tubeViews = require('./tube-views')
-  , tubeEventModels = require('./tube-models')
-  , config = require('../config')
+  , querystring = require('querystring')
 
-var perform = exports.perform = function(tubeEvent) {
-  console.log('perform tube ' + tubeEvent.tubeId + ' ' + tubeEvent.state)
-  if (tubeEvent.state === 'on') tubeViews.setPlaying(tubeEvent.userId, tubeEvent.tubeId)
-  else if (tubeEvent.state === 'off') tubeViews.setIdle(tubeEvent.userId, tubeEvent.tubeId)
-  else throw new Error('invalid event state ' + tubeEvent.state)
+// Load events between the dates `fromTime` and `toTime` and calls
+// `done(err, events)`. Dates must be given as timestamps.
+exports.load = function(fromTime, toTime, done) {
+  var url = '/replay/?' + querystring.stringify({
+    fromTime: fromTime,
+    toTime: toTime
+  })
+  $.getJSON(url, function(events) { done(null, events) })
+}
+
+},{"querystring":13,"underscore":17}],4:[function(require,module,exports){
+var _ = require('underscore')
+  , async = require('async')
+  , debug = require('debug')('events.views')
+  , tubeViews = require('./views')
+  , eventModels = require('../events/models')
+  , config = require('../../config')
+
+var perform = exports.perform = function(events) {
+  tubeViews.perform(events)
 }
 
 exports.startPerformance = function(fromTime, toTime) { 
@@ -18496,25 +18513,20 @@ Performance.current = null
 
 _.extend(Performance.prototype, {
 
+  // Load events for this performance.
   load: function(done) {
     var self = this
-    tubeEventModels.load(this.fromTime, this.toTime, function(err, tubeEvents) {
+    eventModels.load(this.fromTime, this.toTime, function(err, events) {
       if (err) return done(err)
-      console.log('performance loaded')
-      self.queue = tubeEvents
+      debug('performance loaded')
+      self.queue = events
       done()
     })
   },
 
-  clear: function() {
-    clearInterval(this.intervalHandle)
-    tubeViews.setAllIdle()
-    Performance.current = null
-    document.getElementById('performanceClock').innerHTML = ''
-  },
-
+  // Start the performance
   start: function() {
-    console.log('start performing')
+    debug('start performing')
     var self = this
     this.timeOffset = +(Date.now()) - this.fromTime
 
@@ -18523,21 +18535,33 @@ _.extend(Performance.prototype, {
       document.getElementById('performanceClock').innerHTML = currentDate
       
       if (self.queue.length === 0) {
-        console.log('performance over')
+        debug('performance over')
         self.clear()
 
-      } else if (self.queue[0].timestamp + self.timeOffset < +(Date.now())) {
-        perform(self.queue.shift())
+      } else {
+        events = []
+        while (self.queue[0].timestamp + self.timeOffset < +(Date.now()))
+          events.push(self.queue.shift())
+        perform(events)
       }
 
     }, config.performance.granularity)
+  },
+
+  // Clear the performance, stopping the interval and so on
+  clear: function() {
+    clearInterval(this.intervalHandle)
+    tubeViews.setAllIdle()
+    Performance.current = null
+    document.getElementById('performanceClock').innerHTML = ''
   }
 
 })
 
-},{"../config":2,"./tube-models":4,"./tube-views":5,"async":7,"underscore":13}],4:[function(require,module,exports){
+},{"../../config":2,"../events/models":3,"./views":4,"async":8,"debug":14,"underscore":17}],5:[function(require,module,exports){
 var _ = require('underscore')
-  , config = require('../config')
+  , debug = require('debug')('tubes.models')
+  , config = require('../../config')
 
 exports.load = function(done) {
   $.get('/data/tubes.xml', function(data) {
@@ -18549,28 +18573,42 @@ exports.load = function(done) {
         , diameter = parseFloat(tube.find('diameter').text()) * config.tubes.diameterScale
       return { id: id, diameter: diameter, x: x, y: y }
     })
+    debug('loaded')
 
     done(null, exports.all)
   })
 }
 
 exports.all = []
-},{"../config":2,"underscore":13}],5:[function(require,module,exports){
+},{"../../config":2,"debug":14,"underscore":17}],6:[function(require,module,exports){
 var _ = require('underscore')
-  , tubeModels = require('./tube-models')
-  , config = require('../config')
+  , tubeModels = require('./models')
+  , debug = require('debug')('tubes.views')
+  , config = require('../../config')
 
-exports.setPlaying = function(userId, tubeId) {
-  var user = getUser(userId)
-  d3.selectAll('circle.tube').filter(function(d) { return d.id === tubeId })
-    .classed('idle', false)
-    .attr('fill', user.color)
-}
+// TODO tests
+exports.perform = function(events) {
+  // Tubes can have only one state at the time, so if several events
+  // on the same tube, we keep only the last event.
+  var compressed = {}
+  events = _.sortBy(events, function(event) { return event.datetime })
+  _.forEach(events, function(event) {
+    compressed[event.num] = event
+  })
+  events = _.values(compressed)
 
-exports.setIdle = function(userId, tubeId) {
-  d3.selectAll('circle.tube').filter(function(d) { return d.id === tubeId })
-    .classed('idle', true)
-    .attr('fill', 'none')
+  // For all events, set the corresponding tube to idle or playing
+  events.forEach(function(event) {
+    if (event.frequency) setPlaying(event.channel, event.num)
+    else setIdle(event.channel)
+  })
+
+  // All other tubes are set to idle
+  var otherTubes = _.difference(
+    _.pluck(events, 'num'), 
+    _.pluck(tubeModels.all, 'id')
+  )
+  _.forEach(otherTubes, function(num) { setIdle(num) })
 }
 
 exports.setAllIdle = function() {
@@ -18579,7 +18617,8 @@ exports.setAllIdle = function() {
     .attr('fill', 'none') 
 }
 
-exports.load = function(done) {
+// Create all the tube views. Must be called after the tube models have been fetched.
+exports.render = function() {
   var tubesSvg = d3.select('svg#tubes')
     , width = tubesSvg.attr('width')
     , height = tubesSvg.attr('height')
@@ -18610,30 +18649,24 @@ exports.load = function(done) {
     .attr('cy', function(t) { return (t.y - yMin) * scale })
     .attr('r', function(t) { return scale * t.diameter / 2 })
 
-  done()
-
+  debug('initialized')
 }
 
-
-var currentUsers = []
-  , colorCounter = 0
-  , colorList = ['red', 'blue', 'green', 'yellow', 'purple', 'pink']
-
-var getUser = function(userId) {
-  var user = _.find(currentUsers, function(u) { return u.id === userId })
-  if (!user) {
-    colorCounter = (colorCounter + 1) % colorList.length
-    user = {
-      id: userId,
-      color: colorList[colorCounter]
-    }
-    currentUsers.push(user)
-  }
-  return user
+var setPlaying = function(channel, num) {
+  d3.selectAll('circle.tube').filter(function(d) { return d.id === num })
+    .classed('idle', false)
+    .attr('fill', config.performance.channels[channel].color)
 }
-},{"../config":2,"./tube-models":4,"underscore":13}],6:[function(require,module,exports){
+
+var setIdle = function(num) {
+  d3.selectAll('circle.tube').filter(function(d) { return d.id === num })
+    .classed('idle', true)
+    .attr('fill', 'none')
+}
+},{"../../config":2,"./models":5,"debug":14,"underscore":17}],7:[function(require,module,exports){
 var EventEmitter = require('events')
   , WebSocket = require('ws')
+  , debug = require('debug')('websocket')
 
 var socketEmitter = new EventEmitter()
   , socket
@@ -18652,6 +18685,7 @@ exports.start = function(config, done) {
 
   // Automatic reconnection when socket got closed
   socketEmitter.on('close', function() {
+    debug('connection lost')
     exports.events.emit('connection lost')
     reconnect()
   })
@@ -18659,6 +18693,7 @@ exports.start = function(config, done) {
 
 // Connects to the server and calls `done(err)`
 var connect = function(done) {
+  debug('connecting ...')
   socket = new WebSocket('ws://' + savedConfig.hostname + ':' + savedConfig.port)
   socket.onopen = function() { socketEmitter.emit('open') }
   socket.onmessage = function(msg, flags) { socketEmitter.emit('message', JSON.parse(msg)) }
@@ -18667,6 +18702,7 @@ var connect = function(done) {
 
   var _onceOpen = function() {
     socketEmitter.removeListener('error', _onceError)
+    debug('connected')
     done()
     exports.events.emit('connected')
   }
@@ -18686,7 +18722,7 @@ var reconnect = function() {
     connect(function(err) { if (err) reconnect() })
   }, savedConfig.reconnectTime)
 }
-},{"events":8,"ws":14}],7:[function(require,module,exports){
+},{"debug":14,"events":9,"ws":18}],8:[function(require,module,exports){
 (function (process){
 /*!
  * async
@@ -19813,7 +19849,7 @@ var reconnect = function() {
 }());
 
 }).call(this,require('_process'))
-},{"_process":9}],8:[function(require,module,exports){
+},{"_process":10}],9:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -20116,7 +20152,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -20204,7 +20240,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -20290,7 +20326,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -20377,13 +20413,474 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":10,"./encode":11}],13:[function(require,module,exports){
+},{"./decode":11,"./encode":12}],14:[function(require,module,exports){
+
+/**
+ * This is the web browser implementation of `debug()`.
+ *
+ * Expose `debug()` as the module.
+ */
+
+exports = module.exports = require('./debug');
+exports.log = log;
+exports.formatArgs = formatArgs;
+exports.save = save;
+exports.load = load;
+exports.useColors = useColors;
+
+/**
+ * Colors.
+ */
+
+exports.colors = [
+  'lightseagreen',
+  'forestgreen',
+  'goldenrod',
+  'dodgerblue',
+  'darkorchid',
+  'crimson'
+];
+
+/**
+ * Currently only WebKit-based Web Inspectors, Firefox >= v31,
+ * and the Firebug extension (any Firefox version) are known
+ * to support "%c" CSS customizations.
+ *
+ * TODO: add a `localStorage` variable to explicitly enable/disable colors
+ */
+
+function useColors() {
+  // is webkit? http://stackoverflow.com/a/16459606/376773
+  return ('WebkitAppearance' in document.documentElement.style) ||
+    // is firebug? http://stackoverflow.com/a/398120/376773
+    (window.console && (console.firebug || (console.exception && console.table))) ||
+    // is firefox >= v31?
+    // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
+    (navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31);
+}
+
+/**
+ * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
+ */
+
+exports.formatters.j = function(v) {
+  return JSON.stringify(v);
+};
+
+
+/**
+ * Colorize log arguments if enabled.
+ *
+ * @api public
+ */
+
+function formatArgs() {
+  var args = arguments;
+  var useColors = this.useColors;
+
+  args[0] = (useColors ? '%c' : '')
+    + this.namespace
+    + (useColors ? ' %c' : ' ')
+    + args[0]
+    + (useColors ? '%c ' : ' ')
+    + '+' + exports.humanize(this.diff);
+
+  if (!useColors) return args;
+
+  var c = 'color: ' + this.color;
+  args = [args[0], c, 'color: inherit'].concat(Array.prototype.slice.call(args, 1));
+
+  // the final "%c" is somewhat tricky, because there could be other
+  // arguments passed either before or after the %c, so we need to
+  // figure out the correct index to insert the CSS into
+  var index = 0;
+  var lastC = 0;
+  args[0].replace(/%[a-z%]/g, function(match) {
+    if ('%%' === match) return;
+    index++;
+    if ('%c' === match) {
+      // we only are interested in the *last* %c
+      // (the user may have provided their own)
+      lastC = index;
+    }
+  });
+
+  args.splice(lastC, 0, c);
+  return args;
+}
+
+/**
+ * Invokes `console.log()` when available.
+ * No-op when `console.log` is not a "function".
+ *
+ * @api public
+ */
+
+function log() {
+  // This hackery is required for IE8,
+  // where the `console.log` function doesn't have 'apply'
+  return 'object' == typeof console
+    && 'function' == typeof console.log
+    && Function.prototype.apply.call(console.log, console, arguments);
+}
+
+/**
+ * Save `namespaces`.
+ *
+ * @param {String} namespaces
+ * @api private
+ */
+
+function save(namespaces) {
+  try {
+    if (null == namespaces) {
+      localStorage.removeItem('debug');
+    } else {
+      localStorage.debug = namespaces;
+    }
+  } catch(e) {}
+}
+
+/**
+ * Load `namespaces`.
+ *
+ * @return {String} returns the previously persisted debug modes
+ * @api private
+ */
+
+function load() {
+  var r;
+  try {
+    r = localStorage.debug;
+  } catch(e) {}
+  return r;
+}
+
+/**
+ * Enable namespaces listed in `localStorage.debug` initially.
+ */
+
+exports.enable(load());
+
+},{"./debug":15}],15:[function(require,module,exports){
+
+/**
+ * This is the common logic for both the Node.js and web browser
+ * implementations of `debug()`.
+ *
+ * Expose `debug()` as the module.
+ */
+
+exports = module.exports = debug;
+exports.coerce = coerce;
+exports.disable = disable;
+exports.enable = enable;
+exports.enabled = enabled;
+exports.humanize = require('ms');
+
+/**
+ * The currently active debug mode names, and names to skip.
+ */
+
+exports.names = [];
+exports.skips = [];
+
+/**
+ * Map of special "%n" handling functions, for the debug "format" argument.
+ *
+ * Valid key names are a single, lowercased letter, i.e. "n".
+ */
+
+exports.formatters = {};
+
+/**
+ * Previously assigned color.
+ */
+
+var prevColor = 0;
+
+/**
+ * Previous log timestamp.
+ */
+
+var prevTime;
+
+/**
+ * Select a color.
+ *
+ * @return {Number}
+ * @api private
+ */
+
+function selectColor() {
+  return exports.colors[prevColor++ % exports.colors.length];
+}
+
+/**
+ * Create a debugger with the given `namespace`.
+ *
+ * @param {String} namespace
+ * @return {Function}
+ * @api public
+ */
+
+function debug(namespace) {
+
+  // define the `disabled` version
+  function disabled() {
+  }
+  disabled.enabled = false;
+
+  // define the `enabled` version
+  function enabled() {
+
+    var self = enabled;
+
+    // set `diff` timestamp
+    var curr = +new Date();
+    var ms = curr - (prevTime || curr);
+    self.diff = ms;
+    self.prev = prevTime;
+    self.curr = curr;
+    prevTime = curr;
+
+    // add the `color` if not set
+    if (null == self.useColors) self.useColors = exports.useColors();
+    if (null == self.color && self.useColors) self.color = selectColor();
+
+    var args = Array.prototype.slice.call(arguments);
+
+    args[0] = exports.coerce(args[0]);
+
+    if ('string' !== typeof args[0]) {
+      // anything else let's inspect with %o
+      args = ['%o'].concat(args);
+    }
+
+    // apply any `formatters` transformations
+    var index = 0;
+    args[0] = args[0].replace(/%([a-z%])/g, function(match, format) {
+      // if we encounter an escaped % then don't increase the array index
+      if (match === '%%') return match;
+      index++;
+      var formatter = exports.formatters[format];
+      if ('function' === typeof formatter) {
+        var val = args[index];
+        match = formatter.call(self, val);
+
+        // now we need to remove `args[index]` since it's inlined in the `format`
+        args.splice(index, 1);
+        index--;
+      }
+      return match;
+    });
+
+    if ('function' === typeof exports.formatArgs) {
+      args = exports.formatArgs.apply(self, args);
+    }
+    var logFn = enabled.log || exports.log || console.log.bind(console);
+    logFn.apply(self, args);
+  }
+  enabled.enabled = true;
+
+  var fn = exports.enabled(namespace) ? enabled : disabled;
+
+  fn.namespace = namespace;
+
+  return fn;
+}
+
+/**
+ * Enables a debug mode by namespaces. This can include modes
+ * separated by a colon and wildcards.
+ *
+ * @param {String} namespaces
+ * @api public
+ */
+
+function enable(namespaces) {
+  exports.save(namespaces);
+
+  var split = (namespaces || '').split(/[\s,]+/);
+  var len = split.length;
+
+  for (var i = 0; i < len; i++) {
+    if (!split[i]) continue; // ignore empty strings
+    namespaces = split[i].replace(/\*/g, '.*?');
+    if (namespaces[0] === '-') {
+      exports.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
+    } else {
+      exports.names.push(new RegExp('^' + namespaces + '$'));
+    }
+  }
+}
+
+/**
+ * Disable debug output.
+ *
+ * @api public
+ */
+
+function disable() {
+  exports.enable('');
+}
+
+/**
+ * Returns true if the given mode name is enabled, false otherwise.
+ *
+ * @param {String} name
+ * @return {Boolean}
+ * @api public
+ */
+
+function enabled(name) {
+  var i, len;
+  for (i = 0, len = exports.skips.length; i < len; i++) {
+    if (exports.skips[i].test(name)) {
+      return false;
+    }
+  }
+  for (i = 0, len = exports.names.length; i < len; i++) {
+    if (exports.names[i].test(name)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Coerce `val`.
+ *
+ * @param {Mixed} val
+ * @return {Mixed}
+ * @api private
+ */
+
+function coerce(val) {
+  if (val instanceof Error) return val.stack || val.message;
+  return val;
+}
+
+},{"ms":16}],16:[function(require,module,exports){
+/**
+ * Helpers.
+ */
+
+var s = 1000;
+var m = s * 60;
+var h = m * 60;
+var d = h * 24;
+var y = d * 365.25;
+
+/**
+ * Parse or format the given `val`.
+ *
+ * Options:
+ *
+ *  - `long` verbose formatting [false]
+ *
+ * @param {String|Number} val
+ * @param {Object} options
+ * @return {String|Number}
+ * @api public
+ */
+
+module.exports = function(val, options){
+  options = options || {};
+  if ('string' == typeof val) return parse(val);
+  return options.long
+    ? long(val)
+    : short(val);
+};
+
+/**
+ * Parse the given `str` and return milliseconds.
+ *
+ * @param {String} str
+ * @return {Number}
+ * @api private
+ */
+
+function parse(str) {
+  var match = /^((?:\d+)?\.?\d+) *(ms|seconds?|s|minutes?|m|hours?|h|days?|d|years?|y)?$/i.exec(str);
+  if (!match) return;
+  var n = parseFloat(match[1]);
+  var type = (match[2] || 'ms').toLowerCase();
+  switch (type) {
+    case 'years':
+    case 'year':
+    case 'y':
+      return n * y;
+    case 'days':
+    case 'day':
+    case 'd':
+      return n * d;
+    case 'hours':
+    case 'hour':
+    case 'h':
+      return n * h;
+    case 'minutes':
+    case 'minute':
+    case 'm':
+      return n * m;
+    case 'seconds':
+    case 'second':
+    case 's':
+      return n * s;
+    case 'ms':
+      return n;
+  }
+}
+
+/**
+ * Short format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function short(ms) {
+  if (ms >= d) return Math.round(ms / d) + 'd';
+  if (ms >= h) return Math.round(ms / h) + 'h';
+  if (ms >= m) return Math.round(ms / m) + 'm';
+  if (ms >= s) return Math.round(ms / s) + 's';
+  return ms + 'ms';
+}
+
+/**
+ * Long format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function long(ms) {
+  return plural(ms, d, 'day')
+    || plural(ms, h, 'hour')
+    || plural(ms, m, 'minute')
+    || plural(ms, s, 'second')
+    || ms + ' ms';
+}
+
+/**
+ * Pluralization helper.
+ */
+
+function plural(ms, n, name) {
+  if (ms < n) return;
+  if (ms < n * 1.5) return Math.floor(ms / n) + ' ' + name;
+  return Math.ceil(ms / n) + ' ' + name + 's';
+}
+
+},{}],17:[function(require,module,exports){
 //     Underscore.js 1.7.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -21800,7 +22297,7 @@ exports.encode = exports.stringify = require('./encode');
   }
 }.call(this));
 
-},{}],14:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 
 /**
  * Module dependencies.

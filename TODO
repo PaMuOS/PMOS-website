@@ -1,10 +1,9 @@
 frontend
 
-- uglify
-- rhizome client file should be built with gulp. Otherwise we need to start the backend to build the file which is weird
-
+- pagination for events
 
 backend
 
+- validate the channel for events (only 10 channels)
 - date range for events should maybe be limited. If there is a lot of events in the future ...
 - if no connection on OF side? Store data? Maybe a small local queue

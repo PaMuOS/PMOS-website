@@ -7,7 +7,7 @@ var gulp = require('gulp')
   , source = require('vinyl-source-stream')
   , path = require('path')
 
-var watcher = gulp.watch(['./frontend/main.js', './frontend/src/*.js'], ['default'])
+var watcher = gulp.watch(['./frontend/*.js', './frontend/src/**/*.js'], ['default'])
 watcher.on('change', function(event) {
   console.log('File '+event.path+' was '+event.type+', running tasks...')
 })

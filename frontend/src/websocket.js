@@ -1,5 +1,6 @@
 var EventEmitter = require('events')
   , WebSocket = require('ws')
+  , debug = require('debug')('websocket')
 
 var socketEmitter = new EventEmitter()
   , socket
@@ -18,6 +19,7 @@ exports.start = function(config, done) {
 
   // Automatic reconnection when socket got closed
   socketEmitter.on('close', function() {
+    debug('connection lost')
     exports.events.emit('connection lost')
     reconnect()
   })
@@ -25,6 +27,7 @@ exports.start = function(config, done) {
 
 // Connects to the server and calls `done(err)`
 var connect = function(done) {
+  debug('connecting ...')
   socket = new WebSocket('ws://' + savedConfig.hostname + ':' + savedConfig.port)
   socket.onopen = function() { socketEmitter.emit('open') }
   socket.onmessage = function(msg, flags) { socketEmitter.emit('message', JSON.parse(msg)) }
@@ -33,6 +36,7 @@ var connect = function(done) {
 
   var _onceOpen = function() {
     socketEmitter.removeListener('error', _onceError)
+    debug('connected')
     done()
     exports.events.emit('connected')
   }

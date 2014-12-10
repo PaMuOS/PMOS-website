@@ -29,6 +29,12 @@ npm install
 gulp build
 ```
 
+frontend tests
+----------------
+
+They use [mocha-phantomjs](http://metaskills.net/mocha-phantomjs/) , to install it, run `npm install -g mocha-phantomjs phantomjs`, then to run the tests `browserify frontend/test/index.js > tmp/frontend-tests.js ; mocha-phantomjs frontend/test/index.html` to build the test file and run it with phantomJS
+
+
 Websocket messages
 -------------------
 

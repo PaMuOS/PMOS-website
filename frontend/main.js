@@ -1,12 +1,13 @@
 var querystring = require('querystring')
   , _ = require('underscore')
   , async = require('async')
-  , tubeViews = require('./src/tube-views')
-  , tubeModels = require('./src/tube-models')
-  , eventViews = require('./src/event-views')
+  , debug = require('debug') 
+  , tubeViews = require('./src/tubes/views')
+  , tubeModels = require('./src/tubes/models')
+  , eventViews = require('./src/events/views')
   , websocket = require('./src/websocket')
   , config = require('./config')
-
+debug.enable('*')
 websocket.start(_.pick(config.web, ['port', 'hostname', 'reconnectTime']), function(err) {
   if (err) {
     alert('Couldn\'t connect to the server')
@@ -15,11 +16,9 @@ websocket.start(_.pick(config.web, ['port', 'hostname', 'reconnectTime']), funct
 })
 
 websocket.events.on('connected', function() {
-  console.log('websocket connected')
 })
 
 websocket.events.on('connection lost', function() {
-  console.log('websocket connection lost')
 })
 
 window.onload = function() {
@@ -32,10 +31,9 @@ window.onload = function() {
   })
 
   async.series([
-    _.bind(tubeModels.load, tubeModels),
-    _.bind(tubeViews.load, tubeViews)
+    _.bind(tubeModels.load, tubeModels)
   ], function(err) {
     if (err) throw err
-    console.log('loaded successfully')
+    tubeViews.render()
   })
 }
