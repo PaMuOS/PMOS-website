@@ -1,9 +1,9 @@
 var assert = require('assert')
   , _ = require('underscore')
-  , fixtures = require('../fixtures')
-  , tubeViews = require('../../src/tubes/views')
-  , tubeModels = require('../../src/tubes/models')
-  , config = require('../../config')
+  , fixtures = require('../../fixtures')
+  , tubeViews = require('../../../src/tubes/views')
+  , tubeModels = require('../../../src/tubes/models')
+  , config = require('../../../config')
 
 // Mock-ups for tests
 var received = []

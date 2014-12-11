@@ -1,4 +1,4 @@
-var EventEmitter = require('events')
+var EventEmitter = require('events').EventEmitter
   , WebSocket = require('ws')
   , debug = require('debug')('websocket')
 
@@ -9,6 +9,7 @@ var socketEmitter = new EventEmitter()
 // Events :
 // 'connected' : emitted when socket connection got opened or re-opened
 // 'connection lost' : emitted when connection lost
+// 'message' : emitted when message received
 exports.events = new EventEmitter()
 
 // Starts the websocket client and calls `done(err)`
@@ -23,6 +24,11 @@ exports.start = function(config, done) {
     exports.events.emit('connection lost')
     reconnect()
   })
+
+  // Parse and emit messages
+  socketEmitter.on('message', function(e) {
+    exports.events.emit('message', JSON.parse(e.data))
+  })
 }
 
 // Connects to the server and calls `done(err)`
@@ -30,7 +36,7 @@ var connect = function(done) {
   debug('connecting ...')
   socket = new WebSocket('ws://' + savedConfig.hostname + ':' + savedConfig.port)
   socket.onopen = function() { socketEmitter.emit('open') }
-  socket.onmessage = function(msg, flags) { socketEmitter.emit('message', JSON.parse(msg)) }
+  socket.onmessage = function(msg, flags) { socketEmitter.emit('message', msg) }
   socket.onclose = function() { socketEmitter.emit('close') }
   socket.onerror = function(err) { socketEmitter.emit('error', err) }
 

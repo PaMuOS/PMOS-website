@@ -28,12 +28,6 @@ exports.perform = function(events) {
   _.forEach(otherTubes, function(num) { exports.setIdle(num) })
 }
 
-exports.setAllIdle = function() {
-  d3.selectAll('circle.tube')
-    .classed('idle', true)
-    .attr('fill', 'none') 
-}
-
 // Create all the tube views. Must be called after the tube models have been fetched.
 exports.render = function() {
   var tubesSvg = d3.select('svg#tubes')
@@ -79,4 +73,10 @@ exports.setIdle = function(num) {
   d3.selectAll('circle.tube').filter(function(d) { return d.id === num })
     .classed('idle', true)
     .attr('fill', 'none')
+}
+
+exports.setAllIdle = function() {
+  d3.selectAll('circle.tube')
+    .classed('idle', true)
+    .attr('fill', 'none') 
 }

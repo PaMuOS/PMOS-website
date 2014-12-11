@@ -8,7 +8,8 @@
     "url": "git@github.com:PaMuOS/PMOS-website.git"
   },
   "scripts": {
-    "start": "node ./backend/main.js"
+    "start": "node ./backend/main.js",
+    "test": "mocha --recursive backend/test; mocha --recursive frontend/test/node; browserify frontend/test/browser/index.js > tmp/frontend-tests.js ; mocha-phantomjs frontend/test/browser/index.html"
   },
   "dependencies": {
     "underscore": "1.7.x",

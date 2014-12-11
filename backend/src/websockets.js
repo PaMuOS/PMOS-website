@@ -10,6 +10,11 @@ exports.start = function(config, done) {
   wsServer.once('listening', function() { done() })
 }
 
+exports.stop = function(done) {
+  wsServer.close()
+  done()
+}
+
 var _onConnection = function(socket) {
 
   socket.on('message', function(msg) {

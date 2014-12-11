@@ -1,8 +1,8 @@
 var assert = require('assert')
   , _ = require('underscore')
-  , tubeModels = require('../../src/tubes/models')
-  , config = require('../../config')
-config.tubes.file = '../../dist/data/tubes.xml'
+  , tubeModels = require('../../../src/tubes/models')
+  , config = require('../../../config')
+config.tubes.file = '../../../dist/data/tubes.xml'
 
 describe('tubes.models', function() {
 
