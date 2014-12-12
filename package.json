@@ -9,7 +9,10 @@
   },
   "scripts": {
     "start": "node ./backend/main.js",
-    "test": "mocha --recursive backend/test; mocha --recursive frontend/test/node; browserify frontend/test/browser/index.js > tmp/frontend-tests.js ; mocha-phantomjs frontend/test/browser/index.html"
+    "test": "npm run test.backend; npm run test.frontend.node; npm run test.frontend.browser",
+    "test.backend": "mocha --recursive backend/test",
+    "test.frontend.node": "mocha --recursive frontend/test/node",
+    "test.frontend.browser": "node frontend/test/browser/runner/main.js"
   },
   "dependencies": {
     "underscore": "1.7.x",
@@ -28,11 +31,14 @@
     "run-sequence": "1.0.x",
     "ws": "0.6.x",
     "gulp-uglify": "1.0.x",
-    "mocha": "2.0.x"
+    "mocha": "2.0.x",
+    "bson": "0.2.x",
+    "url-join": "0.0.1"
   },
   "devDependencies": {
     "pow-mongodb-fixtures": "0.10.x",
-    "supertest": "0.15.x"
+    "supertest": "0.15.x",
+    "request": "2.51.x"
   },
   "subdomain": "PMOS-website",
   "engines": {

@@ -8,28 +8,33 @@ var path = require('path')
   , bodyParser = require('body-parser')
   , serveStatic = require('serve-static')
   , clc = require('cli-color')
-  , config = require('./config')
   , websockets = require('./src/websockets')
   , views = require('./src/views')
   , models = require('./src/models')
-mongoose.connect(config.db.url)
 
-var app = express()
-  , httpServer = require('http').createServer(app)
-  , wsConfig = { server: httpServer }
+var start = exports.start = function(config, done) {
+  mongoose.connect(config.db.url)
+  var app = express()
+    , httpServer = require('http').createServer(app)
+    , wsConfig = { server: httpServer }
 
-// Configure express app
-app.set('port', config.web.port)
-app.use(bodyParser.json())
-app.use('/', serveStatic(config.web.rootPath))
-views.declare(app)
+  // Configure express app
+  app.set('port', config.web.port)
+  app.use(bodyParser.json())
+  app.use('/', serveStatic(config.web.rootPath))
+  views.declare(app, config.api)
 
-// Start everything
-async.parallel([
-  websockets.start.bind(websockets, wsConfig),
-  httpServer.listen.bind(httpServer, config.web.port)
-], function(err) {
-  if (err) throw err
-  console.log(clc.bold('server running') )
-})
+  // Start everything
+  async.parallel([
+    websockets.start.bind(websockets, wsConfig),
+    httpServer.listen.bind(httpServer, config.web.port)
+  ], done)
+}
 
+if (require.main === module) {
+  var config = require('./config')
+  start(config, function(err) {
+    if (err) throw err
+    console.log(clc.bold('server running') )
+  })
+}

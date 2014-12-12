@@ -1,7 +1,7 @@
 var async = require('async')
   , mongoose = require('mongoose')
-  , fixtures = require('../../frontend/test/fixtures')
-  , models = require('../src/models')
+  , fixtures = require('../fixtures')
+  , models = require('../../../backend/src/models')
 
 describe('frontend.fixtures', function() {
 

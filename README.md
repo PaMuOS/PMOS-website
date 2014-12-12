@@ -1,46 +1,60 @@
-Load fixtures
---------------
+PMOS-website
+==============
 
-node test/fixtures.js
+Installation
+---------------
 
-backend
+Installing node modules `npm install`.
+
+To build the frontend you must also install `gulp` with the following command `npm install -g gulp`.
+
+To run the tests, some tools must be installed first. Install those with the following command `npm install -g mocha mocha-phantomjs phantomjs` 
+
+
+Deployment
+------------
+
+All commits to `master` branch should be deployed automatically as there is a commit hook setup in the github repository.
+
+Otherwise to deploy manually, run `jitsu deploy`.
+
+
+Backend
+=========
+
+Starting the server
+---------------------
+
+To start the server locally, run `node backend/main.js`.
+
+
+Running the tests
+-------------------
+
+`mocha --recursive backend/test`
+
+
+Frontend
+==========
+
+Building
+---------
+
+To build the frontend, run `gulp build`. This will also minify the file, so if you want to develop and have a non-minified build, simply run `gulp`
+
+
+Tests
 --------
-
-Initializing submodules
-
-```
-git submodule init
-git submodule update
-```
-
-Installing node modules
-
-```
-npm install
-npm install rhizome/
-```
-
-frontend
-----------
-
-```
-npm install -g gulp
-npm install
-gulp build
-```
-
-frontend tests
-----------------
 
 This is a bit complicated because for some tests it is easier to test within node (to have control over the server, start, stop it for example), for some other tests it is better to have the browser and be able to have a DOM, jquery, etc ... Therefore tests are divided in 2 folder : `node` and `browser`.
 
 Tests in `node` are ran with `mocha --recursive frontend/test/node`
 
-Browser test use [mocha-phantomjs](http://metaskills.net/mocha-phantomjs/) , to install it, run `npm install -g mocha-phantomjs phantomjs`, then to run the tests `browserify frontend/test/browser/index.js > tmp/frontend-tests.js ; mocha-phantomjs frontend/test/browser/index.html` to build the test file and run it with phantomJS.
+Browsers test use [mocha-phantomjs](http://metaskills.net/mocha-phantomjs/). To run the tests : `browserify frontend/test/browser/index.js > tmp/frontend-tests.js ; mocha-phantomjs frontend/test/browser/index.html` this builds the test file and runs it with phantomJS.
 
 
-Websocket messages
--------------------
+API
+=====================
 
 #### Coordinates
 
@@ -52,7 +66,7 @@ Should take for reference the top left corner of **the bounding box** of the tub
 Timestamps are given in number of milliseconds since EPOCH.
 
 
-#### Messages
+#### Websocket server
 
 ```
 {

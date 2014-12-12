@@ -1,4 +1,4 @@
-module.exports = {
+var config = module.exports = {
   
   performance: {
     granularity: 500, // milliseconds
@@ -13,12 +13,13 @@ module.exports = {
 
   tubes: {
     diameterScale: 0.002, // Scale the tube diameters
-    file: '/data/tubes.xml'
   },
 
   web: {
     hostname: typeof window !== 'undefined' ? window.location.hostname : 'localhost',
     port: typeof window !== 'undefined' ? window.location.port : 8000,
-    reconnectTime: 2000
+    reconnectTime: 2000,
+    apiRoot: '/',
+    dataRoot: '/data'
   }
 }

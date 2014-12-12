@@ -9,5 +9,8 @@ module.exports = {
     hostname: 'pmos-website.jit.su',
     port: 8000,
     rootPath: path.resolve(__dirname, '..', 'dist')
+  },
+  api: {
+    pagination: 100 // Number of events returned in each page
   }
 }

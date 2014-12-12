@@ -12,7 +12,6 @@ var EventSchema = new mongoose.Schema({
 // Remove useless fields from the JSON
 EventSchema.methods.toJSON = function() {
   var obj = this.toObject()
-  delete obj._id
   delete obj.__v
   return obj
 }

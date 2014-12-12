@@ -8,6 +8,7 @@ var querystring = require('querystring')
   , websocket = require('./src/websocket')
   , config = require('./config')
 debug.enable('*')
+
 websocket.start(_.pick(config.web, ['port', 'hostname', 'reconnectTime']), function(err) {
   if (err) {
     alert('Couldn\'t connect to the server')

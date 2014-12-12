@@ -25,33 +25,29 @@ describe('websockets', function() {
 
   it('should log valid messages from installation', function(done) {
     var wsClient = new ws('ws://localhost:8000')
-
-    async.series([
-      wsClient.once.bind(wsClient, 'open'),
-      function(next) {
-        wsClient.send(JSON.stringify({
-          channel: 2,
-          timestamp: 1234,
-          x: 0.1223,
-          y: 0.7,
-          num: 54,
-          frequency: 440
-        }))
-        setTimeout(next, 1500)
-      },
-      models.Event.find.bind(models.Event, {})
-    ], function(err, results) {
-      if (err) throw err
-      var events = results.pop()
-      assert.equal(events.length, 1)
-      assert.deepEqual(_.omit(events[0].toJSON(), ['_id', '__v']), {
+      , originalEvent = {
         channel: 2,
         timestamp: 1234,
         x: 0.1223,
         y: 0.7,
         num: 54,
         frequency: 440
-      })
+      }
+
+    async.series([
+      wsClient.once.bind(wsClient, 'open'),
+      function(next) {
+        wsClient.send(JSON.stringify(originalEvent))
+        setTimeout(next, 1500)
+      },
+      models.Event.find.bind(models.Event, {})
+    ], function(err, results) {
+      if (err) throw err
+      var events = results.pop()
+        , eventSaved
+      assert.equal(events.length, 1)
+      eventSaved = _.omit(events[0].toJSON(), ['__v', '_id'])
+      assert.deepEqual(eventSaved, originalEvent)
       done()
     })
 
@@ -61,14 +57,14 @@ describe('websockets', function() {
     var wsClient1 = new ws('ws://localhost:8000')
       , wsClient2 = new ws('ws://localhost:8000')
       , wsClient3 = new ws('ws://localhost:8000')
-      , msg = JSON.stringify({
-          channel: 2,
-          timestamp: 1234,
-          x: 0.1223,
-          y: 0.7,
-          num: 54,
-          frequency: 440
-        })
+      , originalEvent = {
+        channel: 2,
+        timestamp: 1234,
+        x: 0.1223,
+        y: 0.7,
+        num: 54,
+        frequency: 440
+      }
 
     async.series([
 
@@ -81,19 +77,21 @@ describe('websockets', function() {
       function(next) {
         async.parallel([
           function(nextSocket) {
-            wsClient2.once('message', function(aMsg) {
-              assert.equal(aMsg, msg)
+            wsClient2.once('message', function(msg) {
+              var event = _.omit(JSON.parse(msg), ['_id'])
+              assert.deepEqual(event, originalEvent)
               nextSocket()
             })
           },
           function(nextSocket) {
-            wsClient3.once('message', function(aMsg) {
-              assert.equal(aMsg, msg)
+            wsClient3.once('message', function(msg) {
+              var event = _.omit(JSON.parse(msg), ['_id'])
+              assert.deepEqual(event, originalEvent)
               nextSocket()
             })
           }
         ], next)
-        wsClient1.send(msg)
+        wsClient1.send(JSON.stringify(originalEvent))
       }
 
     ], done)
