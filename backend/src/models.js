@@ -16,4 +16,6 @@ EventSchema.methods.toJSON = function() {
   return obj
 }
 
+EventSchema.index({'timestamp': 1, '_id': 1})
+
 exports.Event = mongoose.model('Event', EventSchema)

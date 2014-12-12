@@ -11,6 +11,7 @@
     "start": "node ./backend/main.js",
     "test": "npm run test.backend; npm run test.frontend.node; npm run test.frontend.browser",
     "test.backend": "mocha --recursive backend/test",
+    "test.frontend": "npm run test.frontend.node; npm run test.frontend.browser",
     "test.frontend.node": "mocha --recursive frontend/test/node",
     "test.frontend.browser": "node frontend/test/browser/runner/main.js"
   },

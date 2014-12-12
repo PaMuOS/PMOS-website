@@ -6,6 +6,7 @@ var assert = require('assert')
   , express = require('express')
   , models = require('../src/models')
   , views = require('../src/views')
+  , fixtures = require('./fixtures')
   , app = express()
   , config = { pagination: 100 }
 views.declare(app, config)
@@ -20,10 +21,6 @@ describe('views', function() {
     mongoose.disconnect(done)
   })
 
-  var toJSON = function(events) {
-    return events.map(function(event) { return _.omit(event.toJSON(), ['_id']) })
-  }
-
   var omitId = function(events) {
     return events.map(function(event) { return _.omit(event, ['_id']) })
   }
@@ -31,17 +28,10 @@ describe('views', function() {
   beforeEach(function(done) {
     // Restore config
     config.pagination = 100
-    event3 = new models.Event({ timestamp: 3000, channel: 2, x: 0, y: 0, num: 56, frequency: 660 })
-    event1 = new models.Event({ timestamp: 1000, channel: 2, x: 0, y: 0, num: 54, frequency: 440 })
-    event2 = new models.Event({ timestamp: 2000, channel: 2, x: 0, y: 0, num: 55, frequency: 550 })
-    event4 = new models.Event({ timestamp: 4000, channel: 3, x: 0, y: 0, num: 56, frequency: 770 })
 
     async.series([
       models.Event.remove.bind(models.Event, {}),
-      event1.save.bind(event1),
-      event4.save.bind(event4),
-      event3.save.bind(event3),
-      event2.save.bind(event2)
+      models.Event.create.bind(models.Event, fixtures.events)
     ], done)
   })
 
@@ -56,59 +46,75 @@ describe('views', function() {
         .expect(200)
         .end(function(err, res) {
           if (err) throw err
-          assert.deepEqual(omitId(res.body), toJSON([event1, event2, event3, event4]))
+          assert.deepEqual(omitId(res.body), [  
+            { timestamp: 1000, channel: 2, x: 0, y: 0, num: 54, frequency: 440 },
+            { timestamp: 1000, channel: 2, x: 0, y: 0, num: 54, frequency: 330 },
+            { timestamp: 1000, channel: 2, x: 0, y: 0, num: 54, frequency: 220 },
+            { timestamp: 2000, channel: 2, x: 0, y: 0, num: 55, frequency: 550 },
+            { timestamp: 3000, channel: 2, x: 0, y: 0, num: 56, frequency: 660 },
+            { timestamp: 4000, channel: 3, x: 0, y: 0, num: 56, frequency: 770 },
+            { timestamp: 5000, channel: 3, x: 0, y: 0, num: 56, frequency: 880 }
+          ])
           done()
         })
     })
 
     it('should return events within time span specified', function(done) {
       request(app)
-        .get('/replay/?fromTime=1000&toTime=2500')
+        .get('/replay/?fromTime=2000&toTime=4000')
         .expect('Content-Type', /json/)
         .expect(200)
         .end(function(err, res) {
           if (err) throw err
-          assert.deepEqual(omitId(res.body), toJSON([event1, event2]))
+          assert.deepEqual(omitId(res.body), [
+            { timestamp: 2000, channel: 2, x: 0, y: 0, num: 55, frequency: 550 },
+            { timestamp: 3000, channel: 2, x: 0, y: 0, num: 56, frequency: 660 },
+          ])
           done()
         })
     })
 
     it('should support pagination', function(done) {
       config.pagination = 2
-      async.series([
-        function(next) {
+      var firstUrl = '/replay/?fromTime=1000'
+        , lastEvent = null
+
+      var nextPage = function(expected) {
+        return function(next) {
+          var url
+          if (lastEvent)
+            url = '/replay/?fromTime=' + lastEvent.timestamp + '&_id=' + lastEvent._id
+          else url = firstUrl
           request(app)
-            .get('/replay/?_id=' + event1._id)
+            .get(url)
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function(err, res) {
               if (err) throw err
-              assert.deepEqual(omitId(res.body), toJSON([event2, event3]))
-              next()
-            })
-        },
-        function(next) {
-          request(app)
-            .get('/replay/?_id=' + event3._id)
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function(err, res) {
-              if (err) throw err
-              assert.deepEqual(omitId(res.body), toJSON([event4]))
-              next()
-            })
-        },
-        function(next) {
-          request(app)
-            .get('/replay/?_id=' + event4._id)
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function(err, res) {
-              if (err) throw err
-              assert.deepEqual(res.body, [])
+              assert.deepEqual(omitId(res.body), expected)
+              lastEvent = _.last(res.body)
               next()
             })
         }
+      }
+
+      async.series([
+        nextPage([
+          { timestamp: 1000, channel: 2, x: 0, y: 0, num: 54, frequency: 440 },
+          { timestamp: 1000, channel: 2, x: 0, y: 0, num: 54, frequency: 330 }
+        ]),
+        nextPage([
+          { timestamp: 1000, channel: 2, x: 0, y: 0, num: 54, frequency: 220 },
+          { timestamp: 2000, channel: 2, x: 0, y: 0, num: 55, frequency: 550 }
+        ]),
+        nextPage([
+          { timestamp: 3000, channel: 2, x: 0, y: 0, num: 56, frequency: 660 },
+          { timestamp: 4000, channel: 3, x: 0, y: 0, num: 56, frequency: 770 }
+        ]),
+        nextPage([
+          { timestamp: 5000, channel: 3, x: 0, y: 0, num: 56, frequency: 880 }
+        ]),
+        nextPage([])
       ], done)
     })
 
@@ -136,14 +142,24 @@ describe('views', function() {
         },
         function(next) {
           request(app)
-            .get('/replay/?_id=zxcvb')
+            .get('/replay/?_id=zxcvb&fromTime=100000')
             .expect('Content-Type', /json/)
             .expect(400)
             .end(function(err, res) {
               if (err) throw err
               next()
             })
-        }
+        },
+        function(next) {
+          request(app)
+            .get('/replay/?_id=qwerty')
+            .expect('Content-Type', /json/)
+            .expect(400)
+            .end(function(err, res) {
+              if (err) throw err
+              next()
+            })
+        },
       ], done)
     })
 

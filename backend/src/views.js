@@ -9,7 +9,8 @@ exports.declare = function(app, config) {
     var fromTime = req.query.fromTime ? parseInt(req.query.fromTime, 10) : null
       , toTime = req.query.toTime ? parseInt(req.query.toTime, 10) : null
       , _id = req.query._id || null // This is only for pagination
-      , dbQuery = models.Event.find({}).limit(config.pagination).sort([['timestamp','asc'], ['_id','asc']])
+      , findOpts = { sort: {'timestamp': 1, '_id': 1}, limit: config.pagination }
+      , findQuery = {}
 
     // Check of the query is valid to avoid crashes, and return 400 if it isn't
     var unvalidReq = function(queryAttr) {
@@ -18,23 +19,23 @@ exports.declare = function(app, config) {
       res.set('Content-Type', 'application/json')
       res.status(400)
       res.end(JSON.stringify(errs))
-    } 
+    }
     if (fromTime !== null && _.isNaN(fromTime)) return unvalidReq('fromTime')
     if (toTime !== null && _.isNaN(toTime)) return unvalidReq('toTime')
     if (_id && !bson.ObjectID.isValid(_id)) return unvalidReq('_id')
+    if (_id && fromTime === null) return unvalidReq('_id')
 
-    // Build the db query
-    if (!_id && (fromTime || toTime)) {
-      dbQuery = dbQuery.where('timestamp')
-      if (fromTime) dbQuery = dbQuery.gte(fromTime)
-      if (toTime) dbQuery = dbQuery.lt(toTime)
-    }
+    // Prepare the find. It `_id` is present, this is a paginated request.
     if (_id) {
-      dbQuery = dbQuery.where('_id')
-      dbQuery = dbQuery.gt(_id)
+      findOpts['min'] = {'timestamp': fromTime, '_id': bson.ObjectID.createFromHexString(_id)}
+      findOpts['skip'] = 1
+    } else if (fromTime || toTime) {
+      findQuery['timestamp'] = {}
+      if (fromTime) findQuery['timestamp']['$gte'] = fromTime
+      if (toTime) findQuery['timestamp']['$lt'] = toTime
     }
 
-    dbQuery.exec(function(err, events) {
+    models.Event.find(findQuery, null, findOpts, function(err, events) {
       if (err) throw err
       events = events.map(function(event) { return event.toJSON() })
       res.set('Content-Type', 'application/json')
