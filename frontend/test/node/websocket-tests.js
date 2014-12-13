@@ -1,5 +1,6 @@
 var assert = require('assert')
   , async = require('async')
+  , _ = require('underscore')
   , WebSocket = require('ws')
   , websocket = require('../../src/websocket')
   , wsServer = require('../../../backend/src/websockets')
@@ -48,7 +49,7 @@ describe('websocket', function() {
         function(next) {
           installWs.send(JSON.stringify(fixtures.events[0]))
           websocket.events.on('message', function(msg) {
-            assert.deepEqual(msg, fixtures.events[0])
+            assert.deepEqual(_.omit(msg, ['_id']), fixtures.events[0])
             next()
           })
         }

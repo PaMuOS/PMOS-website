@@ -25,8 +25,11 @@ exports.next = function(done) {
     return done(null, [])
   }
 
-  var url = urljoin(config.web.apiRoot, 'replay?') + querystring.stringify({ _id: lastEvent._id })
-  console.log(url)
+  var url = urljoin(config.web.apiRoot, 'replay?') + querystring.stringify({
+    _id: lastEvent._id,
+    fromTime: lastEvent.timestamp
+  })
+
   $.getJSON(url, function(events) {
     if (events.length) lastEvent = _.last(events)
     done(null, events)
