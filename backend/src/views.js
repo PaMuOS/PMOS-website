@@ -44,4 +44,8 @@ exports.declare = function(app, config) {
     })
   })
 
+  app.get('/timeline/', function(req, res) {
+    
+  })
+
 }
