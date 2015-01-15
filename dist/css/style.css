@@ -1,0 +1,11 @@
+body {
+  font-size: 14px;
+}
+.page {
+  display: none;
+}
+header .title {
+  color: white;
+  font-size: 1em;
+  text-transform: uppercase;
+}

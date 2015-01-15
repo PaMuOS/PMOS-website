@@ -11,6 +11,10 @@ module.exports = {
     rootPath: path.resolve(__dirname, '..', 'dist')
   },
   api: {
-    pagination: 100 // Number of events returned in each page
+    pagination: 100,                      // Number of events returned in each page
+    timeline: {
+      clusterTime: 1000 * 60 * 10,        // Granularity of the timeline (milliseconds)
+      cacheTime: 1000 * 60 * 60 * 10      // How long the timeline is cached (ms)
+    }
   }
 }

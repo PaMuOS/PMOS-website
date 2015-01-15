@@ -45,7 +45,20 @@ exports.declare = function(app, config) {
   })
 
   app.get('/timeline/', function(req, res) {
-    
+    var sendTimeline = function() {
+      res.set('Content-Type', 'application/json')
+      res.status(200)
+      res.end(JSON.stringify(_cachedTimeline.timeline))
+    }
+
+    // Regenerate the timeline if the caching time has expired 
+    if (+(new Date) - _cachedTimeline.timestamp > config.timeline.cacheTime) {
+      models.Event.timeline({ clusterTime: config.timeline.clusterTime }, function(err, timeline) {
+        _cachedTimeline = { timeline: timeline, timestamp: +(new Date) }
+        sendTimeline()
+      })
+    } else sendTimeline()
   })
+  var _cachedTimeline = { timestamp: -Infinity }
 
 }

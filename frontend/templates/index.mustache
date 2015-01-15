@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+  <script src="/js/passiomusicae.js"></script>
+  <link href="/css/style.css" type="test/css" rel="stylesheet" />
+  <title>Passio Musicae</title>
+  <style>
+    div#tubesContainer {
+      text-align: center;
+    }
+    svg#tubes {
+      background-color: grey;
+    }
+    circle.tube {
+      stroke: black;
+      stroke-width: 2px;
+    }
+    circle.tube.idle {
+      fill: none;
+    }
+  </style>
+  <base href="/pages/" >
+</head>
+
+<body>
+  <header>
+    <div id="title">
+      <div>Passio Musicae Open Source</div>
+      <div class="date">Ateneum, Helsinki | Jan 22 - March 22</div>
+    </div>
+    <ul>
+      <li><a href="./about">About The Project</a></li>
+      <li><a href="./live">Live Mode</a></li>
+      <li><a href="./archive">Archive</a></li>
+      <li><a href="./demo">Demo Mode</a></li>
+    </ul>
+  </header>
+
+  <div id="about" class="page">
+
+  </div>
+
+  <div id="live" class="page">
+  </div>
+
+  <div id="archive" class="page">
+  </div>
+
+  <div id="demo" class="page">
+  </div>
+
+  <div id="comingSoon" class="page">
+  </div>
+
+  <div id="notFound" class="page">
+    NOT FOUND
+  </div>
+
+  <div class="page">
+    <form id="perform">
+      <input name="fromTime" type="text" value="2014-11-04T22:02:49.539Z" />
+      <input name="toTime" type="text" value="2014-11-04T22:03:02.539Z"/>
+      <input type="submit" value="perform"/>
+    </form>
+    <div id="performanceClock"></div>
+    <div id="tubesContainer">
+      <svg id="tubes" width="500"></svg>
+    </div>
+  </div>
+
+</body>
+
+</html>

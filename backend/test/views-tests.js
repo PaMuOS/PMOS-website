@@ -8,7 +8,13 @@ var assert = require('assert')
   , views = require('../src/views')
   , fixtures = require('./fixtures')
   , app = express()
-  , config = { pagination: 100 }
+  , config = {
+    pagination: 100,
+    timeline: {
+      clusterTime: 2000,
+      cacheTime: 0
+    }
+  }
 views.declare(app, config)
 
 describe('views', function() {

@@ -1,7 +1,8 @@
 var querystring = require('querystring')
   , _ = require('underscore')
   , async = require('async')
-  , debug = require('debug') 
+  , debug = require('debug')
+  , page = require('page') 
   , tubeViews = require('./src/tubes/views')
   , tubeModels = require('./src/tubes/models')
   , eventViews = require('./src/events/views')
@@ -16,13 +17,12 @@ websocket.start(_.pick(config.web, ['port', 'hostname', 'reconnectTime']), funct
   }
 })
 
-websocket.events.on('connected', function() {
-})
+websocket.events.on('connected', function() {})
+websocket.events.on('connection lost', function() {})
 
-websocket.events.on('connection lost', function() {
-})
+$(function() {
 
-window.onload = function() {
+  // Events
   $('form#perform').submit(function(event) {
     event.preventDefault()
     eventViews.startPerformance(
@@ -31,10 +31,48 @@ window.onload = function() {
     )
   })
 
+  // Routing
+  page.base('/pages')
+
+  page.redirect('/', '/about')
+  page('/about', function() {
+    $('.page').fadeOut(function() {
+      $('#about').fadeIn()
+    })
+  })
+
+  page('/live', function() {
+    $('.page').fadeOut(function() {
+      $('#comingSoon').fadeIn()
+    })
+  })
+
+  page('/archive', function() {
+    $('.page').fadeOut(function() {
+      $('#comingSoon').fadeIn()
+    })
+  })
+
+  page('/demo', function() {
+    $('.page').fadeOut(function() {
+      $('#comingSoon').fadeIn()
+    })
+  })
+
+  page('*', function() {
+    $('.page').fadeOut(function() {
+      $('#notFound').fadeIn()
+    })
+  })
+
+  page.start()
+
+  // Loading
   async.series([
     _.bind(tubeModels.load, tubeModels)
   ], function(err) {
     if (err) throw err
     tubeViews.render()
   })
-}
+
+})

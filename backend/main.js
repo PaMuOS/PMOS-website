@@ -6,6 +6,7 @@ var path = require('path')
   , mongoose = require('mongoose')
   , express = require('express')
   , bodyParser = require('body-parser')
+  , mustacheExpress = require('mustache-express')
   , serveStatic = require('serve-static')
   , clc = require('cli-color')
   , websockets = require('./src/websockets')
@@ -21,7 +22,20 @@ var start = exports.start = function(config, done) {
   // Configure express app
   app.set('port', config.web.port)
   app.use(bodyParser.json())
-  app.use('/', serveStatic(config.web.rootPath))
+  app.engine('mustache', mustacheExpress())
+  app.set('view engine', 'mustache')
+  app.set('views', path.resolve(__dirname, '..', 'frontend', 'templates'))
+
+  // Setup other routes
+  app.route(/^\/pages(\/|(\/\w+))?$/).get(function(req, res) {
+    res.render('index')
+  })
+
+  // Setup static routes
+  app.use('/css', serveStatic(path.join(config.web.rootPath, 'css')))
+  app.use('/data', serveStatic(path.join(config.web.rootPath, 'data')))
+  app.use('/js', serveStatic(path.join(config.web.rootPath, 'js')))
+
   views.declare(app, config.api)
 
   // Start everything

@@ -18406,13 +18406,15 @@ return jQuery;
 var querystring = require('querystring')
   , _ = require('underscore')
   , async = require('async')
-  , debug = require('debug') 
+  , debug = require('debug')
+  , page = require('page') 
   , tubeViews = require('./src/tubes/views')
   , tubeModels = require('./src/tubes/models')
   , eventViews = require('./src/events/views')
   , websocket = require('./src/websocket')
   , config = require('./config')
 debug.enable('*')
+
 websocket.start(_.pick(config.web, ['port', 'hostname', 'reconnectTime']), function(err) {
   if (err) {
     alert('Couldn\'t connect to the server')
@@ -18420,13 +18422,12 @@ websocket.start(_.pick(config.web, ['port', 'hostname', 'reconnectTime']), funct
   }
 })
 
-websocket.events.on('connected', function() {
-})
+websocket.events.on('connected', function() {})
+websocket.events.on('connection lost', function() {})
 
-websocket.events.on('connection lost', function() {
-})
+$(function() {
 
-window.onload = function() {
+  // Events
   $('form#perform').submit(function(event) {
     event.preventDefault()
     eventViews.startPerformance(
@@ -18435,15 +18436,53 @@ window.onload = function() {
     )
   })
 
+  // Routing
+  page.base('/pages')
+
+  page.redirect('/', '/about')
+  page('/about', function() {
+    $('.page').fadeOut(function() {
+      $('#about').fadeIn()
+    })
+  })
+
+  page('/live', function() {
+    $('.page').fadeOut(function() {
+      $('#comingSoon').fadeIn()
+    })
+  })
+
+  page('/archive', function() {
+    $('.page').fadeOut(function() {
+      $('#comingSoon').fadeIn()
+    })
+  })
+
+  page('/demo', function() {
+    $('.page').fadeOut(function() {
+      $('#comingSoon').fadeIn()
+    })
+  })
+
+  page('*', function() {
+    $('.page').fadeOut(function() {
+      $('#notFound').fadeIn()
+    })
+  })
+
+  page.start()
+
+  // Loading
   async.series([
     _.bind(tubeModels.load, tubeModels)
   ], function(err) {
     if (err) throw err
     tubeViews.render()
   })
-}
-},{"./config":2,"./src/events/views":4,"./src/tubes/models":5,"./src/tubes/views":6,"./src/websocket":7,"async":8,"debug":14,"querystring":13,"underscore":17}],2:[function(require,module,exports){
-module.exports = {
+
+})
+},{"./config":2,"./src/events/views":4,"./src/tubes/models":5,"./src/tubes/views":6,"./src/websocket":7,"async":8,"debug":14,"page":17,"querystring":13,"underscore":20}],2:[function(require,module,exports){
+var config = module.exports = {
   
   performance: {
     granularity: 500, // milliseconds
@@ -18461,27 +18500,55 @@ module.exports = {
   },
 
   web: {
-    hostname: window.location.hostname,
-    port: window.location.port,
-    reconnectTime: 2000
+    hostname: typeof window !== 'undefined' ? window.location.hostname : 'localhost',
+    port: typeof window !== 'undefined' ? window.location.port : 8000,
+    reconnectTime: 2000,
+    apiRoot: '/',
+    dataRoot: '/data'
   }
 }
-
 },{}],3:[function(require,module,exports){
-var _ = require('underscore')
-  , querystring = require('querystring')
+var querystring = require('querystring')
+  , _ = require('underscore')
+  , urljoin = require('url-join')
+  , debug = require('debug')('events.models')
+  , config = require('../../config')
 
 // Load events between the dates `fromTime` and `toTime` and calls
 // `done(err, events)`. Dates must be given as timestamps.
 exports.load = function(fromTime, toTime, done) {
-  var url = '/replay/?' + querystring.stringify({
+  var url = urljoin(config.web.apiRoot, 'replay?') + querystring.stringify({
     fromTime: fromTime,
     toTime: toTime
   })
-  $.getJSON(url, function(events) { done(null, events) })
+  $.getJSON(url, function(events) {
+    if (events.length) lastEvent = _.last(events)
+    done(null, events)
+  })
 }
 
-},{"querystring":13,"underscore":17}],4:[function(require,module,exports){
+// Load next batch of events. This requires `load` to be called first in order
+// to initialize the pagination.
+exports.next = function(done) {
+  if (!lastEvent) {
+    debug('warning : `next` called while there is no previous events')
+    return done(null, [])
+  }
+
+  var url = urljoin(config.web.apiRoot, 'replay?') + querystring.stringify({
+    _id: lastEvent._id,
+    fromTime: lastEvent.timestamp
+  })
+
+  $.getJSON(url, function(events) {
+    if (events.length) lastEvent = _.last(events)
+    done(null, events)
+  })
+}
+
+// Remember the last event received for pagination
+var lastEvent = null
+},{"../../config":2,"debug":14,"querystring":13,"underscore":20,"url-join":21}],4:[function(require,module,exports){
 var _ = require('underscore')
   , async = require('async')
   , debug = require('debug')('events.views')
@@ -18558,20 +18625,23 @@ _.extend(Performance.prototype, {
 
 })
 
-},{"../../config":2,"../events/models":3,"./views":4,"async":8,"debug":14,"underscore":17}],5:[function(require,module,exports){
+},{"../../config":2,"../events/models":3,"./views":4,"async":8,"debug":14,"underscore":20}],5:[function(require,module,exports){
 var _ = require('underscore')
+  , urljoin = require('url-join')
   , debug = require('debug')('tubes.models')
   , config = require('../../config')
 
+// Load the all the tubes from the XML file in config.
+// Tubes are loaded to `models.all`
 exports.load = function(done) {
-  $.get('/data/tubes.xml', function(data) {
+  $.get(urljoin(config.web.dataRoot, 'tubes.xml'), function(data) {
     exports.all = $(data).find('tube').map(function(i, tube) {
       tube = $(tube)
-      var id = parseInt(tube.find('num').text())
+      var num = parseInt(tube.find('num').text())
         , x = parseFloat(tube.find('x').text())
         , y = parseFloat(tube.find('y').text())
         , diameter = parseFloat(tube.find('diameter').text()) * config.tubes.diameterScale
-      return { id: id, diameter: diameter, x: x, y: y }
+      return { num: num, diameter: diameter, x: x, y: y }
     })
     debug('loaded')
 
@@ -18580,18 +18650,18 @@ exports.load = function(done) {
 }
 
 exports.all = []
-},{"../../config":2,"debug":14,"underscore":17}],6:[function(require,module,exports){
+},{"../../config":2,"debug":14,"underscore":20,"url-join":21}],6:[function(require,module,exports){
 var _ = require('underscore')
   , tubeModels = require('./models')
   , debug = require('debug')('tubes.views')
   , config = require('../../config')
 
-// TODO tests
+// This performs a list of events, putting the tubes on and off accordingly.
 exports.perform = function(events) {
   // Tubes can have only one state at the time, so if several events
   // on the same tube, we keep only the last event.
   var compressed = {}
-  events = _.sortBy(events, function(event) { return event.datetime })
+  events = _.sortBy(events, function(event) { return event.timestamp })
   _.forEach(events, function(event) {
     compressed[event.num] = event
   })
@@ -18599,22 +18669,16 @@ exports.perform = function(events) {
 
   // For all events, set the corresponding tube to idle or playing
   events.forEach(function(event) {
-    if (event.frequency) setPlaying(event.channel, event.num)
-    else setIdle(event.channel)
+    if (event.frequency) exports.setPlaying(event.channel, event.num)
+    else exports.setIdle(event.num)
   })
 
   // All other tubes are set to idle
   var otherTubes = _.difference(
-    _.pluck(events, 'num'), 
-    _.pluck(tubeModels.all, 'id')
+    _.pluck(tubeModels.all, 'num'),
+    _.pluck(events, 'num')
   )
-  _.forEach(otherTubes, function(num) { setIdle(num) })
-}
-
-exports.setAllIdle = function() {
-  d3.selectAll('circle.tube')
-    .classed('idle', true)
-    .attr('fill', 'none') 
+  _.forEach(otherTubes, function(num) { exports.setIdle(num) })
 }
 
 // Create all the tube views. Must be called after the tube models have been fetched.
@@ -18652,19 +18716,25 @@ exports.render = function() {
   debug('initialized')
 }
 
-var setPlaying = function(channel, num) {
+exports.setPlaying = function(channel, num) {
   d3.selectAll('circle.tube').filter(function(d) { return d.id === num })
     .classed('idle', false)
     .attr('fill', config.performance.channels[channel].color)
 }
 
-var setIdle = function(num) {
+exports.setIdle = function(num) {
   d3.selectAll('circle.tube').filter(function(d) { return d.id === num })
     .classed('idle', true)
     .attr('fill', 'none')
 }
-},{"../../config":2,"./models":5,"debug":14,"underscore":17}],7:[function(require,module,exports){
-var EventEmitter = require('events')
+
+exports.setAllIdle = function() {
+  d3.selectAll('circle.tube')
+    .classed('idle', true)
+    .attr('fill', 'none') 
+}
+},{"../../config":2,"./models":5,"debug":14,"underscore":20}],7:[function(require,module,exports){
+var EventEmitter = require('events').EventEmitter
   , WebSocket = require('ws')
   , debug = require('debug')('websocket')
 
@@ -18675,6 +18745,7 @@ var socketEmitter = new EventEmitter()
 // Events :
 // 'connected' : emitted when socket connection got opened or re-opened
 // 'connection lost' : emitted when connection lost
+// 'message' : emitted when message received
 exports.events = new EventEmitter()
 
 // Starts the websocket client and calls `done(err)`
@@ -18689,6 +18760,11 @@ exports.start = function(config, done) {
     exports.events.emit('connection lost')
     reconnect()
   })
+
+  // Parse and emit messages
+  socketEmitter.on('message', function(e) {
+    exports.events.emit('message', JSON.parse(e.data))
+  })
 }
 
 // Connects to the server and calls `done(err)`
@@ -18696,7 +18772,7 @@ var connect = function(done) {
   debug('connecting ...')
   socket = new WebSocket('ws://' + savedConfig.hostname + ':' + savedConfig.port)
   socket.onopen = function() { socketEmitter.emit('open') }
-  socket.onmessage = function(msg, flags) { socketEmitter.emit('message', JSON.parse(msg)) }
+  socket.onmessage = function(msg, flags) { socketEmitter.emit('message', msg) }
   socket.onclose = function() { socketEmitter.emit('close') }
   socket.onerror = function(err) { socketEmitter.emit('error', err) }
 
@@ -18722,7 +18798,7 @@ var reconnect = function() {
     connect(function(err) { if (err) reconnect() })
   }, savedConfig.reconnectTime)
 }
-},{"debug":14,"events":9,"ws":18}],8:[function(require,module,exports){
+},{"debug":14,"events":9,"ws":22}],8:[function(require,module,exports){
 (function (process){
 /*!
  * async
@@ -20881,6 +20957,720 @@ function plural(ms, n, name) {
 }
 
 },{}],17:[function(require,module,exports){
+  /* globals require, module */
+
+/**
+   * Module dependencies.
+   */
+
+  var pathtoRegexp = require('path-to-regexp');
+
+  /**
+   * Module exports.
+   */
+
+  module.exports = page;
+
+  /**
+   * To work properly with the URL
+   * history.location generated polyfill in https://github.com/devote/HTML5-History-API
+   */
+
+  var location = window.history.location || window.location;
+
+  /**
+   * Perform initial dispatch.
+   */
+
+  var dispatch = true;
+
+  /**
+   * Base path.
+   */
+
+  var base = '';
+
+  /**
+   * Running flag.
+   */
+
+  var running;
+
+  /**
+  * HashBang option
+  */
+
+  var hashbang = false;
+
+  /**
+   * Previous context, for capturing
+   * page exit events.
+   */
+
+  var prevContext;
+
+  /**
+   * Register `path` with callback `fn()`,
+   * or route `path`, or redirection,
+   * or `page.start()`.
+   *
+   *   page(fn);
+   *   page('*', fn);
+   *   page('/user/:id', load, user);
+   *   page('/user/' + user.id, { some: 'thing' });
+   *   page('/user/' + user.id);
+   *   page('/from', '/to')
+   *   page();
+   *
+   * @param {String|Function} path
+   * @param {Function} fn...
+   * @api public
+   */
+
+  function page(path, fn) {
+    // <callback>
+    if ('function' === typeof path) {
+      return page('*', path);
+    }
+
+    // route <path> to <callback ...>
+    if ('function' === typeof fn) {
+      var route = new Route(path);
+      for (var i = 1; i < arguments.length; ++i) {
+        page.callbacks.push(route.middleware(arguments[i]));
+      }
+    // show <path> with [state]
+    } else if ('string' == typeof path) {
+      'string' === typeof fn
+        ? page.redirect(path, fn)
+        : page.show(path, fn);
+    // start [options]
+    } else {
+      page.start(path);
+    }
+  }
+
+  /**
+   * Callback functions.
+   */
+
+  page.callbacks = [];
+  page.exits = [];
+
+  /**
+   * Get or set basepath to `path`.
+   *
+   * @param {String} path
+   * @api public
+   */
+
+  page.base = function(path){
+    if (0 === arguments.length) return base;
+    base = path;
+  };
+
+  /**
+   * Bind with the given `options`.
+   *
+   * Options:
+   *
+   *    - `click` bind to click events [true]
+   *    - `popstate` bind to popstate [true]
+   *    - `dispatch` perform initial dispatch [true]
+   *
+   * @param {Object} options
+   * @api public
+   */
+
+  page.start = function(options){
+    options = options || {};
+    if (running) return;
+    running = true;
+    if (false === options.dispatch) dispatch = false;
+    if (false !== options.popstate) window.addEventListener('popstate', onpopstate, false);
+    if (false !== options.click) window.addEventListener('click', onclick, false);
+    if (true === options.hashbang) hashbang = true;
+    if (!dispatch) return;
+    var url = (hashbang && ~location.hash.indexOf('#!'))
+      ? location.hash.substr(2) + location.search
+      : location.pathname + location.search + location.hash;
+    page.replace(url, null, true, dispatch);
+  };
+
+  /**
+   * Unbind click and popstate event handlers.
+   *
+   * @api public
+   */
+
+  page.stop = function(){
+    if (!running) return;
+    running = false;
+    window.removeEventListener('click', onclick, false);
+    window.removeEventListener('popstate', onpopstate, false);
+  };
+
+  /**
+   * Show `path` with optional `state` object.
+   *
+   * @param {String} path
+   * @param {Object} state
+   * @param {Boolean} dispatch
+   * @return {Context}
+   * @api public
+   */
+
+  page.show = function(path, state, dispatch){
+    var ctx = new Context(path, state);
+    if (false !== dispatch) page.dispatch(ctx);
+    if (false !== ctx.handled) ctx.pushState();
+    return ctx;
+  };
+
+  /**
+   * Register route to redirect from one path to other
+   * or just redirect to another route
+   *
+   * @param {String} from - if param 'to' is undefined redirects to 'from'
+   * @param {String} [to]
+   * @api public
+   */
+  page.redirect = function(from, to) {
+    // Define route from a path to another
+    if ('string' === typeof from && 'string' === typeof to) {
+      page(from, function (e) {
+        setTimeout(function() {
+          page.replace(to);
+        },0);
+      });
+    }
+
+    // Wait for the push state and replace it with another
+    if('string' === typeof from && 'undefined' === typeof to) {
+      setTimeout(function() {
+          page.replace(from);
+      },0);
+    }
+  };
+
+  /**
+   * Replace `path` with optional `state` object.
+   *
+   * @param {String} path
+   * @param {Object} state
+   * @return {Context}
+   * @api public
+   */
+
+  page.replace = function(path, state, init, dispatch){
+    var ctx = new Context(path, state);
+    ctx.init = init;
+    ctx.save(); // save before dispatching, which may redirect
+    if (false !== dispatch) page.dispatch(ctx);
+    return ctx;
+  };
+
+  /**
+   * Dispatch the given `ctx`.
+   *
+   * @param {Object} ctx
+   * @api private
+   */
+
+  page.dispatch = function(ctx){
+    var prev = prevContext;
+    var i = 0;
+    var j = 0;
+
+    prevContext = ctx;
+
+    function nextExit() {
+      var fn = page.exits[j++];
+      if (!fn) return nextEnter();
+      fn(prev, nextExit);
+    }
+
+    function nextEnter() {
+      var fn = page.callbacks[i++];
+      if (!fn) return unhandled(ctx);
+      fn(ctx, nextEnter);
+    }
+
+    if (prev) {
+      nextExit();
+    } else {
+      nextEnter();
+    }
+  };
+
+  /**
+   * Unhandled `ctx`. When it's not the initial
+   * popstate then redirect. If you wish to handle
+   * 404s on your own use `page('*', callback)`.
+   *
+   * @param {Context} ctx
+   * @api private
+   */
+
+  function unhandled(ctx) {
+    if (ctx.handled) return;
+    var current;
+
+    if (hashbang) {
+      current = base + location.hash.replace('#!','');
+    } else {
+      current = location.pathname + location.search;
+    }
+
+    if (current === ctx.canonicalPath) return;
+    page.stop();
+    ctx.handled = false;
+    location.href = ctx.canonicalPath;
+  }
+
+  /**
+   * Register an exit route on `path` with
+   * callback `fn()`, which will be called
+   * on the previous context when a new
+   * page is visited.
+   */
+  page.exit = function(path, fn) {
+    if (typeof path == 'function') {
+      return page.exit('*', path);
+    };
+
+    var route = new Route(path);
+    for (var i = 1; i < arguments.length; ++i) {
+      page.exits.push(route.middleware(arguments[i]));
+    }
+  };
+
+  /**
+  * Remove URL encoding from the given `str`.
+  * Accommodates whitespace in both x-www-form-urlencoded
+  * and regular percent-encoded form.
+  *
+  * @param {str} URL component to decode
+  */
+  function decodeURLEncodedURIComponent(str) {
+    return decodeURIComponent(str.replace(/\+/g, ' '));
+  }
+
+  /**
+   * Initialize a new "request" `Context`
+   * with the given `path` and optional initial `state`.
+   *
+   * @param {String} path
+   * @param {Object} state
+   * @api public
+   */
+
+  function Context(path, state) {
+    path = decodeURLEncodedURIComponent(path);
+    if ('/' === path[0] && 0 !== path.indexOf(base)) path = base + path;
+    var i = path.indexOf('?');
+
+    this.canonicalPath = path;
+    this.path = path.replace(base, '') || '/';
+
+    this.title = document.title;
+    this.state = state || {};
+    this.state.path = path;
+    this.querystring = ~i
+      ? path.slice(i + 1)
+      : '';
+    this.pathname = ~i
+      ? path.slice(0, i)
+      : path;
+    this.params = [];
+
+    // fragment
+    this.hash = '';
+    if (!~this.path.indexOf('#')) return;
+    var parts = this.path.split('#');
+    this.path = parts[0];
+    this.hash = parts[1] || '';
+    this.querystring = this.querystring.split('#')[0];
+  }
+
+  /**
+   * Expose `Context`.
+   */
+
+  page.Context = Context;
+
+  /**
+   * Push state.
+   *
+   * @api private
+   */
+
+  Context.prototype.pushState = function(){
+    history.pushState(this.state
+      , this.title
+      , hashbang && this.path !== '/'
+        ? '#!' + this.path
+        : this.canonicalPath);
+  };
+
+  /**
+   * Save the context state.
+   *
+   * @api public
+   */
+
+  Context.prototype.save = function(){
+    history.replaceState(this.state
+      , this.title
+      , hashbang && this.path !== '/'
+        ? '#!' + this.path
+        : this.canonicalPath);
+  };
+
+  /**
+   * Initialize `Route` with the given HTTP `path`,
+   * and an array of `callbacks` and `options`.
+   *
+   * Options:
+   *
+   *   - `sensitive`    enable case-sensitive routes
+   *   - `strict`       enable strict matching for trailing slashes
+   *
+   * @param {String} path
+   * @param {Object} options.
+   * @api private
+   */
+
+  function Route(path, options) {
+    options = options || {};
+    this.path = (path === '*') ? '(.*)' : path;
+    this.method = 'GET';
+    this.regexp = pathtoRegexp(this.path,
+      this.keys = [],
+      options.sensitive,
+      options.strict);
+  }
+
+  /**
+   * Expose `Route`.
+   */
+
+  page.Route = Route;
+
+  /**
+   * Return route middleware with
+   * the given callback `fn()`.
+   *
+   * @param {Function} fn
+   * @return {Function}
+   * @api public
+   */
+
+  Route.prototype.middleware = function(fn){
+    var self = this;
+    return function(ctx, next){
+      if (self.match(ctx.path, ctx.params)) return fn(ctx, next);
+      next();
+    };
+  };
+
+  /**
+   * Check if this route matches `path`, if so
+   * populate `params`.
+   *
+   * @param {String} path
+   * @param {Array} params
+   * @return {Boolean}
+   * @api private
+   */
+
+  Route.prototype.match = function(path, params){
+    var keys = this.keys,
+        qsIndex = path.indexOf('?'),
+        pathname = ~qsIndex
+          ? path.slice(0, qsIndex)
+          : path,
+        m = this.regexp.exec(decodeURIComponent(pathname));
+
+    if (!m) return false;
+
+    for (var i = 1, len = m.length; i < len; ++i) {
+      var key = keys[i - 1];
+
+      var val = 'string' === typeof m[i]
+        ? decodeURIComponent(m[i])
+        : m[i];
+
+      if (key) {
+        params[key.name] = undefined !== params[key.name]
+          ? params[key.name]
+          : val;
+      } else {
+        params.push(val);
+      }
+    }
+
+    return true;
+  };
+
+  /**
+   * Handle "populate" events.
+   */
+
+  function onpopstate(e) {
+    if (e.state) {
+      var path = e.state.path;
+      page.replace(path, e.state);
+    }
+  }
+
+  /**
+   * Handle "click" events.
+   */
+
+  function onclick(e) {
+    if (1 != which(e)) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+    if (e.defaultPrevented) return;
+
+    // ensure link
+    var el = e.target;
+    while (el && 'A' != el.nodeName) el = el.parentNode;
+    if (!el || 'A' != el.nodeName) return;
+
+    // Ignore if tag has a "download" attribute
+    if (el.getAttribute("download")) return;
+
+    // ensure non-hash for the same path
+    var link = el.getAttribute('href');
+    if (el.pathname === location.pathname && (el.hash || '#' === link)) return;
+
+    // Check for mailto: in the href
+    if (link && link.indexOf("mailto:") > -1) return;
+
+    // check target
+    if (el.target) return;
+
+    // x-origin
+    if (!sameOrigin(el.href)) return;
+
+    // rebuild path
+    var path = el.pathname + el.search + (el.hash || '');
+
+    // same page
+    var orig = path;
+
+    path = path.replace(base, '');
+
+    if (base && orig === path) return;
+
+    e.preventDefault();
+    page.show(orig);
+  }
+
+  /**
+   * Event button.
+   */
+
+  function which(e) {
+    e = e || window.event;
+    return null === e.which
+      ? e.button
+      : e.which;
+  }
+
+  /**
+   * Check if `href` is the same origin.
+   */
+
+  function sameOrigin(href) {
+    var origin = location.protocol + '//' + location.hostname;
+    if (location.port) origin += ':' + location.port;
+    return (href && (0 === href.indexOf(origin)));
+  }
+
+  page.sameOrigin = sameOrigin;
+
+},{"path-to-regexp":18}],18:[function(require,module,exports){
+var isArray = require('isarray');
+
+/**
+ * Expose `pathtoRegexp`.
+ */
+module.exports = pathtoRegexp;
+
+/**
+ * The main path matching regexp utility.
+ *
+ * @type {RegExp}
+ */
+var PATH_REGEXP = new RegExp([
+  // Match already escaped characters that would otherwise incorrectly appear
+  // in future matches. This allows the user to escape special characters that
+  // shouldn't be transformed.
+  '(\\\\.)',
+  // Match Express-style parameters and un-named parameters with a prefix
+  // and optional suffixes. Matches appear as:
+  //
+  // "/:test(\\d+)?" => ["/", "test", "\d+", undefined, "?"]
+  // "/route(\\d+)" => [undefined, undefined, undefined, "\d+", undefined]
+  '([\\/.])?(?:\\:(\\w+)(?:\\(((?:\\\\.|[^)])*)\\))?|\\(((?:\\\\.|[^)])*)\\))([+*?])?',
+  // Match regexp special characters that should always be escaped.
+  '([.+*?=^!:${}()[\\]|\\/])'
+].join('|'), 'g');
+
+/**
+ * Escape the capturing group by escaping special characters and meaning.
+ *
+ * @param  {String} group
+ * @return {String}
+ */
+function escapeGroup (group) {
+  return group.replace(/([=!:$\/()])/g, '\\$1');
+}
+
+/**
+ * Attach the keys as a property of the regexp.
+ *
+ * @param  {RegExp} re
+ * @param  {Array}  keys
+ * @return {RegExp}
+ */
+function attachKeys (re, keys) {
+  re.keys = keys;
+
+  return re;
+};
+
+/**
+ * Normalize the given path string, returning a regular expression.
+ *
+ * An empty array should be passed in, which will contain the placeholder key
+ * names. For example `/user/:id` will then contain `["id"]`.
+ *
+ * @param  {(String|RegExp|Array)} path
+ * @param  {Array}                 keys
+ * @param  {Object}                options
+ * @return {RegExp}
+ */
+function pathtoRegexp (path, keys, options) {
+  if (!isArray(keys)) {
+    options = keys;
+    keys = null;
+  }
+
+  keys = keys || [];
+  options = options || {};
+
+  var strict = options.strict;
+  var end = options.end !== false;
+  var flags = options.sensitive ? '' : 'i';
+  var index = 0;
+
+  if (path instanceof RegExp) {
+    // Match all capturing groups of a regexp.
+    var groups = path.source.match(/\((?!\?)/g);
+
+    // Map all the matches to their numeric indexes and push into the keys.
+    if (groups) {
+      for (var i = 0; i < groups.length; i++) {
+        keys.push({
+          name:      i,
+          delimiter: null,
+          optional:  false,
+          repeat:    false
+        });
+      }
+    }
+
+    // Return the source back to the user.
+    return attachKeys(path, keys);
+  }
+
+  // Map array parts into regexps and return their source. We also pass
+  // the same keys and options instance into every generation to get
+  // consistent matching groups before we join the sources together.
+  if (isArray(path)) {
+    var parts = [];
+
+    for (var i = 0; i < path.length; i++) {
+      parts.push(pathtoRegexp(path[i], keys, options).source);
+    }
+    // Generate a new regexp instance by joining all the parts together.
+    return attachKeys(new RegExp('(?:' + parts.join('|') + ')', flags), keys);
+  }
+
+  // Alter the path string into a usable regexp.
+  path = path.replace(PATH_REGEXP, function (match, escaped, prefix, key, capture, group, suffix, escape) {
+    // Avoiding re-escaping escaped characters.
+    if (escaped) {
+      return escaped;
+    }
+
+    // Escape regexp special characters.
+    if (escape) {
+      return '\\' + escape;
+    }
+
+    var repeat   = suffix === '+' || suffix === '*';
+    var optional = suffix === '?' || suffix === '*';
+
+    keys.push({
+      name:      key || index++,
+      delimiter: prefix || '/',
+      optional:  optional,
+      repeat:    repeat
+    });
+
+    // Escape the prefix character.
+    prefix = prefix ? '\\' + prefix : '';
+
+    // Match using the custom capturing group, or fallback to capturing
+    // everything up to the next slash (or next period if the param was
+    // prefixed with a period).
+    capture = escapeGroup(capture || group || '[^' + (prefix || '\\/') + ']+?');
+
+    // Allow parameters to be repeated more than once.
+    if (repeat) {
+      capture = capture + '(?:' + prefix + capture + ')*';
+    }
+
+    // Allow a parameter to be optional.
+    if (optional) {
+      return '(?:' + prefix + '(' + capture + '))?';
+    }
+
+    // Basic parameter support.
+    return prefix + '(' + capture + ')';
+  });
+
+  // Check whether the path ends in a slash as it alters some match behaviour.
+  var endsWithSlash = path[path.length - 1] === '/';
+
+  // In non-strict mode we allow an optional trailing slash in the match. If
+  // the path to match already ended with a slash, we need to remove it for
+  // consistency. The slash is only valid at the very end of a path match, not
+  // anywhere in the middle. This is important for non-ending mode, otherwise
+  // "/test/" will match "/test//route".
+  if (!strict) {
+    path = (endsWithSlash ? path.slice(0, -2) : path) + '(?:\\/(?=$))?';
+  }
+
+  // In non-ending mode, we need prompt the capturing groups to match as much
+  // as possible by using a positive lookahead for the end or next path segment.
+  if (!end) {
+    path += strict && endsWithSlash ? '' : '(?=\\/|$)';
+  }
+
+  return attachKeys(new RegExp('^' + path + (end ? '$' : ''), flags), keys);
+};
+
+},{"isarray":19}],19:[function(require,module,exports){
+module.exports = Array.isArray || function (arr) {
+  return Object.prototype.toString.call(arr) == '[object Array]';
+};
+
+},{}],20:[function(require,module,exports){
 //     Underscore.js 1.7.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -22297,7 +23087,20 @@ function plural(ms, n, name) {
   }
 }.call(this));
 
-},{}],18:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
+function normalize (str) {
+  return str
+          .replace(/[\/]+/g, '/')
+          .replace(/\/\?/g, '?')
+          .replace(/\/\#/g, '#')
+          .replace(/\:\//g, '://');
+}
+
+module.exports = function () {
+  var joined = [].slice.call(arguments, 0).join('/');
+  return normalize(joined);
+};
+},{}],22:[function(require,module,exports){
 
 /**
  * Module dependencies.

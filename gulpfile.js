@@ -1,13 +1,14 @@
-var gulp = require('gulp')
-  , gutil = require('gulp-util')
+var path = require('path')
   , browserify = require('browserify')
+  , gulp = require('gulp')
+  , gutil = require('gulp-util')
+  , less = require('gulp-less')
   , uglify = require('gulp-uglify')
   , concat = require('gulp-concat')
   , runSequence = require('run-sequence')
   , source = require('vinyl-source-stream')
-  , path = require('path')
 
-var watcher = gulp.watch(['./frontend/*.js', './frontend/src/**/*.js'], ['default'])
+var watcher = gulp.watch(['./frontend/*.js', './frontend/style.less', './frontend/src/**/*.js'], ['default'])
 watcher.on('change', function(event) {
   console.log('File '+event.path+' was '+event.type+', running tasks...')
 })
@@ -40,8 +41,14 @@ gulp.task('uglify', function() {
     .pipe(gulp.dest('./dist/js'))
 })
 
+gulp.task('less', function () {
+  return gulp.src('./frontend/style.less')
+    .pipe(less())
+    .pipe(gulp.dest('./dist/css'))
+})
+
 gulp.task('common', function(done) {
-  runSequence('browserify', 'bundle', done)
+  runSequence('browserify', 'bundle', 'less', done)
 })
 
 gulp.task('default', function(done) {

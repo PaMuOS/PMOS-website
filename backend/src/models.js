@@ -38,13 +38,9 @@ EventSchema.statics.timeline = function(opts, done) {
 
   }).on('close', function() {
     timeline = _.map(timeline, function(cluster) {
-      var timestamps = _.uniq(_.pluck(cluster, 'timestamp'))
-        , avgTimestamp = _.reduce(timestamps, function(sum, timestamp) {
-          return sum + timestamp
-        }, 0) / timestamps.length
       return {
-        timestamp: Math.round(avgTimestamp),  
-        count: _.uniq(_.pluck(cluster, 'channel')).length
+        timestamp: cluster[0].timestamp,
+        count: cluster.length
       }
     })
     done(null, timeline)
