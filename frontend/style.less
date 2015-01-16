@@ -1,6 +1,7 @@
 @titleFont: 'League Gothic';
 @marginLeft: 5%;
 @leftWidth: 27%;
+@paddingBetweenLeftRight: 2em;
 
 body {
   font-family: 'fjordone';
@@ -29,60 +30,73 @@ ul {
   width: @leftWidth;
 }
 
-.center {
+.right {
   float: right;
   width: 100% - @marginLeft - @leftWidth;
 }
 
-#title {
-  color: white;
-  font-family: @titleFont;
-  background-color: black;
-
-  .name {
-    padding: 2.2em 2em 0.5em 0;
-    span {font-size: 2.5em;}
-  }
-
-  .date {
-    background-color: #4c4c4c;
-    text-transform: uppercase;
-    padding: 0.5em 2em 0.5em 0;
-    span{font-size: 1.8em;}
-  }
-
-  .name, .date {
-    padding-left: 2em;
-  }
-
+.clearfix {
+  width: 100%;
+  height: 0;
+  clear: both;
 }
 
-nav {
-  display: inline-block;
-  ul {
-    padding: 3.6em 0 3.6em 1em;
+header {
 
-    li {
-      display: inline;
-      font-family: @titleFont;
-      font-size: 2em;
+  #title {
+    color: white;
+    font-family: @titleFont;
+    background-color: black;
+
+    .name {
+      padding: 2.2em 2em 0.5em 0;
+      span {font-size: 2.5em;}
+    }
+
+    .date {
+      background-color: #4c4c4c;
       text-transform: uppercase;
-      margin-left: 1em;
+      padding: 0.5em 2em 0.5em 0;
+      span{font-size: 1.8em;}
+    }
 
-      a {
-        &:visited {
+    .name, .date {
+      padding-left: 2em;
+    }
+
+  }
+
+  nav {
+    display: inline-block;
+
+    ul {
+      margin-left: @paddingBetweenLeftRight;
+      padding: 3.6em 0;
+
+      li {
+        display: inline;
+        font-family: @titleFont;
+        font-size: 2em;
+        text-transform: uppercase;
+        margin-left: 1em;
+        &:first-child {margin-left: 0.2em;}
+
+        a {
           color: black;
+          &:visited {
+            color: black;
+          }
+          &.active {
+            color: #ff7bac;
+          }
         }
-        &.active {
-          color: #ff7bac;
+        .bullet {
+          color: black;
+          font-size: 35%;
+          position: relative;
+          bottom: 0.8em;
+          right: 0.5em;
         }
-      }
-      .bullet {
-        color: black;
-        font-size: 35%;
-        position: relative;
-        bottom: 0.8em;
-        right: 0.5em;
       }
     }
   }
@@ -90,53 +104,69 @@ nav {
 
 .page {
   display: none;
+}
 
-  &.about {
-    @marginTop: 3em;
 
-    h2, h3 {
-      font-size: 1.5em;
-      font-family: @titleFont;
-      text-transform: uppercase;
-      margin-bottom: 0.4em;
-    }
+#about {
+  @marginTop: 3em;
 
-    &.infos {
-      margin-top: @marginTop;
-
-      .location {
-        float: left;
-        width: 50%;
-      }
-      
-      .openingHours {
-        float: right;
-        width: 50%;
-      }
-    }
-
-    &.sponsors {
-
-    }
-
-    &.text {
-      max-width: 70%;
-      padding-left: 1em;
-      margin-top: @marginTop;
-      padding-bottom: 3em;
-
-      p {
-        margin-bottom: 1em;
-      }
-
-      ul {
-        margin-left: 2em;
-      }
-
-      h3 {
-        margin-top: 2em;
-      }
-    }
-
+  h2, h3 {
+    font-size: 1.5em;
+    font-family: @titleFont;
+    text-transform: uppercase;
+    margin-bottom: 0.4em;
   }
+
+  .infos {
+    margin-top: @marginTop;
+
+    .location {
+      float: left;
+      width: 50%;
+      a {
+        color: black;
+        &:visited { color: black; }
+      }
+    }
+    
+    .openingHours {
+      float: right;
+      width: 50%;
+    }
+  }
+
+  .sponsors {
+    margin-top: 2em;
+    img {
+      height: 3em;
+      padding: 1em 2em 1em 0;
+    }
+  }
+
+  .text {
+    max-width: 65%;
+    margin-top: @marginTop;
+    margin-left: @paddingBetweenLeftRight;
+    padding-bottom: 3em;
+
+    p {
+      margin-bottom: 1em;
+    }
+
+    ul {
+      margin-left: 2em;
+    }
+
+    h3 {
+      margin-top: 2em;
+    }
+  }
+
+}
+
+#comingSoon {
+  font-family: @titleFont;
+  font-size: 3em;
+  text-align: center;
+  margin-top: 3em;
 }

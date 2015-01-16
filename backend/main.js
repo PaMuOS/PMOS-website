@@ -35,6 +35,7 @@ var start = exports.start = function(config, done) {
   app.use('/css', serveStatic(path.join(config.web.rootPath, 'css')))
   app.use('/data', serveStatic(path.join(config.web.rootPath, 'data')))
   app.use('/js', serveStatic(path.join(config.web.rootPath, 'js')))
+  app.use('/images', serveStatic(path.join(config.web.rootPath, 'images')))
 
   views.declare(app, config.api)
 

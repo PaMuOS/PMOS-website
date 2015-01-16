@@ -24,53 +24,65 @@ ul {
   float: left;
   width: 27%;
 }
-.center {
+.right {
   float: right;
   width: 68%;
 }
-#title {
+.clearfix {
+  width: 100%;
+  height: 0;
+  clear: both;
+}
+header #title {
   color: white;
   font-family: 'League Gothic';
   background-color: black;
 }
-#title .name {
+header #title .name {
   padding: 2.2em 2em 0.5em 0;
 }
-#title .name span {
+header #title .name span {
   font-size: 2.5em;
 }
-#title .date {
+header #title .date {
   background-color: #4c4c4c;
   text-transform: uppercase;
   padding: 0.5em 2em 0.5em 0;
 }
-#title .date span {
+header #title .date span {
   font-size: 1.8em;
 }
-#title .name,
-#title .date {
+header #title .name,
+header #title .date {
   padding-left: 2em;
 }
-nav {
+header nav {
   display: inline-block;
 }
-nav ul {
-  padding: 3.6em 0 3.6em 1em;
+header nav ul {
+  margin-left: 2em;
+  padding: 3.6em 0;
 }
-nav ul li {
+header nav ul li {
   display: inline;
   font-family: 'League Gothic';
   font-size: 2em;
   text-transform: uppercase;
   margin-left: 1em;
 }
-nav ul li a:visited {
+header nav ul li:first-child {
+  margin-left: 0.2em;
+}
+header nav ul li a {
   color: black;
 }
-nav ul li a.active {
+header nav ul li a:visited {
+  color: black;
+}
+header nav ul li a.active {
   color: #ff7bac;
 }
-nav ul li .bullet {
+header nav ul li .bullet {
   color: black;
   font-size: 35%;
   position: relative;
@@ -80,36 +92,55 @@ nav ul li .bullet {
 .page {
   display: none;
 }
-.page.about h2,
-.page.about h3 {
+#about h2,
+#about h3 {
   font-size: 1.5em;
   font-family: 'League Gothic';
   text-transform: uppercase;
   margin-bottom: 0.4em;
 }
-.page.about.infos {
+#about .infos {
   margin-top: 3em;
 }
-.page.about.infos .location {
+#about .infos .location {
   float: left;
   width: 50%;
 }
-.page.about.infos .openingHours {
+#about .infos .location a {
+  color: black;
+}
+#about .infos .location a:visited {
+  color: black;
+}
+#about .infos .openingHours {
   float: right;
   width: 50%;
 }
-.page.about.text {
-  max-width: 70%;
-  padding-left: 1em;
+#about .sponsors {
+  margin-top: 2em;
+}
+#about .sponsors img {
+  height: 3em;
+  padding: 1em 2em 1em 0;
+}
+#about .text {
+  max-width: 65%;
   margin-top: 3em;
+  margin-left: 2em;
   padding-bottom: 3em;
 }
-.page.about.text p {
+#about .text p {
   margin-bottom: 1em;
 }
-.page.about.text ul {
+#about .text ul {
   margin-left: 2em;
 }
-.page.about.text h3 {
+#about .text h3 {
   margin-top: 2em;
+}
+#comingSoon {
+  font-family: 'League Gothic';
+  font-size: 3em;
+  text-align: center;
+  margin-top: 3em;
 }

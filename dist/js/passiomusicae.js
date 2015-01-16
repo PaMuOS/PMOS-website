@@ -18436,6 +18436,15 @@ $(function() {
     )
   })
 
+  var fadeAllPages = function(done) {
+    var faded = 0
+      , pageCount = $('.page').length
+    $('.page').fadeOut(function() {
+      faded++
+      if (faded === pageCount) done()
+    })
+  }
+
   // Routing
   page.base('/pages')
 
@@ -18443,17 +18452,15 @@ $(function() {
   page('/about', function() {
     $('nav a').removeClass('active')
     $('nav a[href="./about"]').addClass('active')
-
-    $('.page').fadeOut(function() {
-      $('.page.about').fadeIn()
+    fadeAllPages(function() {
+      $('#about').fadeIn()
     })
   })
 
   page('/live', function() {
     $('nav a').removeClass('active')
     $('nav a[href="./live"]').addClass('active')
-
-    $('.page').fadeOut(function() {
+    fadeAllPages(function() {
       $('#comingSoon').fadeIn()
     })
   })
@@ -18462,7 +18469,7 @@ $(function() {
     $('nav a').removeClass('active')
     $('nav a[href="./archive"]').addClass('active')
 
-    $('.page').fadeOut(function() {
+    fadeAllPages(function() {
       $('#comingSoon').fadeIn()
     })
   })
@@ -18471,13 +18478,13 @@ $(function() {
     $('nav a').removeClass('active')
     $('nav a[href="./demo"]').addClass('active')
 
-    $('.page').fadeOut(function() {
+    fadeAllPages(function() {
       $('#comingSoon').fadeIn()
     })
   })
 
   page('*', function() {
-    $('.page').fadeOut(function() {
+    fadeAllPages(function() {
       $('#notFound').fadeIn()
     })
   })
