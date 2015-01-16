@@ -30,6 +30,7 @@ var start = exports.start = function(config, done) {
   app.route(/^\/pages(\/|(\/\w+))?$/).get(function(req, res) {
     res.render('index')
   })
+  app.get('/', function(req, res) { res.redirect('/pages/') })
 
   // Setup static routes
   app.use('/css', serveStatic(path.join(config.web.rootPath, 'css')))
