@@ -36,24 +36,36 @@ $(function() {
 
   page.redirect('/', '/about')
   page('/about', function() {
+    $('nav a').removeClass('active')
+    $('nav a[href="./about"]').addClass('active')
+
     $('.page').fadeOut(function() {
-      $('#about').fadeIn()
+      $('.page.about').fadeIn()
     })
   })
 
   page('/live', function() {
+    $('nav a').removeClass('active')
+    $('nav a[href="./live"]').addClass('active')
+
     $('.page').fadeOut(function() {
       $('#comingSoon').fadeIn()
     })
   })
 
   page('/archive', function() {
+    $('nav a').removeClass('active')
+    $('nav a[href="./archive"]').addClass('active')
+
     $('.page').fadeOut(function() {
       $('#comingSoon').fadeIn()
     })
   })
 
   page('/demo', function() {
+    $('nav a').removeClass('active')
+    $('nav a[href="./demo"]').addClass('active')
+
     $('.page').fadeOut(function() {
       $('#comingSoon').fadeIn()
     })

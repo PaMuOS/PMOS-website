@@ -1,11 +1,115 @@
 body {
+  font-family: 'fjordone';
+}
+body,
+html,
+h1,
+h2,
+h3,
+p {
   font-size: 14px;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+.left {
+  margin-left: 5%;
+  float: left;
+  width: 27%;
+}
+.center {
+  float: right;
+  width: 68%;
+}
+#title {
+  color: white;
+  font-family: 'League Gothic';
+  background-color: black;
+}
+#title .name {
+  padding: 2.2em 2em 0.5em 0;
+}
+#title .name span {
+  font-size: 2.5em;
+}
+#title .date {
+  background-color: #4c4c4c;
+  text-transform: uppercase;
+  padding: 0.5em 2em 0.5em 0;
+}
+#title .date span {
+  font-size: 1.8em;
+}
+#title .name,
+#title .date {
+  padding-left: 2em;
+}
+nav {
+  display: inline-block;
+}
+nav ul {
+  padding: 3.6em 0 3.6em 1em;
+}
+nav ul li {
+  display: inline;
+  font-family: 'League Gothic';
+  font-size: 2em;
+  text-transform: uppercase;
+  margin-left: 1em;
+}
+nav ul li a:visited {
+  color: black;
+}
+nav ul li a.active {
+  color: #ff7bac;
+}
+nav ul li .bullet {
+  color: black;
+  font-size: 35%;
+  position: relative;
+  bottom: 0.8em;
+  right: 0.5em;
 }
 .page {
   display: none;
 }
-header .title {
-  color: white;
-  font-size: 1em;
+.page.about h2,
+.page.about h3 {
+  font-size: 1.5em;
+  font-family: 'League Gothic';
   text-transform: uppercase;
+  margin-bottom: 0.4em;
+}
+.page.about.infos {
+  margin-top: 3em;
+}
+.page.about.infos .location {
+  float: left;
+  width: 50%;
+}
+.page.about.infos .openingHours {
+  float: right;
+  width: 50%;
+}
+.page.about.text {
+  max-width: 70%;
+  padding-left: 1em;
+  margin-top: 3em;
+  padding-bottom: 3em;
+}
+.page.about.text p {
+  margin-bottom: 1em;
+}
+.page.about.text ul {
+  margin-left: 2em;
+}
+.page.about.text h3 {
+  margin-top: 2em;
 }

@@ -1,20 +1,142 @@
+@titleFont: 'League Gothic';
+@marginLeft: 5%;
+@leftWidth: 27%;
+
 body {
+  font-family: 'fjordone';
+}
+
+body, html, h1, h2, h3, p {
   font-size: 14px;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  &:visited {}
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.left {
+  margin-left: @marginLeft;
+  float: left;
+  width: @leftWidth;
+}
+
+.center {
+  float: right;
+  width: 100% - @marginLeft - @leftWidth;
+}
+
+#title {
+  color: white;
+  font-family: @titleFont;
+  background-color: black;
+
+  .name {
+    padding: 2.2em 2em 0.5em 0;
+    span {font-size: 2.5em;}
+  }
+
+  .date {
+    background-color: #4c4c4c;
+    text-transform: uppercase;
+    padding: 0.5em 2em 0.5em 0;
+    span{font-size: 1.8em;}
+  }
+
+  .name, .date {
+    padding-left: 2em;
+  }
+
+}
+
+nav {
+  display: inline-block;
+  ul {
+    padding: 3.6em 0 3.6em 1em;
+
+    li {
+      display: inline;
+      font-family: @titleFont;
+      font-size: 2em;
+      text-transform: uppercase;
+      margin-left: 1em;
+
+      a {
+        &:visited {
+          color: black;
+        }
+        &.active {
+          color: #ff7bac;
+        }
+      }
+      .bullet {
+        color: black;
+        font-size: 35%;
+        position: relative;
+        bottom: 0.8em;
+        right: 0.5em;
+      }
+    }
+  }
 }
 
 .page {
   display: none;
-}
 
-header {
+  &.about {
+    @marginTop: 3em;
 
-  .title {
-    color: white;
-    font-size: 1em;
-    text-transform: uppercase;
-    .date {
+    h2, h3 {
+      font-size: 1.5em;
+      font-family: @titleFont;
+      text-transform: uppercase;
+      margin-bottom: 0.4em;
+    }
+
+    &.infos {
+      margin-top: @marginTop;
+
+      .location {
+        float: left;
+        width: 50%;
+      }
+      
+      .openingHours {
+        float: right;
+        width: 50%;
+      }
+    }
+
+    &.sponsors {
 
     }
-  }
 
+    &.text {
+      max-width: 70%;
+      padding-left: 1em;
+      margin-top: @marginTop;
+      padding-bottom: 3em;
+
+      p {
+        margin-bottom: 1em;
+      }
+
+      ul {
+        margin-left: 2em;
+      }
+
+      h3 {
+        margin-top: 2em;
+      }
+    }
+
+  }
 }
