@@ -129,7 +129,7 @@ header nav ul li .bullet {
   padding: 1em 2em 1em 0;
 }
 #about .text {
-  max-width: 65%;
+  max-width: 80%;
   margin-top: 3em;
   margin-left: 2em;
   padding-bottom: 3em;
@@ -137,11 +137,17 @@ header nav ul li .bullet {
 #about .text p {
   margin-bottom: 1em;
 }
+#about .text p.emphasis {
+  font-weight: bold;
+}
 #about .text ul {
   margin-left: 2em;
 }
 #about .text h3 {
   margin-top: 2em;
+}
+#about .text img {
+  width: 100%;
 }
 #comingSoon {
   font-family: 'League Gothic';

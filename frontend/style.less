@@ -152,13 +152,16 @@ header {
   }
 
   .text {
-    max-width: 65%;
+    max-width: 80%;
     margin-top: @marginTop;
     margin-left: @paddingBetweenLeftRight;
     padding-bottom: 3em;
 
     p {
       margin-bottom: 1em;
+      &.emphasis {
+        font-weight: bold;
+      }
     }
 
     ul {
@@ -167,6 +170,10 @@ header {
 
     h3 {
       margin-top: 2em;
+    }
+
+    img {
+      width: 100%;
     }
   }
 
