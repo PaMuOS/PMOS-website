@@ -5,6 +5,7 @@ body {
   position: absolute;
   top: 0;
   width: 100%;
+  min-width: 57em;
 }
 body,
 html,
@@ -25,13 +26,15 @@ ul {
   padding: 0;
 }
 .left {
-  margin-left: 5%;
+  margin-left: 4em;
+  display: inline-block;
   float: left;
-  width: 27%;
+  width: 24em;
 }
 .right {
-  float: right;
-  width: 68%;
+  display: inline-block;
+  width: 50%;
+  min-width: 15em;
 }
 .clearfix {
   width: 100%;
@@ -60,9 +63,6 @@ header #title .date span {
 header #title .name,
 header #title .date {
   padding-left: 2em;
-}
-header nav {
-  display: inline-block;
 }
 header nav ul {
   margin-left: 2em;
