@@ -64,9 +64,11 @@ header #title .name,
 header #title .date {
   padding-left: 2em;
 }
-header nav ul {
+header nav {
   margin-left: 2em;
-  padding: 3.6em 0;
+}
+header nav ul {
+  padding-top: 3.5em;
 }
 header nav ul li {
   display: inline;
@@ -94,59 +96,80 @@ header nav ul li .bullet {
   bottom: 0.8em;
   right: 0.5em;
 }
+header nav h2 {
+  font-family: 'League Gothic';
+  font-size: 1.7em;
+  color: #4c4c4c;
+  position: relative;
+  top: 0.2em;
+}
 .page {
   display: none;
 }
-#about h2,
-#about h3 {
+#tubesContainer {
+  display: none;
+  width: 100%;
+  text-align: center;
+  padding-top: 4em;
+}
+#tubesContainer #tubes .tube {
+  fill: none;
+  stroke: black;
+  stroke-width: 1px;
+}
+#tubesContainer #tubes .tube.playing {
+  fill: #ff7bac;
+}
+.main.about h2,
+.main.about h3 {
   font-size: 1.5em;
   font-family: 'League Gothic';
   text-transform: uppercase;
   margin-bottom: 0.4em;
 }
-#about .infos {
+.main.about .infos {
   margin-top: 3em;
 }
-#about .infos .location {
+.main.about .infos .location {
   float: left;
   width: 50%;
 }
-#about .infos .location a {
+.main.about .infos .location a {
   color: black;
 }
-#about .infos .location a:visited {
+.main.about .infos .location a:visited {
   color: black;
 }
-#about .infos .openingHours {
+.main.about .infos .openingHours {
   float: right;
   width: 50%;
 }
-#about .sponsors {
+.main.about .sponsors {
   margin-top: 2em;
 }
-#about .sponsors img {
+.main.about .sponsors img {
   height: 3em;
   padding: 1em 2em 1em 0;
 }
-#about .text {
+.main.about .text {
   max-width: 80%;
   margin-top: 3em;
   margin-left: 2em;
   padding-bottom: 3em;
 }
-#about .text p {
+.main.about .text p {
   margin-bottom: 1em;
 }
-#about .text p.emphasis {
+.main.about .text p.emphasis {
   font-weight: bold;
 }
-#about .text ul {
+.main.about .text ul {
   margin-left: 2em;
 }
-#about .text h3 {
+.main.about .text h3 {
   margin-top: 2em;
 }
-#about .text img {
+.main.about .text img {
   width: 100%;
 }
 #comingSoon {

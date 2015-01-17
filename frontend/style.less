@@ -1,4 +1,6 @@
 @titleFont: 'League Gothic';
+@activePink: #ff7bac;
+@darkGrey: #4c4c4c;
 @marginLeft: 4em;
 @leftWidth: 24em;
 @rightWidth: 15em;
@@ -63,7 +65,7 @@ header {
     }
 
     .date {
-      background-color: #4c4c4c;
+      background-color: @darkGrey;
       text-transform: uppercase;
       padding: 0.5em 2em 0.5em 0;
       span{font-size: 1.8em;}
@@ -76,10 +78,10 @@ header {
   }
 
   nav {
+    margin-left: @paddingBetweenLeftRight;
 
     ul {
-      margin-left: @paddingBetweenLeftRight;
-      padding: 3.6em 0;
+      padding-top: 3.5em;
 
       li {
         display: inline;
@@ -95,7 +97,7 @@ header {
             color: black;
           }
           &.active {
-            color: #ff7bac;
+            color: @activePink;
           }
         }
         .bullet {
@@ -107,6 +109,15 @@ header {
         }
       }
     }
+
+    h2 {
+      font-family: @titleFont;
+      font-size: 1.7em;
+      color: @darkGrey;
+      position: relative;
+      top: 0.2em;
+    }
+
   }
 }
 
@@ -114,8 +125,26 @@ header {
   display: none;
 }
 
+#tubesContainer {
+  display: none;
+  width: 100%;
+  text-align: center;
+  padding-top: 4em;
 
-#about {
+  #tubes {
+    .tube {
+      fill: none;
+      stroke: black;
+      stroke-width: 1px;
+
+      &.playing {
+        fill: @activePink;
+      }
+    }
+  }
+}
+
+.main.about {
   @marginTop: 3em;
 
   h2, h3 {

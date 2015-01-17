@@ -22,15 +22,6 @@ websocket.events.on('connection lost', function() {})
 
 $(function() {
 
-  // Events
-  $('form#perform').submit(function(event) {
-    event.preventDefault()
-    eventViews.startPerformance(
-      +(new Date(this.elements[0].value)),
-      +(new Date(this.elements[1].value))
-    )
-  })
-
   var fadeAllPages = function(done) {
     var faded = 0
       , pageCount = $('.page').length
@@ -47,8 +38,11 @@ $(function() {
   page('/about', function() {
     $('nav a').removeClass('active')
     $('nav a[href="./about"]').addClass('active')
-    fadeAllPages(function() {
-      $('#about').fadeIn()
+    async.parallel([
+      function(next) { $('#tubesContainer').fadeOut(next) },
+      function(next) { fadeAllPages(next) }
+    ], function() {
+      $('.about').fadeIn()
     })
   })
 
@@ -56,16 +50,17 @@ $(function() {
     $('nav a').removeClass('active')
     $('nav a[href="./live"]').addClass('active')
     fadeAllPages(function() {
-      $('#comingSoon').fadeIn()
+      $('#tubesContainer').fadeIn()
+      $('.live').fadeIn()
     })
   })
 
   page('/archive', function() {
     $('nav a').removeClass('active')
     $('nav a[href="./archive"]').addClass('active')
-
     fadeAllPages(function() {
-      $('#comingSoon').fadeIn()
+      $('#tubesContainer').fadeIn()
+      $('.archive').fadeIn()
     })
   })
 
@@ -74,7 +69,8 @@ $(function() {
     $('nav a[href="./demo"]').addClass('active')
 
     fadeAllPages(function() {
-      $('#comingSoon').fadeIn()
+      $('#tubesContainer').fadeIn()
+      $('.demo').fadeIn()
     })
   })
 

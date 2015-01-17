@@ -12,7 +12,7 @@ exports.load = function(done) {
       var num = parseInt(tube.find('num').text())
         , x = parseFloat(tube.find('x').text())
         , y = parseFloat(tube.find('y').text())
-        , diameter = parseFloat(tube.find('diameter').text()) * config.tubes.diameterScale
+        , diameter = parseFloat(tube.find('diameter').text())
       return { num: num, diameter: diameter, x: x, y: y }
     })
     debug('loaded')

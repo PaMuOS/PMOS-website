@@ -31,52 +31,31 @@ exports.perform = function(events) {
 // Create all the tube views. Must be called after the tube models have been fetched.
 exports.render = function() {
   var tubesSvg = d3.select('svg#tubes')
-    , width = tubesSvg.attr('width')
-    , height = tubesSvg.attr('height')
-
-  var scale, hScale
-    , x1s = [], x2s = []
-    , y1s = [], y2s = []
-    , xMin, bbW, yMin, bbH
-
-  _.forEach(tubeModels.all, function(tube) {
-    x1s.push(tube.x - tube.diameter / 2)
-    x2s.push(tube.x + tube.diameter / 2)
-    y1s.push(tube.y - tube.diameter / 2)
-    y2s.push(tube.y + tube.diameter / 2)
-  })
-
-  xMin = _.min(x1s)
-  bbW = _.max(x2s) - xMin
-  yMin = _.min(y1s)
-  bbH = _.max(y2s) - yMin
-  scale = width / bbW
-  height = bbH * scale
+    , width = window.screen.width / 2
+    , height = width / config.tubes.originalRatio
+  tubesSvg.attr('width', width)
   tubesSvg.attr('height', height)
 
   tubesSvg.selectAll('circle.tube').data(tubeModels.all)
-    .enter().append('circle').classed({'tube': true, 'idle': true})
-    .attr('cx', function(t) { return (t.x - xMin) * scale })
-    .attr('cy', function(t) { return (t.y - yMin) * scale })
-    .attr('r', function(t) { return scale * t.diameter / 2 })
+    .enter().append('circle').classed({'tube': true})
+    .attr('cx', function(t) { return t.x * width })
+    .attr('cy', function(t) { return t.y * height })
+    .attr('r', function(t) { return t.diameter * width / config.tubes.originalWidth })
 
-  debug('initialized')
+  debug('rendered')
 }
 
 exports.setPlaying = function(channel, num) {
   d3.selectAll('circle.tube').filter(function(d) { return d.id === num })
-    .classed('idle', false)
-    .attr('fill', config.performance.channels[channel].color)
+    .classed('playing', true)
 }
 
 exports.setIdle = function(num) {
   d3.selectAll('circle.tube').filter(function(d) { return d.id === num })
-    .classed('idle', true)
-    .attr('fill', 'none')
+    .classed('playing', false)
 }
 
 exports.setAllIdle = function() {
   d3.selectAll('circle.tube')
-    .classed('idle', true)
-    .attr('fill', 'none') 
+    .classed('playing', false)
 }

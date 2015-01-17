@@ -12,7 +12,8 @@ var config = module.exports = {
   },
 
   tubes: {
-    diameterScale: 0.002, // Scale the tube diameters
+    originalRatio: 16/9,  // Ratio ratio w/h, original schematics 1280x720
+    originalWidth: 1280
   },
 
   web: {
