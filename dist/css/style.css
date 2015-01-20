@@ -18,6 +18,13 @@ p {
   padding: 0;
   margin: 0;
 }
+h2,
+h3 {
+  font-size: 1.5em;
+  font-family: 'League Gothic';
+  text-transform: uppercase;
+  margin-bottom: 0.4em;
+}
 a {
   text-decoration: none;
 }
@@ -120,56 +127,49 @@ header nav h2 {
 #tubesContainer #tubes .tube.playing {
   fill: #ff7bac;
 }
-.main.about h2,
-.main.about h3 {
-  font-size: 1.5em;
-  font-family: 'League Gothic';
-  text-transform: uppercase;
-  margin-bottom: 0.4em;
-}
-.main.about .infos {
+.main .left .infos {
   margin-top: 3em;
 }
-.main.about .infos .location {
+.main .left .infos .location {
   float: left;
   width: 50%;
 }
-.main.about .infos .location a {
+.main .left .infos .location a {
   color: black;
 }
-.main.about .infos .location a:visited {
+.main .left .infos .location a:visited {
   color: black;
 }
-.main.about .infos .openingHours {
+.main .left .infos .openingHours {
   float: right;
   width: 50%;
 }
-.main.about .sponsors {
+.main .left .sponsors {
   margin-top: 2em;
 }
-.main.about .sponsors img {
+.main .left .sponsors img {
   height: 3em;
   padding: 1em 2em 1em 0;
 }
-.main.about .text {
+.main .text {
   max-width: 80%;
   margin-top: 3em;
   margin-left: 2em;
   padding-bottom: 3em;
 }
-.main.about .text p {
+.main .text p {
   margin-bottom: 1em;
 }
-.main.about .text p.emphasis {
+.main .text p.emphasis {
   font-weight: bold;
 }
-.main.about .text ul {
+.main .text ul {
   margin-left: 2em;
 }
-.main.about .text h3 {
+.main .text h3 {
   margin-top: 2em;
 }
-.main.about .text img {
+.main .text img {
   width: 100%;
 }
 #comingSoon {

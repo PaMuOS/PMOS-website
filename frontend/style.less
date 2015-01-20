@@ -2,6 +2,7 @@
 @activePink: #ff7bac;
 @darkGrey: #4c4c4c;
 @marginLeft: 4em;
+@textBodyMarginTop: 3em;
 @leftWidth: 24em;
 @rightWidth: 15em;
 @paddingBetweenLeftRight: 2em;
@@ -21,6 +22,13 @@ body, html, h1, h2, h3, p {
   font-weight: normal;
   padding: 0;
   margin: 0;
+}
+
+h2, h3 {
+  font-size: 1.5em;
+  font-family: @titleFont;
+  text-transform: uppercase;
+  margin-bottom: 0.4em;
 }
 
 a {
@@ -144,45 +152,40 @@ header {
   }
 }
 
-.main.about {
-  @marginTop: 3em;
+.main { 
+  .left {
 
-  h2, h3 {
-    font-size: 1.5em;
-    font-family: @titleFont;
-    text-transform: uppercase;
-    margin-bottom: 0.4em;
-  }
+    .infos {
+      margin-top: @textBodyMarginTop;
 
-  .infos {
-    margin-top: @marginTop;
-
-    .location {
-      float: left;
-      width: 50%;
-      a {
-        color: black;
-        &:visited { color: black; }
+      .location {
+        float: left;
+        width: 50%;
+        a {
+          color: black;
+          &:visited { color: black; }
+        }
+      }
+      
+      .openingHours {
+        float: right;
+        width: 50%;
       }
     }
-    
-    .openingHours {
-      float: right;
-      width: 50%;
-    }
-  }
 
-  .sponsors {
-    margin-top: 2em;
-    img {
-      height: 3em;
-      padding: 1em 2em 1em 0;
+    .sponsors {
+      margin-top: 2em;
+      img {
+        height: 3em;
+        padding: 1em 2em 1em 0;
+      }
     }
+
   }
 
   .text {
     max-width: 80%;
-    margin-top: @marginTop;
+    margin-top: @textBodyMarginTop;
     margin-left: @paddingBetweenLeftRight;
     padding-bottom: 3em;
 
@@ -205,7 +208,6 @@ header {
       width: 100%;
     }
   }
-
 }
 
 #comingSoon {

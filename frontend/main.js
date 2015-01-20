@@ -74,6 +74,17 @@ $(function() {
     })
   })
 
+  page('/video', function() {
+    $('nav a').removeClass('active')
+    $('nav a[href="./video"]').addClass('active')
+    async.parallel([
+      function(next) { $('#tubesContainer').fadeOut(next) },
+      function(next) { fadeAllPages(next) }
+    ], function() {
+      $('.video').fadeIn()
+    })
+  })
+
   page('*', function() {
     fadeAllPages(function() {
       $('#notFound').fadeIn()
