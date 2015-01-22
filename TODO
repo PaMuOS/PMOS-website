@@ -1,9 +1,8 @@
 frontend
 
-- pagination for events
+- archive mode
 
 backend
 
 - validate the channel for events (only 10 channels)
 - date range for events should maybe be limited. If there is a lot of events in the future ...
-- if no connection on OF side? Store data? Maybe a small local queue
