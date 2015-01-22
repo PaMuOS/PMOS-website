@@ -151,7 +151,7 @@ var createPatch = function() {
       setFrequency: function(f) {
         if (f !== 0) {
           outGain.gain.value = 1
-          filter.frequency.value = f * i
+          filter.frequency.setValueAtTime(f * i, context.currentTime + 0.005)
         } else
           outGain.gain.value = 0
       },

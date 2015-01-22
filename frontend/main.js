@@ -21,6 +21,10 @@ websocket.start(_.pick(config.web, ['port', 'hostname', 'reconnectTime']), funct
 websocket.events.on('connected', function() {})
 websocket.events.on('connection lost', function() {})
 
+websocket.events.on('message', function(event) {
+  tubeViews.perform([event])
+})
+
 $(function() {
 
   var fadeAllPages = function(done) {
@@ -44,6 +48,7 @@ $(function() {
       function(next) { fadeAllPages(next) }
     ], function() {
       $('.about').fadeIn()
+      tubeAudio.stop()
     })
   })
 
@@ -53,6 +58,8 @@ $(function() {
     fadeAllPages(function() {
       $('#tubesContainer').fadeIn()
       $('.live').fadeIn()
+      tubeAudio.start()
+      tubeViews.setPlayable(false)
     })
   })
 
@@ -62,6 +69,8 @@ $(function() {
     fadeAllPages(function() {
       $('#tubesContainer').fadeIn()
       $('.archive').fadeIn()
+      tubeAudio.start()
+      tubeViews.setPlayable(false)
     })
   })
 
@@ -72,6 +81,8 @@ $(function() {
     fadeAllPages(function() {
       $('#tubesContainer').fadeIn()
       $('.demo').fadeIn()
+      tubeAudio.start()
+      tubeViews.setPlayable(true)
     })
   })
 
@@ -83,6 +94,7 @@ $(function() {
       function(next) { fadeAllPages(next) }
     ], function() {
       $('.video').fadeIn()
+      tubeAudio.stop()
     })
   })
 
@@ -101,8 +113,6 @@ $(function() {
   ], function(err) {
     if (err) throw err
     tubeViews.render()
-    tubeAudio.start()
-    tubeViews.setPlayable(true)
   })
 
 })

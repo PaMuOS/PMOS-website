@@ -17,10 +17,7 @@ exports.perform = function(events) {
   events = _.values(compressed)
 
   // For all events, set the corresponding tube to idle or playing
-  events.forEach(function(event) {
-    if (event.frequency) exports.setPlaying(event.channel, event.num)
-    else exports.setIdle(event.num)
-  })
+  events.forEach(performEvent)
 
   // All other tubes are set to idle
   var otherTubes = _.difference(
@@ -28,6 +25,13 @@ exports.perform = function(events) {
     _.pluck(events, 'num')
   )
   _.forEach(otherTubes, function(num) { exports.setIdle(num) })
+}
+
+var performEvent = function(event) {
+  if (event.frequency) exports.setPlaying(event.channel, event.num)
+  else exports.setIdle(event.num)
+  audio.setFrequency(event.channel || 0, event.frequency)
+  audio.setDiameter(event.channel || 0, event.diameter)
 }
 
 // Create all the tube views. Must be called after the tube models have been fetched.
@@ -43,21 +47,14 @@ exports.render = function() {
     .attr('cx', function(t) { return t.x * width })
     .attr('cy', function(t) { return t.y * height })
     .attr('r', function(t) { return t.diameter * width / config.tubes.originalWidth })
-    .on('mousedown', function() { 
+    .on('mouseover', function() { 
       if (isPlayable) {
-        var d = d3.select(this).datum()
-        audio.setFrequency(0, d.frequency)
-        audio.setDiameter(0, d.diameter)
-        setPlaying(0, d.num)
+        performEvent(d3.select(this).datum())
       }
     })
-
-  d3.select('body').on('mouseup', function() { 
-    if (isPlayable) {
-      setAllIdle()
-      audio.setAllIdle()
-    }
-  })
+    .on('mouseout', function() {
+      performEvent(_.extend(d3.select(this).datum(), {frequency: 0}))
+    })
 
   debug('rendered')
 }
@@ -67,7 +64,7 @@ exports.setPlayable = function(val) {
   d3.selectAll('circle.tube').classed('playable', val)
 }
 
-var setPlaying = exports.setPlaying = function(channel, num) {
+exports.setPlaying = function(channel, num) {
   d3.selectAll('circle.tube').filter(function(d) { return d.num === num })
     .classed('playing', true)
 }
@@ -77,7 +74,7 @@ exports.setIdle = function(num) {
     .classed('playing', false)
 }
 
-var setAllIdle = exports.setAllIdle = function() {
+exports.setAllIdle = function() {
   d3.selectAll('circle.tube')
     .classed('playing', false)
 }
