@@ -21,10 +21,6 @@ websocket.start(_.pick(config.web, ['port', 'hostname', 'reconnectTime']), funct
 websocket.events.on('connected', function() {})
 websocket.events.on('connection lost', function() {})
 
-websocket.events.on('message', function(event) {
-  tubeViews.perform([event])
-})
-
 $(function() {
 
   var fadeAllPages = function(done) {
@@ -36,13 +32,19 @@ $(function() {
     })
   }
 
+  var peformLiveEvents = function(event) {
+    tubeViews.perform([event])
+  }
+
   // Routing
   page.base('/pages')
 
   page.redirect('/', '/about')
   page('/about', function() {
+    websocket.events.removeAllListeners('message')
     $('nav a').removeClass('active')
     $('nav a[href="./about"]').addClass('active')
+
     async.parallel([
       function(next) { $('#tubesContainer').fadeOut(next) },
       function(next) { fadeAllPages(next) }
@@ -53,19 +55,24 @@ $(function() {
   })
 
   page('/live', function() {
+    websocket.events.removeAllListeners('message')
     $('nav a').removeClass('active')
     $('nav a[href="./live"]').addClass('active')
+
     fadeAllPages(function() {
       $('#tubesContainer').fadeIn()
       $('.live').fadeIn()
       tubeAudio.start()
       tubeViews.setPlayable(false)
+      websocket.events.on('message', peformLiveEvents)
     })
   })
 
   page('/archive', function() {
+    websocket.events.removeAllListeners('message')
     $('nav a').removeClass('active')
     $('nav a[href="./archive"]').addClass('active')
+
     fadeAllPages(function() {
       $('#tubesContainer').fadeIn()
       $('.archive').fadeIn()
@@ -75,6 +82,7 @@ $(function() {
   })
 
   page('/demo', function() {
+    websocket.events.removeAllListeners('message')
     $('nav a').removeClass('active')
     $('nav a[href="./demo"]').addClass('active')
 
@@ -87,6 +95,7 @@ $(function() {
   })
 
   page('/video', function() {
+    websocket.events.removeAllListeners('message')
     $('nav a').removeClass('active')
     $('nav a[href="./video"]').addClass('active')
     async.parallel([
