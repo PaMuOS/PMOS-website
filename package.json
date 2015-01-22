@@ -42,7 +42,8 @@
     "url-join": "0.0.x",
     "page": "1.5.x",
     "gulp-less": "2.0.x",
-    "mustache-express": "1.2.x"
+    "mustache-express": "1.2.x",
+    "waawhitenoise": "^0.1.0"
   },
   "devDependencies": {
     "pow-mongodb-fixtures": "0.10.x",

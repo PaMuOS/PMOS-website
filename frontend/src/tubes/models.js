@@ -13,7 +13,8 @@ exports.load = function(done) {
         , x = parseFloat(tube.find('x').text())
         , y = parseFloat(tube.find('y').text())
         , diameter = parseFloat(tube.find('diameter').text())
-      return { num: num, diameter: diameter, x: x, y: y }
+        , frequency = parseFloat(tube.find('frequency').text())
+      return { num: num, diameter: diameter, frequency: frequency, x: x, y: y }
     })
     debug('loaded')
 

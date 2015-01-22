@@ -5,6 +5,7 @@ var querystring = require('querystring')
   , page = require('page') 
   , tubeViews = require('./src/tubes/views')
   , tubeModels = require('./src/tubes/models')
+  , tubeAudio = require('./src/tubes/audio')
   , eventViews = require('./src/events/views')
   , websocket = require('./src/websocket')
   , config = require('./config')
@@ -95,10 +96,13 @@ $(function() {
 
   // Loading
   async.series([
-    _.bind(tubeModels.load, tubeModels)
+    _.bind(tubeModels.load, tubeModels),
+    _.bind(tubeAudio.load, tubeAudio),
   ], function(err) {
     if (err) throw err
     tubeViews.render()
+    tubeAudio.start()
+    tubeViews.setPlayable(true)
   })
 
 })

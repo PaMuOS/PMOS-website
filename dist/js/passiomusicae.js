@@ -18410,6 +18410,7 @@ var querystring = require('querystring')
   , page = require('page') 
   , tubeViews = require('./src/tubes/views')
   , tubeModels = require('./src/tubes/models')
+  , tubeAudio = require('./src/tubes/audio')
   , eventViews = require('./src/events/views')
   , websocket = require('./src/websocket')
   , config = require('./config')
@@ -18500,14 +18501,17 @@ $(function() {
 
   // Loading
   async.series([
-    _.bind(tubeModels.load, tubeModels)
+    _.bind(tubeModels.load, tubeModels),
+    _.bind(tubeAudio.load, tubeAudio),
   ], function(err) {
     if (err) throw err
     tubeViews.render()
+    tubeAudio.start()
+    tubeViews.setPlayable(true)
   })
 
 })
-},{"./config":2,"./src/events/views":4,"./src/tubes/models":5,"./src/tubes/views":6,"./src/websocket":7,"async":8,"debug":14,"page":17,"querystring":13,"underscore":20}],2:[function(require,module,exports){
+},{"./config":2,"./src/events/views":4,"./src/tubes/audio":5,"./src/tubes/models":6,"./src/tubes/views":7,"./src/websocket":8,"async":9,"debug":15,"page":18,"querystring":14,"underscore":21}],2:[function(require,module,exports){
 var config = module.exports = {
   
   performance: {
@@ -18575,7 +18579,7 @@ exports.next = function(done) {
 
 // Remember the last event received for pagination
 var lastEvent = null
-},{"../../config":2,"debug":14,"querystring":13,"underscore":20,"url-join":21}],4:[function(require,module,exports){
+},{"../../config":2,"debug":15,"querystring":14,"underscore":21,"url-join":22}],4:[function(require,module,exports){
 var _ = require('underscore')
   , async = require('async')
   , debug = require('debug')('events.views')
@@ -18652,7 +18656,192 @@ _.extend(Performance.prototype, {
 
 })
 
-},{"../../config":2,"../events/models":3,"./views":4,"async":8,"debug":14,"underscore":20}],5:[function(require,module,exports){
+},{"../../config":2,"../events/models":3,"./views":4,"async":9,"debug":15,"underscore":21}],5:[function(require,module,exports){
+var async = require('async')
+  , _ = require('underscore')
+  , WAAWhiteNoise = require('waawhitenoise')
+  , debug = require('debug')('tubes.audio')
+  , patch
+
+/*
+exports.load = function(done) {
+  debug('loading tubes audio ...')
+  async.parallel([
+    function(next) {
+      $.ajax({
+        url: '/data/pd/pink~.pd',
+        success: function(data) { next(null, data) },
+        error: function(xhr) { next(new Error(xhr)) }
+      })
+    },
+    function(next) {
+      $.ajax({
+        url: '/data/pd/main.pd',
+        success: function(data) { next(null, data) },
+        error: function(xhr) { next(new Error(xhr)) }
+      })
+    }
+  ], function(err, patches) {
+    if (err) return done(err)
+    Pd.registerAbstraction('pink~', patches[0])
+    patch = Pd.loadPatch(patches[1])
+    debug('tubes audio loaded')
+    done()
+  })
+}
+
+exports.start = function() {
+  Pd.start()
+
+    window.patch = patch
+    r = patch.objects.filter(function(o) { return o.type === 'receive' })
+    rFreq = r[0]
+    //rFreq.o(0).message([30])
+    dac = patch.objects.filter(function(o) { return o.type === 'dac~' })[0]
+    pink = patch.objects.filter(function(o) { return o.type === 'patch' })[0]
+    vcf = patch.objects.filter(function(o) { return o.type === 'vcf~' })[0]
+    context = Pd._glob.audio.context
+    noise = vcf.i(0).connections[0].obj
+    pdout = Pd._glob.audio.context.destination
+}
+
+exports.stop = function() {
+  Pd.stop()
+}
+*/
+var channels = []
+  , isStarted = false
+  , sinkNode, volumeGain
+  , context
+
+exports.load = function(done) {
+  done()
+}
+
+exports.start = function() {
+  if (!isStarted) {
+    isStarted = true
+    // Creating stuff
+    context = new AudioContext
+    sinkNode = context.createBiquadFilter()
+    volumeGain = context.createGain()
+
+    // Setting parameters
+    volumeGain.gain.value = 10
+    sinkNode.type = 'lowpass'
+    sinkNode.frequency.value = 420
+    
+    // connections
+    sinkNode.connect(volumeGain)
+    volumeGain.connect(context.destination)
+
+    _.range(10).forEach(function() {
+      channels.push(createPatch())
+    })
+  }
+}
+
+exports.stop = function() {
+  if (isStarted) {
+    isStarted = false
+    volumeGain.disconnect()
+    context = null
+  }
+}
+
+exports.setFrequency = function(channel, frequency) {
+  if (isStarted) {
+    channels[channel].setFrequency(frequency)
+  }
+}
+
+exports.setAllIdle = function() {
+  if (isStarted) {
+    channels.forEach(function(channel) {
+      channel.setFrequency(0)
+    })
+  }
+}
+
+exports.setDiameter = function(channel, diameter) {
+  if (isStarted) {
+    channels[channel].setDiameter(diameter)
+  } 
+}
+
+exports.setVolume = function(val) {
+  if (isStarted) {
+    volumeGain.gain.value = 5 + 10 * val
+  } 
+}
+
+var createPatch = function() {
+  var noise = new WAAWhiteNoise(context)
+    , masterGain = context.createGain()
+    , harmonics = []
+    , gains = [1, 0.7, 0.5, 0.4, 0.3, 0.25, 0.2, 0.1]
+    , dGains = [null, 0.005, 0.004, 0.0025, 0.0018, 0.0013, 0.0008, 0.0005]
+  masterGain.gain.value = 1
+  masterGain.connect(sinkNode)
+  noise.start(0)
+
+  // Create all harmonics
+  _.range(8).forEach(function(i) {
+    var harmonicGain = context.createGain()
+      , outGain = context.createGain()
+      , filter = context.createBiquadFilter()
+    
+    // Initialize values
+    harmonicGain.gain.value = gains[i]
+    outGain.gain.value = 1
+    filter.type = 'bandpass'
+    filter.Q.value = 370
+    filter.frequency.value = 0
+
+    // Connections
+    noise.connect(filter)
+    filter.connect(harmonicGain)
+    harmonicGain.connect(outGain)
+    outGain.connect(masterGain)
+
+    harmonics.push({
+      input: filter,
+      output: outGain,
+      setFrequency: function(f) {
+        if (f !== 0) {
+          outGain.gain.value = 1
+          filter.frequency.value = f * i
+        } else
+          outGain.gain.value = 0
+      },
+      setDiameter: function(d) {
+        if (i !== 0)
+          harmonicGain.gain.value = dGains[i] * d
+      }
+    })
+
+  })
+
+  // Patch
+  return {
+    harmonics: harmonics,
+    noise: noise, 
+    output: masterGain,
+    setFrequency: function(f) {
+      this.harmonics.forEach(function(h) {
+        h.setFrequency(f)
+      })
+    },
+    setDiameter: function(d) {
+      d = (50 - d) * 3
+      this.harmonics.forEach(function(h) {
+        h.setDiameter(d)
+      })
+    }
+  }
+
+}
+},{"async":9,"debug":15,"underscore":21,"waawhitenoise":23}],6:[function(require,module,exports){
 var _ = require('underscore')
   , urljoin = require('url-join')
   , debug = require('debug')('tubes.models')
@@ -18668,7 +18857,8 @@ exports.load = function(done) {
         , x = parseFloat(tube.find('x').text())
         , y = parseFloat(tube.find('y').text())
         , diameter = parseFloat(tube.find('diameter').text())
-      return { num: num, diameter: diameter, x: x, y: y }
+        , frequency = parseFloat(tube.find('frequency').text())
+      return { num: num, diameter: diameter, frequency: frequency, x: x, y: y }
     })
     debug('loaded')
 
@@ -18677,11 +18867,13 @@ exports.load = function(done) {
 }
 
 exports.all = []
-},{"../../config":2,"debug":14,"underscore":20,"url-join":21}],6:[function(require,module,exports){
+},{"../../config":2,"debug":15,"underscore":21,"url-join":22}],7:[function(require,module,exports){
 var _ = require('underscore')
   , tubeModels = require('./models')
   , debug = require('debug')('tubes.views')
   , config = require('../../config')
+  , audio = require('./audio')
+  , isPlayable = false
 
 // This performs a list of events, putting the tubes on and off accordingly.
 exports.perform = function(events) {
@@ -18721,25 +18913,45 @@ exports.render = function() {
     .attr('cx', function(t) { return t.x * width })
     .attr('cy', function(t) { return t.y * height })
     .attr('r', function(t) { return t.diameter * width / config.tubes.originalWidth })
+    .on('mousedown', function() { 
+      if (isPlayable) {
+        var d = d3.select(this).datum()
+        audio.setFrequency(0, d.frequency)
+        audio.setDiameter(0, d.diameter)
+        setPlaying(0, d.num)
+      }
+    })
+
+  d3.select('body').on('mouseup', function() { 
+    if (isPlayable) {
+      setAllIdle()
+      audio.setAllIdle()
+    }
+  })
 
   debug('rendered')
 }
 
-exports.setPlaying = function(channel, num) {
-  d3.selectAll('circle.tube').filter(function(d) { return d.id === num })
+exports.setPlayable = function(val) {
+  isPlayable = val
+  d3.selectAll('circle.tube').classed('playable', val)
+}
+
+var setPlaying = exports.setPlaying = function(channel, num) {
+  d3.selectAll('circle.tube').filter(function(d) { return d.num === num })
     .classed('playing', true)
 }
 
 exports.setIdle = function(num) {
-  d3.selectAll('circle.tube').filter(function(d) { return d.id === num })
+  d3.selectAll('circle.tube').filter(function(d) { return d.num === num })
     .classed('playing', false)
 }
 
-exports.setAllIdle = function() {
+var setAllIdle = exports.setAllIdle = function() {
   d3.selectAll('circle.tube')
     .classed('playing', false)
 }
-},{"../../config":2,"./models":5,"debug":14,"underscore":20}],7:[function(require,module,exports){
+},{"../../config":2,"./audio":5,"./models":6,"debug":15,"underscore":21}],8:[function(require,module,exports){
 var EventEmitter = require('events').EventEmitter
   , WebSocket = require('ws')
   , debug = require('debug')('websocket')
@@ -18804,7 +19016,7 @@ var reconnect = function() {
     connect(function(err) { if (err) reconnect() })
   }, savedConfig.reconnectTime)
 }
-},{"debug":14,"events":9,"ws":22}],8:[function(require,module,exports){
+},{"debug":15,"events":10,"ws":25}],9:[function(require,module,exports){
 (function (process){
 /*!
  * async
@@ -19931,7 +20143,7 @@ var reconnect = function() {
 }());
 
 }).call(this,require('_process'))
-},{"_process":10}],9:[function(require,module,exports){
+},{"_process":11}],10:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -20234,7 +20446,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -20322,7 +20534,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -20408,7 +20620,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -20495,13 +20707,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":11,"./encode":12}],14:[function(require,module,exports){
+},{"./decode":12,"./encode":13}],15:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -20650,7 +20862,7 @@ function load() {
 
 exports.enable(load());
 
-},{"./debug":15}],15:[function(require,module,exports){
+},{"./debug":16}],16:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -20849,7 +21061,7 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":16}],16:[function(require,module,exports){
+},{"ms":17}],17:[function(require,module,exports){
 /**
  * Helpers.
  */
@@ -20962,7 +21174,7 @@ function plural(ms, n, name) {
   return Math.ceil(ms / n) + ' ' + name + 's';
 }
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
   /* globals require, module */
 
 /**
@@ -21497,7 +21709,7 @@ function plural(ms, n, name) {
 
   page.sameOrigin = sameOrigin;
 
-},{"path-to-regexp":18}],18:[function(require,module,exports){
+},{"path-to-regexp":19}],19:[function(require,module,exports){
 var isArray = require('isarray');
 
 /**
@@ -21671,12 +21883,12 @@ function pathtoRegexp (path, keys, options) {
   return attachKeys(new RegExp('^' + path + (end ? '$' : ''), flags), keys);
 };
 
-},{"isarray":19}],19:[function(require,module,exports){
+},{"isarray":20}],20:[function(require,module,exports){
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 //     Underscore.js 1.7.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -23093,7 +23305,7 @@ module.exports = Array.isArray || function (arr) {
   }
 }.call(this));
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 function normalize (str) {
   return str
           .replace(/[\/]+/g, '/')
@@ -23106,7 +23318,46 @@ module.exports = function () {
   var joined = [].slice.call(arguments, 0).join('/');
   return normalize(joined);
 };
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
+var WAAWhiteNoise = require('./lib/WAAWhiteNoise')
+module.exports = WAAWhiteNoise
+if (typeof window !== 'undefined') window.WAAWhiteNoise = WAAWhiteNoise
+},{"./lib/WAAWhiteNoise":24}],24:[function(require,module,exports){
+var WAAWhiteNoise = module.exports = function(context) {
+  this.context = context
+
+  // Generate a random buffer
+  this._buffer = context.createBuffer(1, 131072, context.sampleRate)
+  var channelArray = this._buffer.getChannelData(0), i
+  for (i = 0; i < 131072; i++) 
+    channelArray[i] = (Math.random() * 2) - 1
+
+  this._prepareOutput()
+}
+
+WAAWhiteNoise.prototype.connect = function() {
+  this._output.connect.apply(this._output, arguments)
+}
+
+WAAWhiteNoise.prototype.disconnect = function() {
+  this._output.disconnect.apply(this._output, arguments)
+}
+
+WAAWhiteNoise.prototype.start = function() {
+  this._output.start.apply(this._output, arguments)
+}
+
+WAAWhiteNoise.prototype.stop = function() {
+  this._output.stop.apply(this._output, arguments)
+  this._prepareOutput()
+}
+
+WAAWhiteNoise.prototype._prepareOutput = function() {
+  this._output = this.context.createBufferSource()
+  this._output.buffer = this._buffer
+  this._output.loop = true
+}
+},{}],25:[function(require,module,exports){
 
 /**
  * Module dependencies.

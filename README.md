@@ -75,9 +75,11 @@ Timestamps are given in number of milliseconds since EPOCH.
   "x": <x>,
   "y": <y>,
   "num": <num>,
-  "frequency": <frequency>
+  "frequency": <frequency>,
+  "diameter" : <diameter>
 }
 ```
+
 Logs a message from the OF application to the website. Message should be sent as JSON.
 - **channel** : *int*, the user or channel that triggered that event.
 - **timestamp** : *int*, timestamp when the message was created.
@@ -85,3 +87,4 @@ Logs a message from the OF application to the website. Message should be sent as
 - **y** : *float*, y coordinate of the position of the user. 
 - **num** : *int*, the ID of the tube currently activated.
 - **frequency** : *float*, the frequency of the associated synth. The frequency is 0 if no tube is activated.
+- **diameter** : *float*, the diameter of the tube.

@@ -7,7 +7,7 @@ module.exports = {
   web: {
     hostname: 'localhost',
     port: 8000,
-    rootPath: __dirname
+    rootPath: path.resolve(__dirname, '..', '..', '..', '..', 'dist')
   },
   api: {
     pagination: 3 // Number of events returned in each page

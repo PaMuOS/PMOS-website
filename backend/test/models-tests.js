@@ -24,20 +24,4 @@ describe('models', function() {
   })
 
   afterEach(function(done) { models.Event.remove({}, done) })
-
-  describe('timeline', function() {
-
-    it('should create a timeline from the event in database', function(done) {
-      models.Event.timeline({ clusterTime: 2000 }, function(err, timeline) {
-        if (err) throw err
-        assert.deepEqual(timeline, [
-          {timestamp: 2000, count: 3},
-          {timestamp: 4500, count: 1}
-        ])
-        done()
-      })
-    })
-
-  })
-
 })

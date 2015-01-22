@@ -120,9 +120,12 @@ header nav h2 {
   padding-top: 4em;
 }
 #tubesContainer #tubes .tube {
-  fill: none;
+  fill: white;
   stroke: black;
   stroke-width: 1px;
+}
+#tubesContainer #tubes .tube.playable {
+  cursor: pointer;
 }
 #tubesContainer #tubes .tube.playing {
   fill: #ff7bac;

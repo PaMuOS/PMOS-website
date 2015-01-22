@@ -2,6 +2,8 @@ var _ = require('underscore')
   , tubeModels = require('./models')
   , debug = require('debug')('tubes.views')
   , config = require('../../config')
+  , audio = require('./audio')
+  , isPlayable = false
 
 // This performs a list of events, putting the tubes on and off accordingly.
 exports.perform = function(events) {
@@ -41,21 +43,41 @@ exports.render = function() {
     .attr('cx', function(t) { return t.x * width })
     .attr('cy', function(t) { return t.y * height })
     .attr('r', function(t) { return t.diameter * width / config.tubes.originalWidth })
+    .on('mousedown', function() { 
+      if (isPlayable) {
+        var d = d3.select(this).datum()
+        audio.setFrequency(0, d.frequency)
+        audio.setDiameter(0, d.diameter)
+        setPlaying(0, d.num)
+      }
+    })
+
+  d3.select('body').on('mouseup', function() { 
+    if (isPlayable) {
+      setAllIdle()
+      audio.setAllIdle()
+    }
+  })
 
   debug('rendered')
 }
 
-exports.setPlaying = function(channel, num) {
-  d3.selectAll('circle.tube').filter(function(d) { return d.id === num })
+exports.setPlayable = function(val) {
+  isPlayable = val
+  d3.selectAll('circle.tube').classed('playable', val)
+}
+
+var setPlaying = exports.setPlaying = function(channel, num) {
+  d3.selectAll('circle.tube').filter(function(d) { return d.num === num })
     .classed('playing', true)
 }
 
 exports.setIdle = function(num) {
-  d3.selectAll('circle.tube').filter(function(d) { return d.id === num })
+  d3.selectAll('circle.tube').filter(function(d) { return d.num === num })
     .classed('playing', false)
 }
 
-exports.setAllIdle = function() {
+var setAllIdle = exports.setAllIdle = function() {
   d3.selectAll('circle.tube')
     .classed('playing', false)
 }

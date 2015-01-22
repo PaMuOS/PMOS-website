@@ -31,7 +31,8 @@ describe('websockets', function() {
         x: 0.1223,
         y: 0.7,
         num: 54,
-        frequency: 440
+        frequency: 440,
+        diameter: 10
       }
 
     async.series([

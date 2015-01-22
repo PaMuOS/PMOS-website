@@ -53,13 +53,13 @@ describe('views', function() {
         .end(function(err, res) {
           if (err) throw err
           assert.deepEqual(omitId(res.body), [  
-            { timestamp: 1000, channel: 2, x: 0, y: 0, num: 54, frequency: 440 },
-            { timestamp: 1000, channel: 4, x: 0, y: 0, num: 54, frequency: 330 },
-            { timestamp: 1000, channel: 2, x: 0, y: 0, num: 54, frequency: 220 },
-            { timestamp: 2000, channel: 2, x: 0, y: 0, num: 55, frequency: 550 },
-            { timestamp: 3000, channel: 3, x: 0, y: 0, num: 56, frequency: 660 },
-            { timestamp: 4000, channel: 3, x: 0, y: 0, num: 56, frequency: 770 },
-            { timestamp: 5000, channel: 3, x: 0, y: 0, num: 56, frequency: 880 }
+            { timestamp: 1000, channel: 2, x: 0, y: 0, num: 54, frequency: 440, diameter: 10 },
+            { timestamp: 1000, channel: 4, x: 0, y: 0, num: 54, frequency: 330, diameter: 10 },
+            { timestamp: 1000, channel: 2, x: 0, y: 0, num: 54, frequency: 220, diameter: 10 },
+            { timestamp: 2000, channel: 2, x: 0, y: 0, num: 55, frequency: 550, diameter: 10 },
+            { timestamp: 3000, channel: 3, x: 0, y: 0, num: 56, frequency: 660, diameter: 10 },
+            { timestamp: 4000, channel: 3, x: 0, y: 0, num: 56, frequency: 770, diameter: 10 },
+            { timestamp: 5000, channel: 3, x: 0, y: 0, num: 56, frequency: 880, diameter: 10 }
           ])
           done()
         })
@@ -73,8 +73,8 @@ describe('views', function() {
         .end(function(err, res) {
           if (err) throw err
           assert.deepEqual(omitId(res.body), [
-            { timestamp: 2000, channel: 2, x: 0, y: 0, num: 55, frequency: 550 },
-            { timestamp: 3000, channel: 3, x: 0, y: 0, num: 56, frequency: 660 },
+            { timestamp: 2000, channel: 2, x: 0, y: 0, num: 55, frequency: 550, diameter: 10 },
+            { timestamp: 3000, channel: 3, x: 0, y: 0, num: 56, frequency: 660, diameter: 10 },
           ])
           done()
         })
@@ -106,19 +106,19 @@ describe('views', function() {
 
       async.series([
         nextPage([
-          { timestamp: 1000, channel: 2, x: 0, y: 0, num: 54, frequency: 440 },
-          { timestamp: 1000, channel: 4, x: 0, y: 0, num: 54, frequency: 330 }
+          { timestamp: 1000, channel: 2, x: 0, y: 0, num: 54, frequency: 440, diameter: 10 },
+          { timestamp: 1000, channel: 4, x: 0, y: 0, num: 54, frequency: 330, diameter: 10 }
         ]),
         nextPage([
-          { timestamp: 1000, channel: 2, x: 0, y: 0, num: 54, frequency: 220 },
-          { timestamp: 2000, channel: 2, x: 0, y: 0, num: 55, frequency: 550 }
+          { timestamp: 1000, channel: 2, x: 0, y: 0, num: 54, frequency: 220, diameter: 10 },
+          { timestamp: 2000, channel: 2, x: 0, y: 0, num: 55, frequency: 550, diameter: 10 }
         ]),
         nextPage([
-          { timestamp: 3000, channel: 3, x: 0, y: 0, num: 56, frequency: 660 },
-          { timestamp: 4000, channel: 3, x: 0, y: 0, num: 56, frequency: 770 }
+          { timestamp: 3000, channel: 3, x: 0, y: 0, num: 56, frequency: 660, diameter: 10 },
+          { timestamp: 4000, channel: 3, x: 0, y: 0, num: 56, frequency: 770, diameter: 10 }
         ]),
         nextPage([
-          { timestamp: 5000, channel: 3, x: 0, y: 0, num: 56, frequency: 880 }
+          { timestamp: 5000, channel: 3, x: 0, y: 0, num: 56, frequency: 880, diameter: 10 }
         ]),
         nextPage([])
       ], done)
