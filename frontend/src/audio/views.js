@@ -42,7 +42,6 @@ exports.render = function() {
 
   d3.select('body')
     .on('mouseup', function() {
-      console.log('change off')
       volumeChanging = false
     })
     .on('mousemove', function() {

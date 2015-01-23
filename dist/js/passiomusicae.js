@@ -18417,6 +18417,7 @@ var querystring = require('querystring')
   , config = require('./config')
 debug.enable('*')
 
+// Starting websocket stuff
 websocket.start(_.pick(config.web, ['port', 'hostname', 'reconnectTime']), function(err) {
   if (err) {
     alert('Couldn\'t connect to the server')
@@ -18427,6 +18428,7 @@ websocket.start(_.pick(config.web, ['port', 'hostname', 'reconnectTime']), funct
 websocket.events.on('connected', function() {})
 websocket.events.on('connection lost', function() {})
 
+// Initialize the rest of the app
 $(function() {
 
   var fadeAllPages = function(done) {
@@ -18530,6 +18532,7 @@ $(function() {
     audioViews.events.on('volume', audioEngine.setVolume)
     audioEngine.events.on('volume', audioViews.setVolume)
     page.start()
+    $('body').fadeIn()
   })
 
 })
@@ -18797,7 +18800,6 @@ exports.render = function() {
 
   d3.select('body')
     .on('mouseup', function() {
-      console.log('change off')
       volumeChanging = false
     })
     .on('mousemove', function() {
@@ -19006,7 +19008,6 @@ exports.render = function() {
     .attr('r', function(t) { return t.diameter * width / config.tubes.originalWidth })
     .on('mouseover', function() { 
       if (isPlayable) {
-        console.log(d3.select(this).datum())
         performEvent(d3.select(this).datum())
       }
     })

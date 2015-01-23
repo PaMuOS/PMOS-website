@@ -49,7 +49,6 @@ exports.render = function() {
     .attr('r', function(t) { return t.diameter * width / config.tubes.originalWidth })
     .on('mouseover', function() { 
       if (isPlayable) {
-        console.log(d3.select(this).datum())
         performEvent(d3.select(this).datum())
       }
     })
