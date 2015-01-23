@@ -143,6 +143,12 @@ header nav h2 {
 #tubesContainer #volume rect.active {
   fill: black;
 }
+#tubesContainer #noAudio {
+  display: none;
+  color: red;
+  font-size: 150%;
+  font-family: 'League Gothic';
+}
 .main .left .infos {
   margin-top: 3em;
 }

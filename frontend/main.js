@@ -1,3 +1,7 @@
+// Feature detection
+var waaSupported = true
+if (!window.AudioContext) waaSupported = false
+
 var querystring = require('querystring')
   , _ = require('underscore')
   , async = require('async')
@@ -11,6 +15,7 @@ var querystring = require('querystring')
   , websocket = require('./src/websocket')
   , config = require('./config')
 debug.enable('*')
+audioEngine.waaSupported = waaSupported
 
 // Starting websocket stuff
 websocket.start(_.pick(config.web, ['port', 'hostname', 'reconnectTime']), function(err) {
@@ -126,6 +131,7 @@ $(function() {
     audioViews.render()
     audioViews.events.on('volume', audioEngine.setVolume)
     audioEngine.events.on('volume', audioViews.setVolume)
+    if (!waaSupported) $('#noAudio').show()
     page.start()
     $('body').fadeIn()
   })

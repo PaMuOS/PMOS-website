@@ -61,6 +61,7 @@ exports.load = function(done) {
 }
 
 exports.start = function() {
+  if (!exports.waaSupported) return
   if (!isStarted) {
     isStarted = true
     // Creating stuff

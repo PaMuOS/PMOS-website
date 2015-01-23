@@ -18403,6 +18403,10 @@ return jQuery;
 
 }));
 ;(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+// Feature detection
+var waaSupported = true
+if (!window.AudioContext) waaSupported = false
+
 var querystring = require('querystring')
   , _ = require('underscore')
   , async = require('async')
@@ -18416,6 +18420,7 @@ var querystring = require('querystring')
   , websocket = require('./src/websocket')
   , config = require('./config')
 debug.enable('*')
+audioEngine.waaSupported = waaSupported
 
 // Starting websocket stuff
 websocket.start(_.pick(config.web, ['port', 'hostname', 'reconnectTime']), function(err) {
@@ -18531,6 +18536,7 @@ $(function() {
     audioViews.render()
     audioViews.events.on('volume', audioEngine.setVolume)
     audioEngine.events.on('volume', audioViews.setVolume)
+    if (!waaSupported) $('#noAudio').show()
     page.start()
     $('body').fadeIn()
   })
@@ -18627,6 +18633,7 @@ exports.load = function(done) {
 }
 
 exports.start = function() {
+  if (!exports.waaSupported) return
   if (!isStarted) {
     isStarted = true
     // Creating stuff

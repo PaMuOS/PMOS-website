@@ -3,7 +3,6 @@ frontend
 - in XML : some tubes have frequency 0
 - in XML : some tubes have same num (ex : 1000)
 - archive mode
-- if no web audio?
 - video
 - pirka's tweaks
 
