@@ -2,7 +2,7 @@ var _ = require('underscore')
   , tubeModels = require('./models')
   , debug = require('debug')('tubes.views')
   , config = require('../../config')
-  , audio = require('./audio')
+  , audioEngine = require('../audio/engine')
   , isPlayable = false
 
 // This performs a list of events, putting the tubes on and off accordingly.
@@ -30,8 +30,8 @@ exports.perform = function(events) {
 var performEvent = function(event) {
   if (event.frequency) exports.setPlaying(event.channel, event.num)
   else exports.setIdle(event.num)
-  audio.setFrequency(event.channel || 0, event.frequency)
-  audio.setDiameter(event.channel || 0, event.diameter)
+  audioEngine.setFrequency(event.channel || 0, event.frequency)
+  audioEngine.setDiameter(event.channel || 0, event.diameter)
 }
 
 // Create all the tube views. Must be called after the tube models have been fetched.
@@ -49,6 +49,7 @@ exports.render = function() {
     .attr('r', function(t) { return t.diameter * width / config.tubes.originalWidth })
     .on('mouseover', function() { 
       if (isPlayable) {
+        console.log(d3.select(this).datum())
         performEvent(d3.select(this).datum())
       }
     })

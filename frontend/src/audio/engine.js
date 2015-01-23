@@ -1,4 +1,5 @@
-var async = require('async')
+var EventEmitter = require('events').EventEmitter
+  , async = require('async')
   , _ = require('underscore')
   , WAAWhiteNoise = require('waawhitenoise')
   , debug = require('debug')('tubes.audio')
@@ -68,7 +69,8 @@ exports.start = function() {
     volumeGain = context.createGain()
 
     // Setting parameters
-    volumeGain.gain.value = 10
+    exports.events.emit('volume', 0.5)
+    volumeGain.gain.value = mapVolume(0.5)
     sinkNode.type = 'lowpass'
     sinkNode.frequency.value = 420
     
@@ -110,10 +112,13 @@ exports.setDiameter = function(channel, diameter) {
   } 
 }
 
-exports.setVolume = function(val) {
-  if (isStarted) {
-    volumeGain.gain.value = 5 + 10 * val
-  } 
+exports.setVolume = function(ratio) {
+  if (isStarted)
+    volumeGain.gain.value = mapVolume(ratio)
+}
+
+var mapVolume = function(ratio) {
+  return Math.exp(2.5 * ratio) - 1
 }
 
 var createPatch = function() {
@@ -182,3 +187,5 @@ var createPatch = function() {
   }
 
 }
+
+exports.events = new EventEmitter

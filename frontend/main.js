@@ -5,7 +5,8 @@ var querystring = require('querystring')
   , page = require('page') 
   , tubeViews = require('./src/tubes/views')
   , tubeModels = require('./src/tubes/models')
-  , tubeAudio = require('./src/tubes/audio')
+  , audioEngine = require('./src/audio/engine')
+  , audioViews = require('./src/audio/views')
   , eventViews = require('./src/events/views')
   , websocket = require('./src/websocket')
   , config = require('./config')
@@ -50,7 +51,7 @@ $(function() {
       function(next) { fadeAllPages(next) }
     ], function() {
       $('.about').fadeIn()
-      tubeAudio.stop()
+      audioEngine.stop()
     })
   })
 
@@ -62,7 +63,7 @@ $(function() {
     fadeAllPages(function() {
       $('#tubesContainer').fadeIn()
       $('.live').fadeIn()
-      tubeAudio.start()
+      audioEngine.start()
       tubeViews.setPlayable(false)
       websocket.events.on('message', peformLiveEvents)
     })
@@ -76,7 +77,7 @@ $(function() {
     fadeAllPages(function() {
       $('#tubesContainer').fadeIn()
       $('.archive').fadeIn()
-      tubeAudio.start()
+      audioEngine.start()
       tubeViews.setPlayable(false)
     })
   })
@@ -89,7 +90,7 @@ $(function() {
     fadeAllPages(function() {
       $('#tubesContainer').fadeIn()
       $('.demo').fadeIn()
-      tubeAudio.start()
+      audioEngine.start()
       tubeViews.setPlayable(true)
     })
   })
@@ -103,7 +104,7 @@ $(function() {
       function(next) { fadeAllPages(next) }
     ], function() {
       $('.video').fadeIn()
-      tubeAudio.stop()
+      audioEngine.stop()
     })
   })
 
@@ -113,15 +114,17 @@ $(function() {
     })
   })
 
-  page.start()
-
   // Loading
   async.series([
     _.bind(tubeModels.load, tubeModels),
-    _.bind(tubeAudio.load, tubeAudio),
+    _.bind(audioEngine.load, audioEngine),
   ], function(err) {
     if (err) throw err
     tubeViews.render()
+    audioViews.render()
+    audioViews.events.on('volume', audioEngine.setVolume)
+    audioEngine.events.on('volume', audioViews.setVolume)
+    page.start()
   })
 
 })

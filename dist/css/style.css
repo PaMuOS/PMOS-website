@@ -130,6 +130,18 @@ header nav h2 {
 #tubesContainer #tubes .tube.playing {
   fill: #ff7bac;
 }
+#tubesContainer #volume {
+  position: fixed;
+  bottom: 3em;
+  right: 3em;
+  cursor: pointer;
+}
+#tubesContainer #volume rect {
+  fill: #ccc;
+}
+#tubesContainer #volume rect.active {
+  fill: black;
+}
 .main .left .infos {
   margin-top: 3em;
 }

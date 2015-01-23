@@ -154,6 +154,19 @@ header {
       }
     }
   }
+
+  #volume {
+    position: fixed;
+    bottom: 3em;
+    right: 3em;
+    cursor: pointer;
+    rect {
+      fill: #ccc;
+      &.active {
+        fill: black;
+      }
+    }
+  }
 }
 
 .main { 
