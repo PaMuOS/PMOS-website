@@ -6,7 +6,7 @@
         <height>570.799987793</height>
         <diameter>10.277777672</diameter>
         <x>0.402057707</x>
-        <y>0.943087041</y>
+        <y>0.878904700</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -17,7 +17,7 @@
         <height>500.299987793</height>
         <diameter>18.222221375</diameter>
         <x>0.080703832</x>
-        <y>0.567900419</y>
+        <y>0.529251635</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -28,7 +28,7 @@
         <height>561.299987793</height>
         <diameter>10.277777672</diameter>
         <x>0.446469218</x>
-        <y>0.887795627</y>
+        <y>0.827376246</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -39,7 +39,7 @@
         <height>412.899993896</height>
         <diameter>11.777778625</diameter>
         <x>0.649636149</x>
-        <y>0.993194640</y>
+        <y>0.925602198</y>
         <element>7</element>
         <oc>0</oc>
     </tube>
@@ -50,7 +50,7 @@
         <height>631.200012207</height>
         <diameter>11.777778625</diameter>
         <x>0.763597608</x>
-        <y>0.752708316</y>
+        <y>0.701482356</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -61,7 +61,7 @@
         <height>523.099975586</height>
         <diameter>11.166666985</diameter>
         <x>0.062592983</x>
-        <y>0.485347927</y>
+        <y>0.452317297</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -72,7 +72,7 @@
         <height>404.899993896</height>
         <diameter>11.166666985</diameter>
         <x>0.128751189</x>
-        <y>0.990848899</y>
+        <y>0.923416138</y>
         <element>1</element>
         <oc>0</oc>
     </tube>
@@ -83,7 +83,7 @@
         <height>538.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.460285991</x>
-        <y>0.904117525</y>
+        <y>0.842587292</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -94,7 +94,7 @@
         <height>521.500000000</height>
         <diameter>11.777778625</diameter>
         <x>0.527100146</x>
-        <y>0.280333698</y>
+        <y>0.261255443</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -105,7 +105,7 @@
         <height>827.900024414</height>
         <diameter>10.277777672</diameter>
         <x>0.631782889</x>
-        <y>0.526615083</y>
+        <y>0.490775973</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -116,7 +116,7 @@
         <height>540.099975586</height>
         <diameter>11.166666985</diameter>
         <x>0.053909682</x>
-        <y>0.784126937</y>
+        <y>0.730762720</y>
         <element>1</element>
         <oc>0</oc>
     </tube>
@@ -127,7 +127,7 @@
         <height>515.700012207</height>
         <diameter>11.777778625</diameter>
         <x>0.509569824</x>
-        <y>0.289021015</y>
+        <y>0.269351542</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -138,7 +138,7 @@
         <height>563.400024414</height>
         <diameter>18.222221375</diameter>
         <x>0.739826500</x>
-        <y>0.831077814</y>
+        <y>0.774518311</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -149,7 +149,7 @@
         <height>563.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.661961913</x>
-        <y>0.396174103</y>
+        <y>0.369212270</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -160,7 +160,7 @@
         <height>538.500000000</height>
         <diameter>11.777778625</diameter>
         <x>0.149964049</x>
-        <y>0.607914090</y>
+        <y>0.566542208</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -171,7 +171,7 @@
         <height>346.100006104</height>
         <diameter>11.777778625</diameter>
         <x>0.312676966</x>
-        <y>0.814415455</y>
+        <y>0.758989990</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -182,7 +182,7 @@
         <height>479.100006104</height>
         <diameter>11.777778625</diameter>
         <x>0.456084639</x>
-        <y>0.787486255</y>
+        <y>0.733893394</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -193,7 +193,7 @@
         <height>651.900024414</height>
         <diameter>11.777778625</diameter>
         <x>0.426841021</x>
-        <y>0.545136690</y>
+        <y>0.508037090</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -204,7 +204,7 @@
         <height>417.600006104</height>
         <diameter>10.277777672</diameter>
         <x>0.783470750</x>
-        <y>0.243690372</y>
+        <y>0.227105886</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -215,7 +215,7 @@
         <height>421.399993896</height>
         <diameter>11.166666985</diameter>
         <x>0.286475837</x>
-        <y>0.125377402</y>
+        <y>0.116844773</y>
         <element>0</element>
         <oc>0</oc>
     </tube>
@@ -226,7 +226,7 @@
         <height>461.600006104</height>
         <diameter>11.777778625</diameter>
         <x>0.611915290</x>
-        <y>0.083533026</y>
+        <y>0.077848136</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -237,7 +237,7 @@
         <height>660.400024414</height>
         <diameter>11.777778625</diameter>
         <x>0.751513362</x>
-        <y>0.703273356</y>
+        <y>0.655411720</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -248,7 +248,7 @@
         <height>610.599975586</height>
         <diameter>11.777778625</diameter>
         <x>0.729408383</x>
-        <y>0.811732769</y>
+        <y>0.756489813</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -259,7 +259,7 @@
         <height>555.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.665904522</x>
-        <y>0.355175227</y>
+        <y>0.331003606</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -270,7 +270,7 @@
         <height>497.700012207</height>
         <diameter>18.222221375</diameter>
         <x>0.058606863</x>
-        <y>0.441535562</y>
+        <y>0.411486596</y>
         <element>0</element>
         <oc>0</oc>
     </tube>
@@ -281,7 +281,7 @@
         <height>470.600006104</height>
         <diameter>14.722222328</diameter>
         <x>0.098568484</x>
-        <y>0.228395641</y>
+        <y>0.212852061</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -292,7 +292,7 @@
         <height>628.599975586</height>
         <diameter>18.222221375</diameter>
         <x>0.144006163</x>
-        <y>0.862830460</y>
+        <y>0.804110050</y>
         <element>1</element>
         <oc>0</oc>
     </tube>
@@ -303,7 +303,7 @@
         <height>469.600006104</height>
         <diameter>18.222221375</diameter>
         <x>0.107761309</x>
-        <y>0.113662653</y>
+        <y>0.105927274</y>
         <element>3</element>
         <oc>0</oc>
     </tube>
@@ -314,7 +314,7 @@
         <height>640.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.404093653</x>
-        <y>0.595956564</y>
+        <y>0.555398405</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -325,7 +325,7 @@
         <height>711.299987793</height>
         <diameter>18.222221375</diameter>
         <x>0.591615081</x>
-        <y>0.607730329</y>
+        <y>0.566370904</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -336,7 +336,7 @@
         <height>587.200012207</height>
         <diameter>18.222221375</diameter>
         <x>0.764044166</x>
-        <y>0.794736028</y>
+        <y>0.740649819</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -347,7 +347,7 @@
         <height>697.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.762801766</x>
-        <y>0.588649571</y>
+        <y>0.548588693</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -358,7 +358,7 @@
         <height>707.599975586</height>
         <diameter>14.722222328</diameter>
         <x>0.750109434</x>
-        <y>0.625591993</y>
+        <y>0.583016992</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -369,7 +369,7 @@
         <height>550.099975586</height>
         <diameter>18.222221375</diameter>
         <x>0.806837678</x>
-        <y>0.764562905</y>
+        <y>0.712530196</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -380,7 +380,7 @@
         <height>493.399993896</height>
         <diameter>11.166666985</diameter>
         <x>0.113244250</x>
-        <y>0.916832983</y>
+        <y>0.854437411</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -391,7 +391,7 @@
         <height>481.600006104</height>
         <diameter>14.722222328</diameter>
         <x>0.106151342</x>
-        <y>0.269995213</y>
+        <y>0.251620561</y>
         <element>3</element>
         <oc>0</oc>
     </tube>
@@ -402,7 +402,7 @@
         <height>514.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.451418310</x>
-        <y>0.747238755</y>
+        <y>0.696385026</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -413,7 +413,7 @@
         <height>405.500000000</height>
         <diameter>11.777778625</diameter>
         <x>0.163469315</x>
-        <y>0.441000283</y>
+        <y>0.410987765</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -424,7 +424,7 @@
         <height>563.900024414</height>
         <diameter>18.222221375</diameter>
         <x>0.484244823</x>
-        <y>0.344107032</y>
+        <y>0.320688665</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -435,7 +435,7 @@
         <height>594.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.834404767</x>
-        <y>0.494371116</y>
+        <y>0.460726410</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -446,7 +446,7 @@
         <height>324.899993896</height>
         <diameter>14.722222328</diameter>
         <x>0.303354710</x>
-        <y>0.850333452</y>
+        <y>0.792463541</y>
         <element>2</element>
         <oc>0</oc>
     </tube>
@@ -457,7 +457,7 @@
         <height>603.700012207</height>
         <diameter>11.166666985</diameter>
         <x>0.408134699</x>
-        <y>0.650572896</y>
+        <y>0.606297791</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -468,7 +468,7 @@
         <height>452.600006104</height>
         <diameter>11.777778625</diameter>
         <x>0.508578241</x>
-        <y>0.841427565</y>
+        <y>0.784163773</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -479,7 +479,7 @@
         <height>514.099975586</height>
         <diameter>11.777778625</diameter>
         <x>0.477521986</x>
-        <y>0.784203053</y>
+        <y>0.730833709</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -490,7 +490,7 @@
         <height>355.600006104</height>
         <diameter>14.722222328</diameter>
         <x>0.325245559</x>
-        <y>0.844673634</y>
+        <y>0.787188888</y>
         <element>2</element>
         <oc>0</oc>
     </tube>
@@ -501,7 +501,7 @@
         <height>481.200012207</height>
         <diameter>11.166666985</diameter>
         <x>0.655593038</x>
-        <y>0.928698301</y>
+        <y>0.865495205</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -512,7 +512,7 @@
         <height>532.099975586</height>
         <diameter>11.777778625</diameter>
         <x>0.632304013</x>
-        <y>1.002692461</y>
+        <y>0.934453666</y>
         <element>7</element>
         <oc>0</oc>
     </tube>
@@ -523,7 +523,7 @@
         <height>424.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.586313188</x>
-        <y>0.099400438</y>
+        <y>0.092635684</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -534,7 +534,7 @@
         <height>443.600006104</height>
         <diameter>10.277777672</diameter>
         <x>0.947903514</x>
-        <y>0.681505740</y>
+        <y>0.635125458</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -545,7 +545,7 @@
         <height>469.600006104</height>
         <diameter>10.277777672</diameter>
         <x>0.437962294</x>
-        <y>0.778940856</y>
+        <y>0.725929618</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -556,7 +556,7 @@
         <height>565.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.788877845</x>
-        <y>0.803231001</y>
+        <y>0.748566687</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -567,7 +567,7 @@
         <height>708.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.720786870</x>
-        <y>0.710872829</y>
+        <y>0.662494004</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -578,7 +578,7 @@
         <height>633.400024414</height>
         <diameter>18.222221375</diameter>
         <x>0.440156221</x>
-        <y>0.508626759</y>
+        <y>0.474011868</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -589,7 +589,7 @@
         <height>421.399993896</height>
         <diameter>11.777778625</diameter>
         <x>0.150127769</x>
-        <y>0.464707524</y>
+        <y>0.433081597</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -600,7 +600,7 @@
         <height>493.399993896</height>
         <diameter>11.777778625</diameter>
         <x>0.431284040</x>
-        <y>0.747389555</y>
+        <y>0.696525514</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -611,7 +611,7 @@
         <height>624.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.421306789</x>
-        <y>0.624056578</y>
+        <y>0.581586063</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -622,7 +622,7 @@
         <height>595.700012207</height>
         <diameter>18.222221375</diameter>
         <x>0.464557111</x>
-        <y>0.386285514</y>
+        <y>0.359996617</y>
         <element>5</element>
         <oc>1</oc>
     </tube>
@@ -633,7 +633,7 @@
         <height>515.700012207</height>
         <diameter>11.777778625</diameter>
         <x>0.511585295</x>
-        <y>0.807180643</y>
+        <y>0.752247512</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -644,7 +644,7 @@
         <height>558.599975586</height>
         <diameter>11.777778625</diameter>
         <x>0.499866337</x>
-        <y>0.776166737</y>
+        <y>0.723344266</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -655,7 +655,7 @@
         <height>362.500000000</height>
         <diameter>11.777778625</diameter>
         <x>0.230915621</x>
-        <y>0.124481887</y>
+        <y>0.116010197</y>
         <element>3</element>
         <oc>0</oc>
     </tube>
@@ -666,7 +666,7 @@
         <height>493.399993896</height>
         <diameter>11.777778625</diameter>
         <x>0.296131343</x>
-        <y>0.315100610</y>
+        <y>0.293656260</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -677,7 +677,7 @@
         <height>533.700012207</height>
         <diameter>11.777778625</diameter>
         <x>0.671853423</x>
-        <y>0.891541779</y>
+        <y>0.830867410</y>
         <element>0</element>
         <oc>0</oc>
     </tube>
@@ -688,7 +688,7 @@
         <height>474.399993896</height>
         <diameter>14.722222328</diameter>
         <x>0.096653841</x>
-        <y>0.157088399</y>
+        <y>0.146397650</y>
         <element>3</element>
         <oc>0</oc>
     </tube>
@@ -699,7 +699,7 @@
         <height>504.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.470352560</x>
-        <y>0.816232800</y>
+        <y>0.760683596</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -710,7 +710,7 @@
         <height>623.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.391628087</x>
-        <y>0.631710708</y>
+        <y>0.588719249</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -721,7 +721,7 @@
         <height>576.099975586</height>
         <diameter>18.222221375</diameter>
         <x>0.523711860</x>
-        <y>0.765808225</y>
+        <y>0.713690698</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -732,7 +732,7 @@
         <height>541.700012207</height>
         <diameter>18.222221375</diameter>
         <x>0.746614635</x>
-        <y>0.884237111</y>
+        <y>0.824059904</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -743,7 +743,7 @@
         <height>362.500000000</height>
         <diameter>14.722222328</diameter>
         <x>0.222144276</x>
-        <y>0.810096979</y>
+        <y>0.754965365</y>
         <element>0</element>
         <oc>0</oc>
     </tube>
@@ -754,7 +754,7 @@
         <height>581.900024414</height>
         <diameter>10.277777672</diameter>
         <x>0.419643015</x>
-        <y>0.945203722</y>
+        <y>0.880877376</y>
         <element>4</element>
         <oc>0</oc>
     </tube>
@@ -765,7 +765,7 @@
         <height>532.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.639775693</x>
-        <y>0.847065389</y>
+        <y>0.789417863</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -776,7 +776,7 @@
         <height>416.100006104</height>
         <diameter>11.777778625</diameter>
         <x>0.176002413</x>
-        <y>0.151623011</y>
+        <y>0.141304225</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -787,7 +787,7 @@
         <height>529.500000000</height>
         <diameter>18.222221375</diameter>
         <x>0.193196028</x>
-        <y>0.122515976</y>
+        <y>0.114178084</y>
         <element>3</element>
         <oc>0</oc>
     </tube>
@@ -798,7 +798,7 @@
         <height>566.599975586</height>
         <diameter>11.777778625</diameter>
         <x>0.438482136</x>
-        <y>0.713361084</y>
+        <y>0.664812922</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -809,7 +809,7 @@
         <height>493.399993896</height>
         <diameter>11.777778625</diameter>
         <x>0.463381201</x>
-        <y>0.849072993</y>
+        <y>0.791288853</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -820,7 +820,7 @@
         <height>552.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.414155662</x>
-        <y>0.903713346</y>
+        <y>0.842210650</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -831,7 +831,7 @@
         <height>519.400024414</height>
         <diameter>18.222221375</diameter>
         <x>0.441987336</x>
-        <y>0.937167346</y>
+        <y>0.873387933</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -842,7 +842,7 @@
         <height>671.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.565616727</x>
-        <y>0.255938381</y>
+        <y>0.238520354</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -853,7 +853,7 @@
         <height>672.599975586</height>
         <diameter>18.222221375</diameter>
         <x>0.746637523</x>
-        <y>0.736222684</y>
+        <y>0.686118662</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -864,7 +864,7 @@
         <height>624.299987793</height>
         <diameter>18.222221375</diameter>
         <x>0.787307918</x>
-        <y>0.517519176</y>
+        <y>0.482299119</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -875,7 +875,7 @@
         <height>477.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.120488122</x>
-        <y>0.952814281</y>
+        <y>0.887969971</y>
         <element>1</element>
         <oc>0</oc>
     </tube>
@@ -886,7 +886,7 @@
         <height>398.600006104</height>
         <diameter>18.222221375</diameter>
         <x>0.172326684</x>
-        <y>0.481466144</y>
+        <y>0.448699683</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -897,7 +897,7 @@
         <height>622.799987793</height>
         <diameter>11.777778625</diameter>
         <x>0.461321056</x>
-        <y>0.436522126</y>
+        <y>0.406814367</y>
         <element>5</element>
         <oc>1</oc>
     </tube>
@@ -908,7 +908,7 @@
         <height>475.899993896</height>
         <diameter>11.777778625</diameter>
         <x>0.666345477</x>
-        <y>0.983264387</y>
+        <y>0.916347742</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -919,7 +919,7 @@
         <height>595.700012207</height>
         <diameter>14.722222328</diameter>
         <x>0.699412465</x>
-        <y>0.856174231</y>
+        <y>0.797906816</y>
         <element>10</element>
         <oc>0</oc>
     </tube>
@@ -930,7 +930,7 @@
         <height>558.599975586</height>
         <diameter>11.777778625</diameter>
         <x>0.342497528</x>
-        <y>0.255110621</y>
+        <y>0.237748936</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -941,7 +941,7 @@
         <height>624.299987793</height>
         <diameter>11.166666985</diameter>
         <x>0.444963366</x>
-        <y>0.553682029</y>
+        <y>0.516000867</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -952,7 +952,7 @@
         <height>636.500000000</height>
         <diameter>11.777778625</diameter>
         <x>0.741928875</x>
-        <y>0.786782622</y>
+        <y>0.733237684</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -963,7 +963,7 @@
         <height>534.200012207</height>
         <diameter>11.777778625</diameter>
         <x>0.486362159</x>
-        <y>0.752660453</y>
+        <y>0.701437712</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -974,7 +974,7 @@
         <height>526.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.893672764</x>
-        <y>0.324241936</y>
+        <y>0.302175462</y>
         <element>0</element>
         <oc>0</oc>
     </tube>
@@ -985,7 +985,7 @@
         <height>526.799987793</height>
         <diameter>10.277777672</diameter>
         <x>0.476814359</x>
-        <y>0.965385318</y>
+        <y>0.899685502</y>
         <element>4</element>
         <oc>0</oc>
     </tube>
@@ -996,7 +996,7 @@
         <height>498.200012207</height>
         <diameter>18.222221375</diameter>
         <x>0.119879961</x>
-        <y>0.307114571</y>
+        <y>0.286213726</y>
         <element>3</element>
         <oc>0</oc>
     </tube>
@@ -1007,7 +1007,7 @@
         <height>554.900024414</height>
         <diameter>18.222221375</diameter>
         <x>0.476955086</x>
-        <y>0.238115966</y>
+        <y>0.221910864</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -1018,7 +1018,7 @@
         <height>432.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.625285506</x>
-        <y>0.057827082</y>
+        <y>0.053891625</y>
         <element>9</element>
         <oc>0</oc>
     </tube>
@@ -1029,7 +1029,7 @@
         <height>543.299987793</height>
         <diameter>18.222221375</diameter>
         <x>0.778789639</x>
-        <y>0.848710120</y>
+        <y>0.790950716</y>
         <element>10</element>
         <oc>0</oc>
     </tube>
@@ -1040,7 +1040,7 @@
         <height>651.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.784379959</x>
-        <y>0.590174198</y>
+        <y>0.550009608</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -1051,7 +1051,7 @@
         <height>522.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.820436835</x>
-        <y>0.722867310</y>
+        <y>0.673672140</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -1062,7 +1062,7 @@
         <height>646.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.454547822</x>
-        <y>0.470172673</y>
+        <y>0.438174814</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -1073,7 +1073,7 @@
         <height>529.500000000</height>
         <diameter>10.277777672</diameter>
         <x>0.463904530</x>
-        <y>0.944310308</y>
+        <y>0.880044699</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -1084,7 +1084,7 @@
         <height>497.700012207</height>
         <diameter>18.222221375</diameter>
         <x>0.633858860</x>
-        <y>0.103478692</y>
+        <y>0.096436396</y>
         <element>9</element>
         <oc>0</oc>
     </tube>
@@ -1095,7 +1095,7 @@
         <height>540.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.828157067</x>
-        <y>0.608457565</y>
+        <y>0.567048669</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -1106,7 +1106,7 @@
         <height>558.099975586</height>
         <diameter>10.277777672</diameter>
         <x>0.444925636</x>
-        <y>0.980925024</y>
+        <y>0.914167643</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -1117,7 +1117,7 @@
         <height>693.799987793</height>
         <diameter>11.166666985</diameter>
         <x>0.884503961</x>
-        <y>0.466579109</y>
+        <y>0.434825808</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -1128,7 +1128,7 @@
         <height>557.599975586</height>
         <diameter>11.166666985</diameter>
         <x>0.802915752</x>
-        <y>0.672348857</y>
+        <y>0.626591802</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -1139,7 +1139,7 @@
         <height>539.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.899935365</x>
-        <y>0.663003981</y>
+        <y>0.617882848</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -1150,7 +1150,7 @@
         <height>512.000000000</height>
         <diameter>18.222221375</diameter>
         <x>0.892472863</x>
-        <y>0.759425223</y>
+        <y>0.707742155</y>
         <element>14</element>
         <oc>0</oc>
     </tube>
@@ -1161,7 +1161,7 @@
         <height>584.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.723143518</x>
-        <y>0.853810728</y>
+        <y>0.795704126</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -1172,7 +1172,7 @@
         <height>512.500000000</height>
         <diameter>10.277777672</diameter>
         <x>0.461549044</x>
-        <y>0.976990938</y>
+        <y>0.910501242</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -1183,7 +1183,7 @@
         <height>459.500000000</height>
         <diameter>11.777778625</diameter>
         <x>0.637695134</x>
-        <y>0.933766127</y>
+        <y>0.870218158</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -1194,7 +1194,7 @@
         <height>523.400024414</height>
         <diameter>10.277777672</diameter>
         <x>0.731146634</x>
-        <y>0.924635291</y>
+        <y>0.861708760</y>
         <element>10</element>
         <oc>0</oc>
     </tube>
@@ -1205,7 +1205,7 @@
         <height>474.399993896</height>
         <diameter>10.277777672</diameter>
         <x>0.861705005</x>
-        <y>0.301373541</y>
+        <y>0.280863404</y>
         <element>13</element>
         <oc>1</oc>
     </tube>
@@ -1216,7 +1216,7 @@
         <height>432.500000000</height>
         <diameter>18.111110687</diameter>
         <x>0.138652757</x>
-        <y>0.504513681</y>
+        <y>0.470178723</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -1227,7 +1227,7 @@
         <height>587.200012207</height>
         <diameter>11.777778625</diameter>
         <x>0.328585804</x>
-        <y>0.670029342</y>
+        <y>0.624430120</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -1238,7 +1238,7 @@
         <height>587.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.428605646</x>
-        <y>0.670841873</y>
+        <y>0.625187337</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -1249,7 +1249,7 @@
         <height>711.500000000</height>
         <diameter>11.777778625</diameter>
         <x>0.736281216</x>
-        <y>0.683277428</y>
+        <y>0.636776626</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -1260,7 +1260,7 @@
         <height>622.200012207</height>
         <diameter>18.222221375</diameter>
         <x>0.680564106</x>
-        <y>0.781184137</y>
+        <y>0.728020251</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -1271,7 +1271,7 @@
         <height>678.400024414</height>
         <diameter>11.166666985</diameter>
         <x>0.599768162</x>
-        <y>0.258118361</y>
+        <y>0.240551963</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -1282,7 +1282,7 @@
         <height>619.599975586</height>
         <diameter>14.722222328</diameter>
         <x>0.843625069</x>
-        <y>0.568059444</y>
+        <y>0.529399812</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -1293,7 +1293,7 @@
         <height>553.299987793</height>
         <diameter>18.222221375</diameter>
         <x>0.710988283</x>
-        <y>0.897181869</y>
+        <y>0.836123645</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -1304,7 +1304,7 @@
         <height>468.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.157915547</x>
-        <y>0.096674591</y>
+        <y>0.090095349</y>
         <element>3</element>
         <oc>0</oc>
     </tube>
@@ -1315,7 +1315,7 @@
         <height>568.200012207</height>
         <diameter>11.166666985</diameter>
         <x>0.067053176</x>
-        <y>0.759609282</y>
+        <y>0.707913637</y>
         <element>1</element>
         <oc>0</oc>
     </tube>
@@ -1326,7 +1326,7 @@
         <height>492.899993896</height>
         <diameter>14.722222328</diameter>
         <x>0.109759524</x>
-        <y>0.193775207</y>
+        <y>0.180587724</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -1337,7 +1337,7 @@
         <height>479.700012207</height>
         <diameter>14.722222328</diameter>
         <x>0.131177470</x>
-        <y>0.133285046</y>
+        <y>0.124214254</y>
         <element>3</element>
         <oc>0</oc>
     </tube>
@@ -1348,7 +1348,7 @@
         <height>446.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.225719213</x>
-        <y>0.399440020</y>
+        <y>0.372255921</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -1359,7 +1359,7 @@
         <height>410.200012207</height>
         <diameter>14.722222328</diameter>
         <x>0.251362503</x>
-        <y>0.117146656</y>
+        <y>0.109174177</y>
         <element>3</element>
         <oc>0</oc>
     </tube>
@@ -1370,7 +1370,7 @@
         <height>501.399993896</height>
         <diameter>14.722222328</diameter>
         <x>0.571439624</x>
-        <y>0.874306977</y>
+        <y>0.814805508</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -1381,7 +1381,7 @@
         <height>581.400024414</height>
         <diameter>11.777778625</diameter>
         <x>0.522818625</x>
-        <y>0.315714270</y>
+        <y>0.294228166</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -1392,7 +1392,7 @@
         <height>479.100006104</height>
         <diameter>10.277777672</diameter>
         <x>0.533079803</x>
-        <y>0.067822881</y>
+        <y>0.063207157</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -1403,7 +1403,7 @@
         <height>577.200012207</height>
         <diameter>10.277777672</diameter>
         <x>0.505684495</x>
-        <y>0.326022446</y>
+        <y>0.303834796</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -1414,7 +1414,7 @@
         <height>474.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.643947303</x>
-        <y>0.790076792</y>
+        <y>0.736307681</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -1425,7 +1425,7 @@
         <height>357.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.416832775</x>
-        <y>0.072565295</y>
+        <y>0.067626826</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -1436,7 +1436,7 @@
         <height>433.500000000</height>
         <diameter>14.722222328</diameter>
         <x>0.142290786</x>
-        <y>0.967952073</y>
+        <y>0.902077556</y>
         <element>1</element>
         <oc>0</oc>
     </tube>
@@ -1447,7 +1447,7 @@
         <height>569.799987793</height>
         <diameter>11.777778625</diameter>
         <x>0.347980350</x>
-        <y>0.692242384</y>
+        <y>0.645131469</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -1458,7 +1458,7 @@
         <height>540.599975586</height>
         <diameter>18.222221375</diameter>
         <x>0.328917891</x>
-        <y>0.720051944</y>
+        <y>0.671048403</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -1469,7 +1469,7 @@
         <height>542.700012207</height>
         <diameter>11.777778625</diameter>
         <x>0.501437306</x>
-        <y>0.139381424</y>
+        <y>0.129895747</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -1480,7 +1480,7 @@
         <height>399.600006104</height>
         <diameter>11.777778625</diameter>
         <x>0.534474730</x>
-        <y>0.936787128</y>
+        <y>0.873033583</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -1491,7 +1491,7 @@
         <height>431.399993896</height>
         <diameter>11.777778625</diameter>
         <x>0.595416903</x>
-        <y>0.927962244</y>
+        <y>0.864809275</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -1502,7 +1502,7 @@
         <height>408.100006104</height>
         <diameter>11.777778625</diameter>
         <x>0.582308948</x>
-        <y>0.906076789</y>
+        <y>0.844413221</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -1513,7 +1513,7 @@
         <height>461.600006104</height>
         <diameter>18.222221375</diameter>
         <x>0.640647054</x>
-        <y>0.156638041</y>
+        <y>0.145977959</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -1524,7 +1524,7 @@
         <height>623.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.708565235</x>
-        <y>0.817447186</y>
+        <y>0.761815369</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -1535,7 +1535,7 @@
         <height>338.700012207</height>
         <diameter>10.277777672</diameter>
         <x>0.302332103</x>
-        <y>0.687462986</y>
+        <y>0.640677333</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -1546,7 +1546,7 @@
         <height>431.399993896</height>
         <diameter>11.166666985</diameter>
         <x>0.653662384</x>
-        <y>0.961001098</y>
+        <y>0.895599604</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -1557,7 +1557,7 @@
         <height>538.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.857927442</x>
-        <y>0.740822971</y>
+        <y>0.690405846</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -1568,7 +1568,7 @@
         <height>592.500000000</height>
         <diameter>18.222221375</diameter>
         <x>0.928439140</x>
-        <y>0.561678827</y>
+        <y>0.523453414</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -1579,7 +1579,7 @@
         <height>523.099975586</height>
         <diameter>18.222221375</diameter>
         <x>0.879651070</x>
-        <y>0.717552602</y>
+        <y>0.668719172</y>
         <element>14</element>
         <oc>0</oc>
     </tube>
@@ -1590,7 +1590,7 @@
         <height>715.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.644361794</x>
-        <y>0.673286080</y>
+        <y>0.627465248</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -1601,7 +1601,7 @@
         <height>546.400024414</height>
         <diameter>11.166666985</diameter>
         <x>0.787607968</x>
-        <y>0.408723325</y>
+        <y>0.380907446</y>
         <element>13</element>
         <oc>1</oc>
     </tube>
@@ -1612,7 +1612,7 @@
         <height>501.899993896</height>
         <diameter>14.722222328</diameter>
         <x>0.470307767</x>
-        <y>0.189764470</y>
+        <y>0.176849931</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -1623,7 +1623,7 @@
         <height>548.000000000</height>
         <diameter>11.166666985</diameter>
         <x>0.636528254</x>
-        <y>0.971309185</y>
+        <y>0.905206203</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -1634,7 +1634,7 @@
         <height>717.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.714232326</x>
-        <y>0.612120867</y>
+        <y>0.570462644</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -1645,7 +1645,7 @@
         <height>504.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.904797435</x>
-        <y>0.718863249</y>
+        <y>0.669940591</y>
         <element>14</element>
         <oc>0</oc>
     </tube>
@@ -1656,7 +1656,7 @@
         <height>545.900024414</height>
         <diameter>14.722222328</diameter>
         <x>0.823133588</x>
-        <y>0.681003392</y>
+        <y>0.634657323</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -1667,7 +1667,7 @@
         <height>641.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.369768143</x>
-        <y>0.620570302</y>
+        <y>0.578337073</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -1678,7 +1678,7 @@
         <height>479.700012207</height>
         <diameter>11.777778625</diameter>
         <x>0.532441020</x>
-        <y>0.903077602</y>
+        <y>0.841618180</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -1689,7 +1689,7 @@
         <height>496.600006104</height>
         <diameter>18.222221375</diameter>
         <x>0.565833092</x>
-        <y>0.138337269</y>
+        <y>0.128922656</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -1700,7 +1700,7 @@
         <height>729.299987793</height>
         <diameter>18.222221375</diameter>
         <x>0.700164795</x>
-        <y>0.569383264</y>
+        <y>0.530633569</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -1711,7 +1711,7 @@
         <height>623.299987793</height>
         <diameter>11.777778625</diameter>
         <x>0.886834323</x>
-        <y>0.596714258</y>
+        <y>0.556104541</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -1722,7 +1722,7 @@
         <height>535.799987793</height>
         <diameter>11.777778625</diameter>
         <x>0.878591895</x>
-        <y>0.791505158</y>
+        <y>0.737638831</y>
         <element>14</element>
         <oc>0</oc>
     </tube>
@@ -1733,7 +1733,7 @@
         <height>578.200012207</height>
         <diameter>18.222221375</diameter>
         <x>0.946315289</x>
-        <y>0.514205337</y>
+        <y>0.479210794</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -1744,7 +1744,7 @@
         <height>503.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.260585129</x>
-        <y>0.176033527</y>
+        <y>0.164053470</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -1755,7 +1755,7 @@
         <height>402.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.238725215</x>
-        <y>0.164893121</y>
+        <y>0.153671220</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -1766,7 +1766,7 @@
         <height>549.099975586</height>
         <diameter>10.277777672</diameter>
         <x>0.492440283</x>
-        <y>0.269726306</y>
+        <y>0.251369923</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -1777,7 +1777,7 @@
         <height>392.700012207</height>
         <diameter>14.722222328</diameter>
         <x>0.164672852</x>
-        <y>0.532672703</y>
+        <y>0.496421337</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -1788,7 +1788,7 @@
         <height>433.700012207</height>
         <diameter>14.722222328</diameter>
         <x>0.155636817</x>
-        <y>0.182564884</y>
+        <y>0.170140326</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -1799,7 +1799,7 @@
         <height>410.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.616085887</x>
-        <y>0.949041545</y>
+        <y>0.884454012</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -1810,7 +1810,7 @@
         <height>651.900024414</height>
         <diameter>14.722222328</diameter>
         <x>0.721541524</x>
-        <y>0.775318921</y>
+        <y>0.722554207</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -1821,7 +1821,7 @@
         <height>371.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.733451605</x>
-        <y>0.119470544</y>
+        <y>0.111339912</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -1832,7 +1832,7 @@
         <height>601.599975586</height>
         <diameter>10.277777672</diameter>
         <x>0.367032588</x>
-        <y>0.914058685</y>
+        <y>0.851851881</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -1843,7 +1843,7 @@
         <height>533.700012207</height>
         <diameter>11.777778625</diameter>
         <x>0.419386476</x>
-        <y>0.772772193</y>
+        <y>0.720180750</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -1854,7 +1854,7 @@
         <height>358.799987793</height>
         <diameter>11.777778625</diameter>
         <x>0.615059972</x>
-        <y>0.991392493</y>
+        <y>0.923922718</y>
         <element>7</element>
         <oc>0</oc>
     </tube>
@@ -1865,7 +1865,7 @@
         <height>489.700012207</height>
         <diameter>11.777778625</diameter>
         <x>0.791992545</x>
-        <y>0.439355075</y>
+        <y>0.409454525</y>
         <element>13</element>
         <oc>1</oc>
     </tube>
@@ -1876,7 +1876,7 @@
         <height>448.899993896</height>
         <diameter>14.722222328</diameter>
         <x>0.842711270</x>
-        <y>0.251178354</y>
+        <y>0.234084278</y>
         <element>13</element>
         <oc>1</oc>
     </tube>
@@ -1887,7 +1887,7 @@
         <height>518.900024414</height>
         <diameter>14.722222328</diameter>
         <x>0.127785757</x>
-        <y>0.457942516</y>
+        <y>0.426776975</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -1898,7 +1898,7 @@
         <height>591.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.071578644</x>
-        <y>0.795048833</y>
+        <y>0.740941346</y>
         <element>1</element>
         <oc>0</oc>
     </tube>
@@ -1909,7 +1909,7 @@
         <height>386.899993896</height>
         <diameter>11.166666985</diameter>
         <x>0.282542527</x>
-        <y>0.839247704</y>
+        <y>0.782132208</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -1920,7 +1920,7 @@
         <height>516.799987793</height>
         <diameter>11.166666985</diameter>
         <x>0.114749908</x>
-        <y>0.152830988</y>
+        <y>0.142429993</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -1931,7 +1931,7 @@
         <height>613.700012207</height>
         <diameter>10.277777672</diameter>
         <x>0.431802809</x>
-        <y>0.872229695</y>
+        <y>0.812869608</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -1942,7 +1942,7 @@
         <height>752.099975586</height>
         <diameter>11.166666985</diameter>
         <x>0.408600718</x>
-        <y>0.383769095</y>
+        <y>0.357651472</y>
         <element>5</element>
         <oc>1</oc>
     </tube>
@@ -1953,7 +1953,7 @@
         <height>563.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.453221738</x>
-        <y>0.255280912</y>
+        <y>0.237907618</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -1964,7 +1964,7 @@
         <height>491.299987793</height>
         <diameter>18.222221375</diameter>
         <x>0.625524938</x>
-        <y>0.890327275</y>
+        <y>0.829735577</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -1975,7 +1975,7 @@
         <height>546.400024414</height>
         <diameter>11.166666985</diameter>
         <x>0.081822589</x>
-        <y>0.475148946</y>
+        <y>0.442812443</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -1986,7 +1986,7 @@
         <height>336.600006104</height>
         <diameter>14.722222328</diameter>
         <x>0.390013397</x>
-        <y>0.085569017</y>
+        <y>0.079745568</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -1997,7 +1997,7 @@
         <height>706.500000000</height>
         <diameter>14.722222328</diameter>
         <x>0.665853024</x>
-        <y>0.505188346</y>
+        <y>0.470807493</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -2008,7 +2008,7 @@
         <height>468.500000000</height>
         <diameter>18.222221375</diameter>
         <x>0.149710923</x>
-        <y>0.230261132</y>
+        <y>0.214590579</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -2019,7 +2019,7 @@
         <height>318.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.280366838</x>
-        <y>0.625111699</y>
+        <y>0.582569361</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -2030,7 +2030,7 @@
         <height>711.299987793</height>
         <diameter>11.166666985</diameter>
         <x>0.588796973</x>
-        <y>0.335954815</y>
+        <y>0.313091218</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -2041,7 +2041,7 @@
         <height>707.599975586</height>
         <diameter>11.166666985</diameter>
         <x>0.600723147</x>
-        <y>0.308573455</y>
+        <y>0.287573338</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -2052,7 +2052,7 @@
         <height>492.399993896</height>
         <diameter>18.222221375</diameter>
         <x>0.921284556</x>
-        <y>0.680518448</y>
+        <y>0.634205401</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -2063,7 +2063,7 @@
         <height>383.700012207</height>
         <diameter>18.222221375</diameter>
         <x>0.466901124</x>
-        <y>0.061573468</y>
+        <y>0.057383049</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -2074,7 +2074,7 @@
         <height>446.799987793</height>
         <diameter>11.777778625</diameter>
         <x>0.594785810</x>
-        <y>0.064238273</y>
+        <y>0.059866503</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -2085,7 +2085,7 @@
         <height>661.400024414</height>
         <diameter>10.277777672</diameter>
         <x>0.700839281</x>
-        <y>0.785841167</y>
+        <y>0.732360303</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -2096,7 +2096,7 @@
         <height>651.400024414</height>
         <diameter>11.777778625</diameter>
         <x>0.371615171</x>
-        <y>0.579462230</y>
+        <y>0.540026605</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -2107,7 +2107,7 @@
         <height>526.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.517488182</x>
-        <y>0.175421730</y>
+        <y>0.163483307</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -2118,7 +2118,7 @@
         <height>604.200012207</height>
         <diameter>14.722222328</diameter>
         <x>0.627519727</x>
-        <y>0.809622705</y>
+        <y>0.754523396</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -2129,7 +2129,7 @@
         <height>614.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.783461571</x>
-        <y>0.668934643</y>
+        <y>0.623409927</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -2140,7 +2140,7 @@
         <height>635.500000000</height>
         <diameter>14.722222328</diameter>
         <x>0.759618402</x>
-        <y>0.664491653</y>
+        <y>0.619269311</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -2151,7 +2151,7 @@
         <height>526.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.831814587</x>
-        <y>0.763064444</y>
+        <y>0.711133659</y>
         <element>0</element>
         <oc>0</oc>
     </tube>
@@ -2162,7 +2162,7 @@
         <height>614.799987793</height>
         <diameter>11.777778625</diameter>
         <x>0.351051509</x>
-        <y>0.609593749</y>
+        <y>0.568107545</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -2173,7 +2173,7 @@
         <height>840.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.627188742</x>
-        <y>0.569180131</y>
+        <y>0.530444264</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -2184,7 +2184,7 @@
         <height>582.500000000</height>
         <diameter>18.222221375</diameter>
         <x>0.846096218</x>
-        <y>0.703002453</y>
+        <y>0.655159235</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -2195,7 +2195,7 @@
         <height>553.900024414</height>
         <diameter>14.722222328</diameter>
         <x>0.773119152</x>
-        <y>0.893219411</y>
+        <y>0.832430840</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -2206,7 +2206,7 @@
         <height>548.599975586</height>
         <diameter>18.222221375</diameter>
         <x>0.655571222</x>
-        <y>0.886292696</y>
+        <y>0.825975537</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -2217,7 +2217,7 @@
         <height>680.500000000</height>
         <diameter>11.777778625</diameter>
         <x>0.407157898</x>
-        <y>0.557712257</y>
+        <y>0.519756854</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -2228,7 +2228,7 @@
         <height>757.900024414</height>
         <diameter>18.222221375</diameter>
         <x>0.608419418</x>
-        <y>0.532598138</y>
+        <y>0.496351868</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -2239,7 +2239,7 @@
         <height>438.799987793</height>
         <diameter>11.777778625</diameter>
         <x>0.579384208</x>
-        <y>0.041433230</y>
+        <y>0.038613468</y>
         <element>9</element>
         <oc>0</oc>
     </tube>
@@ -2250,7 +2250,7 @@
         <height>687.900024414</height>
         <diameter>14.722222328</diameter>
         <x>0.724789023</x>
-        <y>0.651075184</y>
+        <y>0.606765866</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -2261,7 +2261,7 @@
         <height>468.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.941509366</x>
-        <y>0.644768596</y>
+        <y>0.600888550</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -2272,7 +2272,7 @@
         <height>590.400024414</height>
         <diameter>18.222221375</diameter>
         <x>0.817459583</x>
-        <y>0.564695477</y>
+        <y>0.526264846</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -2283,7 +2283,7 @@
         <height>389.600006104</height>
         <diameter>18.222221375</diameter>
         <x>0.721236825</x>
-        <y>0.181640550</y>
+        <y>0.169278905</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -2294,7 +2294,7 @@
         <height>433.000000000</height>
         <diameter>18.222221375</diameter>
         <x>0.786182225</x>
-        <y>0.288636386</y>
+        <y>0.268993080</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -2305,7 +2305,7 @@
         <height>686.900024414</height>
         <diameter>11.166666985</diameter>
         <x>0.594387352</x>
-        <y>0.443457484</y>
+        <y>0.413277745</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -2316,7 +2316,7 @@
         <height>270.299987793</height>
         <diameter>11.777778625</diameter>
         <x>0.234630391</x>
-        <y>0.641129911</y>
+        <y>0.597497463</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -2327,7 +2327,7 @@
         <height>674.200012207</height>
         <diameter>14.722222328</diameter>
         <x>0.414499134</x>
-        <y>0.513690174</y>
+        <y>0.478730679</y>
         <element>5</element>
         <oc>1</oc>
     </tube>
@@ -2338,7 +2338,7 @@
         <height>510.899993896</height>
         <diameter>11.777778625</diameter>
         <x>0.284157038</x>
-        <y>0.287273616</y>
+        <y>0.267723054</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -2349,7 +2349,7 @@
         <height>576.099975586</height>
         <diameter>11.777778625</diameter>
         <x>0.909461379</x>
-        <y>0.407873511</y>
+        <y>0.380115479</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -2360,7 +2360,7 @@
         <height>464.799987793</height>
         <diameter>10.277777672</diameter>
         <x>0.194096088</x>
-        <y>0.162166998</y>
+        <y>0.151130632</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -2371,7 +2371,7 @@
         <height>604.200012207</height>
         <diameter>11.777778625</diameter>
         <x>0.844123244</x>
-        <y>0.460074008</y>
+        <y>0.428763419</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -2382,7 +2382,7 @@
         <height>305.200012207</height>
         <diameter>18.222221375</diameter>
         <x>0.276702553</x>
-        <y>0.880947769</y>
+        <y>0.820994377</y>
         <element>2</element>
         <oc>0</oc>
     </tube>
@@ -2393,7 +2393,7 @@
         <height>665.200012207</height>
         <diameter>14.722222328</diameter>
         <x>0.433206648</x>
-        <y>0.583872497</y>
+        <y>0.544136703</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -2404,7 +2404,7 @@
         <height>645.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.325323343</x>
-        <y>0.341424704</y>
+        <y>0.318188846</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -2415,7 +2415,7 @@
         <height>613.700012207</height>
         <diameter>11.777778625</diameter>
         <x>0.536467016</x>
-        <y>0.138806909</y>
+        <y>0.129360333</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -2426,7 +2426,7 @@
         <height>462.700012207</height>
         <diameter>14.722222328</diameter>
         <x>0.292466998</x>
-        <y>0.204898059</y>
+        <y>0.190953612</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -2437,7 +2437,7 @@
         <height>751.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.668758094</x>
-        <y>0.580547690</y>
+        <y>0.541038215</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -2448,7 +2448,7 @@
         <height>670.500000000</height>
         <diameter>11.166666985</diameter>
         <x>0.573557973</x>
-        <y>0.360363215</y>
+        <y>0.335838497</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -2459,7 +2459,7 @@
         <height>408.100006104</height>
         <diameter>18.222221375</diameter>
         <x>0.661835968</x>
-        <y>0.112137593</y>
+        <y>0.104506008</y>
         <element>9</element>
         <oc>0</oc>
     </tube>
@@ -2470,7 +2470,7 @@
         <height>573.500000000</height>
         <diameter>11.166666985</diameter>
         <x>0.896032929</x>
-        <y>0.627996922</y>
+        <y>0.585258245</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -2481,7 +2481,7 @@
         <height>610.599975586</height>
         <diameter>11.777778625</diameter>
         <x>0.863884151</x>
-        <y>0.676326632</y>
+        <y>0.630298853</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -2492,7 +2492,7 @@
         <height>479.700012207</height>
         <diameter>18.222221375</diameter>
         <x>0.817161739</x>
-        <y>0.292651296</y>
+        <y>0.272734761</y>
         <element>13</element>
         <oc>0</oc>
     </tube>
@@ -2503,7 +2503,7 @@
         <height>490.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.140584469</x>
-        <y>0.281790912</y>
+        <y>0.262613475</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -2514,7 +2514,7 @@
         <height>552.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.804107785</x>
-        <y>0.838028431</y>
+        <y>0.780995965</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -2525,7 +2525,7 @@
         <height>607.400024414</height>
         <diameter>11.777778625</diameter>
         <x>0.688769937</x>
-        <y>0.823216200</y>
+        <y>0.767191768</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -2536,7 +2536,7 @@
         <height>472.200012207</height>
         <diameter>11.777778625</diameter>
         <x>0.599669755</x>
-        <y>0.894580305</y>
+        <y>0.833699107</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -2547,7 +2547,7 @@
         <height>526.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.768949807</x>
-        <y>0.935406446</y>
+        <y>0.871746838</y>
         <element>10</element>
         <oc>0</oc>
     </tube>
@@ -2558,7 +2558,7 @@
         <height>624.299987793</height>
         <diameter>10.277777672</diameter>
         <x>0.795740485</x>
-        <y>0.558362961</y>
+        <y>0.520363212</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -2569,7 +2569,7 @@
         <height>609.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.833209217</x>
-        <y>0.533913016</y>
+        <y>0.497577250</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -2580,7 +2580,7 @@
         <height>744.099975586</height>
         <diameter>10.277777672</diameter>
         <x>0.591820061</x>
-        <y>0.564136386</y>
+        <y>0.525743783</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -2591,7 +2591,7 @@
         <height>570.299987793</height>
         <diameter>10.277777672</diameter>
         <x>0.083188727</x>
-        <y>0.614034772</y>
+        <y>0.572246313</y>
         <element>1</element>
         <oc>0</oc>
     </tube>
@@ -2602,7 +2602,7 @@
         <height>601.000000000</height>
         <diameter>11.166666985</diameter>
         <x>0.157235473</x>
-        <y>0.832316697</y>
+        <y>0.775672913</y>
         <element>1</element>
         <oc>0</oc>
     </tube>
@@ -2613,7 +2613,7 @@
         <height>364.600006104</height>
         <diameter>10.277777672</diameter>
         <x>0.268592894</x>
-        <y>0.583293736</y>
+        <y>0.543597341</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -2624,7 +2624,7 @@
         <height>391.700012207</height>
         <diameter>18.222221375</diameter>
         <x>0.362826437</x>
-        <y>0.094953194</y>
+        <y>0.088491097</y>
         <element>6</element>
         <oc>0</oc>
     </tube>
@@ -2635,7 +2635,7 @@
         <height>395.899993896</height>
         <diameter>11.777778625</diameter>
         <x>0.685593307</x>
-        <y>0.122576788</y>
+        <y>0.114234753</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -2646,7 +2646,7 @@
         <height>684.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.752471745</x>
-        <y>0.548506975</y>
+        <y>0.511178017</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -2657,7 +2657,7 @@
         <height>538.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.774755359</x>
-        <y>0.383650899</y>
+        <y>0.357541323</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -2668,7 +2668,7 @@
         <height>568.200012207</height>
         <diameter>14.722222328</diameter>
         <x>0.807707965</x>
-        <y>0.630594194</y>
+        <y>0.587678790</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -2679,7 +2679,7 @@
         <height>618.000000000</height>
         <diameter>18.222221375</diameter>
         <x>0.815554023</x>
-        <y>0.434182405</y>
+        <y>0.404633880</y>
         <element>13</element>
         <oc>1</oc>
     </tube>
@@ -2690,7 +2690,7 @@
         <height>553.299987793</height>
         <diameter>10.277777672</diameter>
         <x>0.474754333</x>
-        <y>0.918873012</y>
+        <y>0.856338561</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -2701,7 +2701,7 @@
         <height>716.599975586</height>
         <diameter>14.722222328</diameter>
         <x>0.600554824</x>
-        <y>0.481382906</y>
+        <y>0.448622137</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -2712,7 +2712,7 @@
         <height>634.900024414</height>
         <diameter>11.166666985</diameter>
         <x>0.904752731</x>
-        <y>0.458433479</y>
+        <y>0.427234530</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -2723,7 +2723,7 @@
         <height>465.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.274017155</x>
-        <y>0.116727233</y>
+        <y>0.108783297</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -2734,7 +2734,7 @@
         <height>664.099975586</height>
         <diameter>11.777778625</diameter>
         <x>0.190956309</x>
-        <y>0.688858926</y>
+        <y>0.641978264</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -2745,7 +2745,7 @@
         <height>200.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.407653809</x>
-        <y>0.830566764</y>
+        <y>0.774042070</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -2756,7 +2756,7 @@
         <height>561.599975586</height>
         <diameter>14.722222328</diameter>
         <x>0.082564637</x>
-        <y>0.437983721</y>
+        <y>0.408176512</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -2767,7 +2767,7 @@
         <height>600.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.344617188</x>
-        <y>0.648862541</y>
+        <y>0.604703844</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -2778,7 +2778,7 @@
         <height>776.500000000</height>
         <diameter>11.777778625</diameter>
         <x>0.414560974</x>
-        <y>0.480089843</y>
+        <y>0.447417080</y>
         <element>5</element>
         <oc>1</oc>
     </tube>
@@ -2789,7 +2789,7 @@
         <height>747.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.393662930</x>
-        <y>0.475000232</y>
+        <y>0.442673832</y>
         <element>5</element>
         <oc>1</oc>
     </tube>
@@ -2800,7 +2800,7 @@
         <height>392.200012207</height>
         <diameter>18.222221375</diameter>
         <x>0.501170635</x>
-        <y>0.948652804</y>
+        <y>0.884091675</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -2811,7 +2811,7 @@
         <height>499.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.835625470</x>
-        <y>0.292013437</y>
+        <y>0.272140294</y>
         <element>13</element>
         <oc>1</oc>
     </tube>
@@ -2822,7 +2822,7 @@
         <height>652.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.906006634</x>
-        <y>0.590512753</y>
+        <y>0.550325096</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -2833,7 +2833,7 @@
         <height>417.600006104</height>
         <diameter>11.166666985</diameter>
         <x>0.257119030</x>
-        <y>0.798718452</y>
+        <y>0.744361222</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -2844,7 +2844,7 @@
         <height>610.000000000</height>
         <diameter>18.222221375</diameter>
         <x>0.372220993</x>
-        <y>0.873924851</y>
+        <y>0.814449370</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -2855,7 +2855,7 @@
         <height>617.500000000</height>
         <diameter>10.277777672</diameter>
         <x>0.309351504</x>
-        <y>0.343792588</y>
+        <y>0.320395589</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -2866,7 +2866,7 @@
         <height>495.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.512803555</x>
-        <y>0.253585815</y>
+        <y>0.236327887</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -2877,7 +2877,7 @@
         <height>647.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.582744002</x>
-        <y>0.656073093</y>
+        <y>0.611423671</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -2888,7 +2888,7 @@
         <height>571.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.813742638</x>
-        <y>0.794926047</y>
+        <y>0.740826905</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -2899,7 +2899,7 @@
         <height>634.900024414</height>
         <diameter>11.166666985</diameter>
         <x>0.849310517</x>
-        <y>0.610360146</y>
+        <y>0.568821788</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -2910,7 +2910,7 @@
         <height>602.599975586</height>
         <diameter>14.722222328</diameter>
         <x>0.920954823</x>
-        <y>0.615694344</y>
+        <y>0.573792934</y>
         <element>14</element>
         <oc>0</oc>
     </tube>
@@ -2921,7 +2921,7 @@
         <height>602.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.207632393</x>
-        <y>0.710530221</y>
+        <y>0.662174702</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -2932,7 +2932,7 @@
         <height>504.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.155944914</x>
-        <y>0.571021855</y>
+        <y>0.532160640</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -2943,7 +2943,7 @@
         <height>527.400024414</height>
         <diameter>11.166666985</diameter>
         <x>0.141653985</x>
-        <y>0.324251145</y>
+        <y>0.302184045</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -2954,7 +2954,7 @@
         <height>605.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.103792571</x>
-        <y>0.873935938</y>
+        <y>0.814459741</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -2965,7 +2965,7 @@
         <height>472.799987793</height>
         <diameter>11.166666985</diameter>
         <x>0.172780067</x>
-        <y>0.113050982</y>
+        <y>0.105357237</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -2976,7 +2976,7 @@
         <height>686.900024414</height>
         <diameter>18.222221375</diameter>
         <x>0.441981494</x>
-        <y>0.425113052</y>
+        <y>0.396181732</y>
         <element>5</element>
         <oc>1</oc>
     </tube>
@@ -2987,7 +2987,7 @@
         <height>519.400024414</height>
         <diameter>11.777778625</diameter>
         <x>0.451784670</x>
-        <y>0.209201187</y>
+        <y>0.194963872</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -2998,7 +2998,7 @@
         <height>670.500000000</height>
         <diameter>14.722222328</diameter>
         <x>0.773160279</x>
-        <y>0.626793385</y>
+        <y>0.584136605</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -3009,7 +3009,7 @@
         <height>658.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.865615547</x>
-        <y>0.467594832</y>
+        <y>0.435772419</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -3020,7 +3020,7 @@
         <height>646.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.905001283</x>
-        <y>0.499650806</y>
+        <y>0.465646774</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -3031,7 +3031,7 @@
         <height>621.200012207</height>
         <diameter>14.722222328</diameter>
         <x>0.904796243</x>
-        <y>0.543244660</y>
+        <y>0.506273866</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -3042,7 +3042,7 @@
         <height>410.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.747510016</x>
-        <y>0.221413895</y>
+        <y>0.206345454</y>
         <element>0</element>
         <oc>0</oc>
     </tube>
@@ -3053,7 +3053,7 @@
         <height>629.599975586</height>
         <diameter>18.222221375</diameter>
         <x>0.350954115</x>
-        <y>0.323558539</y>
+        <y>0.301538587</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -3064,7 +3064,7 @@
         <height>627.500000000</height>
         <diameter>10.277777672</diameter>
         <x>0.366989046</x>
-        <y>0.829247475</y>
+        <y>0.772812545</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -3075,7 +3075,7 @@
         <height>792.400024414</height>
         <diameter>11.777778625</diameter>
         <x>0.419663519</x>
-        <y>0.445952147</y>
+        <y>0.415602624</y>
         <element>5</element>
         <oc>1</oc>
     </tube>
@@ -3086,7 +3086,7 @@
         <height>498.700012207</height>
         <diameter>11.777778625</diameter>
         <x>0.509506941</x>
-        <y>0.879079878</y>
+        <y>0.819253623</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -3097,7 +3097,7 @@
         <height>601.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.547641039</x>
-        <y>0.764255106</y>
+        <y>0.712243319</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -3108,7 +3108,7 @@
         <height>768.500000000</height>
         <diameter>14.722222328</diameter>
         <x>0.648531079</x>
-        <y>0.631098926</y>
+        <y>0.588149130</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -3119,7 +3119,7 @@
         <height>648.200012207</height>
         <diameter>11.777778625</diameter>
         <x>0.739139378</x>
-        <y>0.513008475</y>
+        <y>0.478095382</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -3130,7 +3130,7 @@
         <height>723.500000000</height>
         <diameter>14.722222328</diameter>
         <x>0.390541375</x>
-        <y>0.517242014</y>
+        <y>0.482040823</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -3141,7 +3141,7 @@
         <height>428.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.762682557</x>
-        <y>0.260208726</y>
+        <y>0.242500067</y>
         <element>0</element>
         <oc>0</oc>
     </tube>
@@ -3152,7 +3152,7 @@
         <height>559.200012207</height>
         <diameter>11.166666985</diameter>
         <x>0.120669030</x>
-        <y>0.881616294</y>
+        <y>0.821617365</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -3163,7 +3163,7 @@
         <height>605.299987793</height>
         <diameter>10.277777672</diameter>
         <x>0.493652970</x>
-        <y>0.302192926</y>
+        <y>0.281627029</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -3174,7 +3174,7 @@
         <height>402.299987793</height>
         <diameter>11.777778625</diameter>
         <x>0.579154193</x>
-        <y>0.979920089</y>
+        <y>0.913231075</y>
         <element>7</element>
         <oc>0</oc>
     </tube>
@@ -3185,7 +3185,7 @@
         <height>383.700012207</height>
         <diameter>18.222221375</diameter>
         <x>0.708107114</x>
-        <y>0.117349505</y>
+        <y>0.109363213</y>
         <element>9</element>
         <oc>0</oc>
     </tube>
@@ -3196,7 +3196,7 @@
         <height>623.299987793</height>
         <diameter>11.166666985</diameter>
         <x>0.641231060</x>
-        <y>0.408695042</y>
+        <y>0.380881071</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -3207,7 +3207,7 @@
         <height>577.200012207</height>
         <diameter>11.777778625</diameter>
         <x>0.847731411</x>
-        <y>0.383854002</y>
+        <y>0.357730597</y>
         <element>13</element>
         <oc>0</oc>
     </tube>
@@ -3218,7 +3218,7 @@
         <height>539.000000000</height>
         <diameter>18.222221375</diameter>
         <x>0.808625102</x>
-        <y>0.376215190</y>
+        <y>0.350611657</y>
         <element>13</element>
         <oc>0</oc>
     </tube>
@@ -3229,7 +3229,7 @@
         <height>643.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.865200996</x>
-        <y>0.584385514</y>
+        <y>0.544614851</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -3240,7 +3240,7 @@
         <height>572.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.615478992</x>
-        <y>0.844998896</y>
+        <y>0.787492037</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -3251,7 +3251,7 @@
         <height>508.299987793</height>
         <diameter>18.222221375</diameter>
         <x>0.530748487</x>
-        <y>0.860184908</y>
+        <y>0.801644564</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -3262,7 +3262,7 @@
         <height>580.900024414</height>
         <diameter>11.166666985</diameter>
         <x>0.158673614</x>
-        <y>0.321937859</y>
+        <y>0.300028175</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -3273,7 +3273,7 @@
         <height>527.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.121020436</x>
-        <y>0.256768733</y>
+        <y>0.239294201</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -3284,7 +3284,7 @@
         <height>589.400024414</height>
         <diameter>11.166666985</diameter>
         <x>0.881555378</x>
-        <y>0.672447145</y>
+        <y>0.626683354</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -3295,7 +3295,7 @@
         <height>292.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.230208039</x>
-        <y>0.671702623</y>
+        <y>0.625989556</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -3306,7 +3306,7 @@
         <height>485.500000000</height>
         <diameter>14.722222328</diameter>
         <x>0.104455471</x>
-        <y>0.432323933</y>
+        <y>0.402901888</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -3317,7 +3317,7 @@
         <height>335.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.212686867</x>
-        <y>0.621184230</y>
+        <y>0.578909159</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -3328,7 +3328,7 @@
         <height>557.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.401882499</x>
-        <y>0.794262230</y>
+        <y>0.740208268</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -3339,7 +3339,7 @@
         <height>405.500000000</height>
         <diameter>14.722222328</diameter>
         <x>0.389099658</x>
-        <y>0.134726554</y>
+        <y>0.125557661</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -3350,7 +3350,7 @@
         <height>540.099975586</height>
         <diameter>11.777778625</diameter>
         <x>0.596030653</x>
-        <y>0.987600505</y>
+        <y>0.920388818</y>
         <element>7</element>
         <oc>0</oc>
     </tube>
@@ -3361,7 +3361,7 @@
         <height>505.600006104</height>
         <diameter>18.222221375</diameter>
         <x>0.748075783</x>
-        <y>0.957921028</y>
+        <y>0.892729163</y>
         <element>10</element>
         <oc>0</oc>
     </tube>
@@ -3372,7 +3372,7 @@
         <height>711.299987793</height>
         <diameter>18.222221375</diameter>
         <x>0.690733731</x>
-        <y>0.393273205</y>
+        <y>0.366508782</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -3383,7 +3383,7 @@
         <height>403.299987793</height>
         <diameter>11.777778625</diameter>
         <x>0.293251514</x>
-        <y>0.809002519</y>
+        <y>0.753945410</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -3394,7 +3394,7 @@
         <height>396.399993896</height>
         <diameter>11.777778625</diameter>
         <x>0.264391571</x>
-        <y>0.832701087</y>
+        <y>0.776031137</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -3405,7 +3405,7 @@
         <height>426.100006104</height>
         <diameter>14.722222328</diameter>
         <x>0.226469278</x>
-        <y>0.493489027</y>
+        <y>0.459904343</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -3416,7 +3416,7 @@
         <height>370.500000000</height>
         <diameter>14.722222328</diameter>
         <x>0.201932073</x>
-        <y>0.581419587</y>
+        <y>0.541850746</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -3427,7 +3427,7 @@
         <height>222.500000000</height>
         <diameter>14.722222328</diameter>
         <x>0.810217977</x>
-        <y>0.513912737</y>
+        <y>0.478938133</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -3438,7 +3438,7 @@
         <height>548.599975586</height>
         <diameter>14.722222328</diameter>
         <x>0.129046470</x>
-        <y>0.179578841</y>
+        <y>0.167357504</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -3449,7 +3449,7 @@
         <height>513.599975586</height>
         <diameter>14.722222328</diameter>
         <x>0.155899018</x>
-        <y>0.134973615</y>
+        <y>0.125787899</y>
         <element>3</element>
         <oc>0</oc>
     </tube>
@@ -3460,7 +3460,7 @@
         <height>523.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.164826244</x>
-        <y>0.273053318</y>
+        <y>0.254470527</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -3471,7 +3471,7 @@
         <height>526.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.344344556</x>
-        <y>0.214002535</y>
+        <y>0.199438483</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -3482,7 +3482,7 @@
         <height>682.099975586</height>
         <diameter>11.166666985</diameter>
         <x>0.573137760</x>
-        <y>0.697176874</y>
+        <y>0.649730086</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -3493,7 +3493,7 @@
         <height>683.200012207</height>
         <diameter>14.722222328</diameter>
         <x>0.569428742</x>
-        <y>0.326544464</y>
+        <y>0.304321319</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -3504,7 +3504,7 @@
         <height>658.299987793</height>
         <diameter>18.222221375</diameter>
         <x>0.545077026</x>
-        <y>0.313674062</y>
+        <y>0.292326808</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -3515,7 +3515,7 @@
         <height>564.500000000</height>
         <diameter>18.222221375</diameter>
         <x>0.868662655</x>
-        <y>0.357342005</y>
+        <y>0.333022892</y>
         <element>13</element>
         <oc>0</oc>
     </tube>
@@ -3526,7 +3526,7 @@
         <height>516.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.279475868</x>
-        <y>0.160216287</y>
+        <y>0.149312675</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -3537,7 +3537,7 @@
         <height>569.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.766220927</x>
-        <y>0.452413350</y>
+        <y>0.421624124</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -3548,7 +3548,7 @@
         <height>596.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.895362973</x>
-        <y>0.381936073</y>
+        <y>0.355943203</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -3559,7 +3559,7 @@
         <height>355.100006104</height>
         <diameter>18.222221375</diameter>
         <x>0.137598187</x>
-        <y>0.914901972</y>
+        <y>0.852637827</y>
         <element>1</element>
         <oc>0</oc>
     </tube>
@@ -3570,7 +3570,7 @@
         <height>638.700012207</height>
         <diameter>18.222221375</diameter>
         <x>0.760323703</x>
-        <y>0.498110861</y>
+        <y>0.464211643</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -3581,7 +3581,7 @@
         <height>667.299987793</height>
         <diameter>11.777778625</diameter>
         <x>0.856944859</x>
-        <y>0.501946628</y>
+        <y>0.467786372</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -3592,7 +3592,7 @@
         <height>678.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.860365272</x>
-        <y>0.541328967</y>
+        <y>0.504488528</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -3603,7 +3603,7 @@
         <height>536.400024414</height>
         <diameter>11.166666985</diameter>
         <x>0.143506795</x>
-        <y>0.429158747</y>
+        <y>0.399952114</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -3614,7 +3614,7 @@
         <height>608.400024414</height>
         <diameter>11.166666985</diameter>
         <x>0.526171446</x>
-        <y>0.242681324</y>
+        <y>0.226165518</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -3625,7 +3625,7 @@
         <height>666.200012207</height>
         <diameter>14.722222328</diameter>
         <x>0.119315527</x>
-        <y>0.844341815</y>
+        <y>0.786879659</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -3636,7 +3636,7 @@
         <height>749.400024414</height>
         <diameter>11.777778625</diameter>
         <x>0.431864560</x>
-        <y>0.472590804</y>
+        <y>0.440428376</y>
         <element>5</element>
         <oc>1</oc>
     </tube>
@@ -3647,7 +3647,7 @@
         <height>541.700012207</height>
         <diameter>18.222221375</diameter>
         <x>0.593951046</x>
-        <y>0.151803985</y>
+        <y>0.141472876</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -3658,7 +3658,7 @@
         <height>590.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.643701017</x>
-        <y>0.368019491</y>
+        <y>0.342973709</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -3669,7 +3669,7 @@
         <height>659.900024414</height>
         <diameter>11.777778625</diameter>
         <x>0.345056862</x>
-        <y>0.369256020</y>
+        <y>0.344126076</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -3680,7 +3680,7 @@
         <height>437.399993896</height>
         <diameter>14.722222328</diameter>
         <x>0.576129973</x>
-        <y>0.942158580</y>
+        <y>0.878039479</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -3691,7 +3691,7 @@
         <height>714.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.722201049</x>
-        <y>0.538928449</y>
+        <y>0.502251327</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -3702,7 +3702,7 @@
         <height>607.900024414</height>
         <diameter>14.722222328</diameter>
         <x>0.890966892</x>
-        <y>0.425311536</y>
+        <y>0.396366715</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -3713,7 +3713,7 @@
         <height>464.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.556396484</x>
-        <y>0.914327264</y>
+        <y>0.852102220</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -3724,7 +3724,7 @@
         <height>778.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.607987702</x>
-        <y>0.577380359</y>
+        <y>0.538086414</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -3735,7 +3735,7 @@
         <height>516.799987793</height>
         <diameter>11.777778625</diameter>
         <x>0.514853418</x>
-        <y>0.915762365</y>
+        <y>0.853439689</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -3746,7 +3746,7 @@
         <height>662.500000000</height>
         <diameter>11.166666985</diameter>
         <x>0.584252059</x>
-        <y>0.243308216</y>
+        <y>0.226749733</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -3757,7 +3757,7 @@
         <height>503.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.513318896</x>
-        <y>0.217608839</y>
+        <y>0.202799350</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -3768,7 +3768,7 @@
         <height>524.700012207</height>
         <diameter>11.777778625</diameter>
         <x>0.593843520</x>
-        <y>0.847471774</y>
+        <y>0.789796591</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -3779,7 +3779,7 @@
         <height>443.100006104</height>
         <diameter>14.722222328</diameter>
         <x>0.243720248</x>
-        <y>0.826423109</y>
+        <y>0.770180404</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -3790,7 +3790,7 @@
         <height>620.099975586</height>
         <diameter>18.222221375</diameter>
         <x>0.601977170</x>
-        <y>0.806691289</y>
+        <y>0.751791477</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -3801,7 +3801,7 @@
         <height>698.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.456866652</x>
-        <y>0.308276445</y>
+        <y>0.287296534</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -3812,7 +3812,7 @@
         <height>591.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.111214995</x>
-        <y>0.487482011</y>
+        <y>0.454306155</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -3823,7 +3823,7 @@
         <height>472.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.678201795</x>
-        <y>0.858269095</y>
+        <y>0.799859107</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -3834,7 +3834,7 @@
         <height>542.700012207</height>
         <diameter>14.722222328</diameter>
         <x>0.307038397</x>
-        <y>0.285665929</y>
+        <y>0.266224772</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -3845,7 +3845,7 @@
         <height>506.200012207</height>
         <diameter>10.277777672</diameter>
         <x>0.664985001</x>
-        <y>0.258317113</y>
+        <y>0.240737200</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -3856,7 +3856,7 @@
         <height>702.299987793</height>
         <diameter>11.777778625</diameter>
         <x>0.175356656</x>
-        <y>0.665243447</y>
+        <y>0.619969964</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -3867,7 +3867,7 @@
         <height>537.400024414</height>
         <diameter>11.777778625</diameter>
         <x>0.173441961</x>
-        <y>0.227897540</y>
+        <y>0.212387845</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -3878,7 +3878,7 @@
         <height>544.799987793</height>
         <diameter>11.777778625</diameter>
         <x>0.130408004</x>
-        <y>0.348067552</y>
+        <y>0.324379623</y>
         <element>3</element>
         <oc>0</oc>
     </tube>
@@ -3889,7 +3889,7 @@
         <height>767.400024414</height>
         <diameter>18.222221375</diameter>
         <x>0.398371547</x>
-        <y>0.424440295</y>
+        <y>0.395554781</y>
         <element>5</element>
         <oc>1</oc>
     </tube>
@@ -3900,7 +3900,7 @@
         <height>525.200012207</height>
         <diameter>11.777778625</diameter>
         <x>0.552923381</x>
-        <y>0.849339426</y>
+        <y>0.791537166</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -3911,7 +3911,7 @@
         <height>504.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.775017560</x>
-        <y>0.336059570</y>
+        <y>0.313188851</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -3922,7 +3922,7 @@
         <height>664.599975586</height>
         <diameter>18.222221375</diameter>
         <x>0.618006110</x>
-        <y>0.434287369</y>
+        <y>0.404731721</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -3933,7 +3933,7 @@
         <height>584.500000000</height>
         <diameter>18.222221375</diameter>
         <x>0.659659207</x>
-        <y>0.820498765</y>
+        <y>0.764659286</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -3944,7 +3944,7 @@
         <height>377.899993896</height>
         <diameter>11.777778625</diameter>
         <x>0.221555665</x>
-        <y>0.587642908</y>
+        <y>0.547650516</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -3955,7 +3955,7 @@
         <height>641.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.397539139</x>
-        <y>0.863243163</y>
+        <y>0.804494619</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -3966,7 +3966,7 @@
         <height>576.099975586</height>
         <diameter>11.166666985</diameter>
         <x>0.097286031</x>
-        <y>0.464353681</y>
+        <y>0.432751834</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -3977,7 +3977,7 @@
         <height>534.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.646182418</x>
-        <y>0.253336698</y>
+        <y>0.236095726</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -3988,7 +3988,7 @@
         <height>694.299987793</height>
         <diameter>18.222221375</diameter>
         <x>0.699571669</x>
-        <y>0.742570639</y>
+        <y>0.692034602</y>
         <element>10</element>
         <oc>1</oc>
     </tube>
@@ -3999,7 +3999,7 @@
         <height>702.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.735815167</x>
-        <y>0.584042668</y>
+        <y>0.544295311</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -4010,7 +4010,7 @@
         <height>605.799987793</height>
         <diameter>11.777778625</diameter>
         <x>0.202833295</x>
-        <y>0.796689272</y>
+        <y>0.742470145</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -4021,7 +4021,7 @@
         <height>363.100006104</height>
         <diameter>11.166666985</diameter>
         <x>0.542370200</x>
-        <y>0.971202314</y>
+        <y>0.905106604</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -4032,7 +4032,7 @@
         <height>731.400024414</height>
         <diameter>10.277777672</diameter>
         <x>0.158821419</x>
-        <y>0.648379982</y>
+        <y>0.604254127</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -4043,7 +4043,7 @@
         <height>513.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.138249665</x>
-        <y>0.547297180</y>
+        <y>0.510050595</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -4054,7 +4054,7 @@
         <height>751.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.157683179</x>
-        <y>0.683924377</y>
+        <y>0.637379527</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -4065,7 +4065,7 @@
         <height>398.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.296886057</x>
-        <y>0.745585263</y>
+        <y>0.694844067</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -4076,7 +4076,7 @@
         <height>491.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.179847643</x>
-        <y>0.190627456</y>
+        <y>0.177654207</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -4087,7 +4087,7 @@
         <height>553.900024414</height>
         <diameter>11.777778625</diameter>
         <x>0.503374815</x>
-        <y>0.062674329</y>
+        <y>0.058408991</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -4098,7 +4098,7 @@
         <height>700.099975586</height>
         <diameter>11.166666985</diameter>
         <x>0.613272309</x>
-        <y>0.281624615</y>
+        <y>0.262458473</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -4109,7 +4109,7 @@
         <height>619.599975586</height>
         <diameter>18.222221375</diameter>
         <x>0.871621728</x>
-        <y>0.633925378</y>
+        <y>0.590783238</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -4120,7 +4120,7 @@
         <height>694.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.575935245</x>
-        <y>0.736126721</y>
+        <y>0.686029196</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -4131,7 +4131,7 @@
         <height>643.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.720141053</x>
-        <y>0.492416173</y>
+        <y>0.458904535</y>
         <element>11</element>
         <oc>1</oc>
     </tube>
@@ -4142,7 +4142,7 @@
         <height>370.500000000</height>
         <diameter>11.777778625</diameter>
         <x>0.525663197</x>
-        <y>0.966331124</y>
+        <y>0.900566936</y>
         <element>7</element>
         <oc>0</oc>
     </tube>
@@ -4153,7 +4153,7 @@
         <height>745.700012207</height>
         <diameter>14.722222328</diameter>
         <x>0.678051770</x>
-        <y>0.546628475</y>
+        <y>0.509427369</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -4164,7 +4164,7 @@
         <height>631.200012207</height>
         <diameter>11.166666985</diameter>
         <x>0.552028954</x>
-        <y>0.223626837</y>
+        <y>0.208407789</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -4175,7 +4175,7 @@
         <height>285.700012207</height>
         <diameter>14.722222328</diameter>
         <x>0.254929602</x>
-        <y>0.673391163</y>
+        <y>0.627563179</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -4186,7 +4186,7 @@
         <height>453.700012207</height>
         <diameter>14.722222328</diameter>
         <x>0.666387737</x>
-        <y>0.160379872</y>
+        <y>0.149465144</y>
         <element>9</element>
         <oc>0</oc>
     </tube>
@@ -4197,7 +4197,7 @@
         <height>558.099975586</height>
         <diameter>18.222221375</diameter>
         <x>0.574448943</x>
-        <y>0.825258613</y>
+        <y>0.769095182</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -4208,7 +4208,7 @@
         <height>485.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.681267142</x>
-        <y>0.263566166</y>
+        <y>0.245629042</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -4219,7 +4219,7 @@
         <height>548.599975586</height>
         <diameter>18.222221375</diameter>
         <x>0.840771496</x>
-        <y>0.342686981</y>
+        <y>0.319365233</y>
         <element>13</element>
         <oc>0</oc>
     </tube>
@@ -4230,7 +4230,7 @@
         <height>492.399993896</height>
         <diameter>18.222221375</diameter>
         <x>0.200275093</x>
-        <y>0.492123783</y>
+        <y>0.458632022</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -4241,7 +4241,7 @@
         <height>578.599975586</height>
         <diameter>18.222221375</diameter>
         <x>0.385690778</x>
-        <y>0.753414094</y>
+        <y>0.702140093</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -4252,7 +4252,7 @@
         <height>706.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.882139385</x>
-        <y>0.558465540</y>
+        <y>0.520458877</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -4263,7 +4263,7 @@
         <height>665.200012207</height>
         <diameter>11.166666985</diameter>
         <x>0.595243931</x>
-        <y>0.764335871</y>
+        <y>0.712318599</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -4274,7 +4274,7 @@
         <height>598.900024414</height>
         <diameter>14.722222328</diameter>
         <x>0.328473508</x>
-        <y>0.297184199</y>
+        <y>0.276959151</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -4285,7 +4285,7 @@
         <height>677.900024414</height>
         <diameter>11.777778625</diameter>
         <x>0.627203643</x>
-        <y>0.655990064</y>
+        <y>0.611346304</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -4296,7 +4296,7 @@
         <height>490.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.226385742</x>
-        <y>0.850722373</y>
+        <y>0.792825997</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -4307,7 +4307,7 @@
         <height>601.700012207</height>
         <diameter>14.722222328</diameter>
         <x>0.365417868</x>
-        <y>0.367916971</y>
+        <y>0.342878163</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -4318,7 +4318,7 @@
         <height>254.500000000</height>
         <diameter>10.277777672</diameter>
         <x>0.607053280</x>
-        <y>0.393712312</y>
+        <y>0.366918027</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -4329,7 +4329,7 @@
         <height>254.500000000</height>
         <diameter>11.777778625</diameter>
         <x>0.790061951</x>
-        <y>0.471657842</y>
+        <y>0.439558923</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -4340,7 +4340,7 @@
         <height>548.599975586</height>
         <diameter>11.777778625</diameter>
         <x>0.490647167</x>
-        <y>0.878096938</y>
+        <y>0.818337560</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -4351,7 +4351,7 @@
         <height>365.700012207</height>
         <diameter>11.777778625</diameter>
         <x>0.561881483</x>
-        <y>0.970618963</y>
+        <y>0.904562950</y>
         <element>7</element>
         <oc>0</oc>
     </tube>
@@ -4362,7 +4362,7 @@
         <height>734.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.605455935</x>
-        <y>0.651656270</y>
+        <y>0.607307434</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -4373,7 +4373,7 @@
         <height>657.200012207</height>
         <diameter>14.722222328</diameter>
         <x>0.612403154</x>
-        <y>0.225173384</y>
+        <y>0.209849089</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -4384,7 +4384,7 @@
         <height>621.200012207</height>
         <diameter>18.222221375</diameter>
         <x>0.863810897</x>
-        <y>0.417895585</y>
+        <y>0.389455467</y>
         <element>13</element>
         <oc>0</oc>
     </tube>
@@ -4395,7 +4395,7 @@
         <height>453.200012207</height>
         <diameter>11.777778625</diameter>
         <x>0.313168198</x>
-        <y>0.750834405</y>
+        <y>0.699735940</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -4406,7 +4406,7 @@
         <height>571.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.149153277</x>
-        <y>0.357045412</y>
+        <y>0.332746476</y>
         <element>3</element>
         <oc>0</oc>
     </tube>
@@ -4417,7 +4417,7 @@
         <height>352.500000000</height>
         <diameter>11.777778625</diameter>
         <x>0.551852763</x>
-        <y>0.997299194</y>
+        <y>0.929427445</y>
         <element>7</element>
         <oc>0</oc>
     </tube>
@@ -4428,7 +4428,7 @@
         <height>561.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.494122416</x>
-        <y>0.196206197</y>
+        <y>0.182853281</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -4439,7 +4439,7 @@
         <height>593.099975586</height>
         <diameter>11.166666985</diameter>
         <x>0.719892502</x>
-        <y>0.451198876</y>
+        <y>0.420492291</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -4450,7 +4450,7 @@
         <height>644.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.840872288</x>
-        <y>0.423500657</y>
+        <y>0.394679099</y>
         <element>13</element>
         <oc>1</oc>
     </tube>
@@ -4461,7 +4461,7 @@
         <height>265.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.625318766</x>
-        <y>0.392264038</y>
+        <y>0.365568280</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -4472,7 +4472,7 @@
         <height>644.500000000</height>
         <diameter>11.166666985</diameter>
         <x>0.083731510</x>
-        <y>0.766479135</y>
+        <y>0.714315951</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -4483,7 +4483,7 @@
         <height>686.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.584953964</x>
-        <y>0.282148868</y>
+        <y>0.262947053</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -4494,7 +4494,7 @@
         <height>614.299987793</height>
         <diameter>11.777778625</diameter>
         <x>0.830370545</x>
-        <y>0.395350456</y>
+        <y>0.368444651</y>
         <element>13</element>
         <oc>0</oc>
     </tube>
@@ -4505,7 +4505,7 @@
         <height>553.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.156254053</x>
-        <y>0.403020263</y>
+        <y>0.375592500</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -4516,7 +4516,7 @@
         <height>587.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.271812856</x>
-        <y>0.270628601</y>
+        <y>0.252210796</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -4527,7 +4527,7 @@
         <height>721.900024414</height>
         <diameter>18.222221375</diameter>
         <x>0.880136609</x>
-        <y>0.507955849</y>
+        <y>0.473386645</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -4538,7 +4538,7 @@
         <height>585.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.187735170</x>
-        <y>0.825905442</y>
+        <y>0.769698024</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -4549,7 +4549,7 @@
         <height>435.100006104</height>
         <diameter>11.777778625</diameter>
         <x>0.303507030</x>
-        <y>0.781134129</y>
+        <y>0.727973580</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -4560,7 +4560,7 @@
         <height>622.200012207</height>
         <diameter>10.277777672</diameter>
         <x>0.253172934</x>
-        <y>0.312861651</y>
+        <y>0.291569680</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -4571,7 +4571,7 @@
         <height>472.200012207</height>
         <diameter>11.777778625</diameter>
         <x>0.324921429</x>
-        <y>0.193788171</y>
+        <y>0.180599809</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -4582,7 +4582,7 @@
         <height>638.099975586</height>
         <diameter>10.277777672</diameter>
         <x>0.579220474</x>
-        <y>0.184639812</y>
+        <y>0.172074050</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -4593,7 +4593,7 @@
         <height>628.599975586</height>
         <diameter>18.222221375</diameter>
         <x>0.844943166</x>
-        <y>0.651736915</y>
+        <y>0.607382596</y>
         <element>14</element>
         <oc>1</oc>
     </tube>
@@ -4604,7 +4604,7 @@
         <height>623.799987793</height>
         <diameter>11.777778625</diameter>
         <x>0.534813523</x>
-        <y>0.210328281</y>
+        <y>0.196014270</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -4615,7 +4615,7 @@
         <height>789.200012207</height>
         <diameter>18.222221375</diameter>
         <x>0.651346862</x>
-        <y>0.551637292</y>
+        <y>0.514095306</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -4626,7 +4626,7 @@
         <height>630.200012207</height>
         <diameter>18.222221375</diameter>
         <x>0.696474075</x>
-        <y>0.446377963</y>
+        <y>0.415999472</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -4637,7 +4637,7 @@
         <height>518.299987793</height>
         <diameter>18.222221375</diameter>
         <x>0.334601045</x>
-        <y>0.777154088</y>
+        <y>0.724264443</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -4648,7 +4648,7 @@
         <height>557.599975586</height>
         <diameter>14.722222328</diameter>
         <x>0.291185647</x>
-        <y>0.250436068</y>
+        <y>0.233392507</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -4659,7 +4659,7 @@
         <height>675.799987793</height>
         <diameter>11.777778625</diameter>
         <x>0.564035416</x>
-        <y>0.776310802</y>
+        <y>0.723478556</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -4670,7 +4670,7 @@
         <height>551.700012207</height>
         <diameter>11.166666985</diameter>
         <x>0.756520808</x>
-        <y>0.368299007</y>
+        <y>0.343234211</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -4681,7 +4681,7 @@
         <height>569.799987793</height>
         <diameter>11.777778625</diameter>
         <x>0.123094246</x>
-        <y>0.214472309</y>
+        <y>0.199876279</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -4692,7 +4692,7 @@
         <height>422.899993896</height>
         <diameter>11.777778625</diameter>
         <x>0.339711487</x>
-        <y>0.142153516</y>
+        <y>0.132479176</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -4703,7 +4703,7 @@
         <height>588.799987793</height>
         <diameter>11.777778625</diameter>
         <x>0.471985489</x>
-        <y>0.877924383</y>
+        <y>0.818176806</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -4714,7 +4714,7 @@
         <height>511.500000000</height>
         <diameter>14.722222328</diameter>
         <x>0.741414666</x>
-        <y>0.266301036</y>
+        <y>0.248177767</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -4725,7 +4725,7 @@
         <height>355.100006104</height>
         <diameter>18.222221375</diameter>
         <x>0.257996142</x>
-        <y>0.620345414</y>
+        <y>0.578127444</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -4736,7 +4736,7 @@
         <height>556.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.237346500</x>
-        <y>0.290434510</y>
+        <y>0.270668834</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -4747,7 +4747,7 @@
         <height>472.799987793</height>
         <diameter>10.277777672</diameter>
         <x>0.691260457</x>
-        <y>0.283289075</y>
+        <y>0.264009655</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -4758,7 +4758,7 @@
         <height>369.899993896</height>
         <diameter>11.777778625</diameter>
         <x>0.105233051</x>
-        <y>0.714794219</y>
+        <y>0.666148484</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -4769,7 +4769,7 @@
         <height>655.599975586</height>
         <diameter>10.277777672</diameter>
         <x>0.417334467</x>
-        <y>0.857474148</y>
+        <y>0.799118280</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -4780,7 +4780,7 @@
         <height>494.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.413754761</x>
-        <y>0.199618250</y>
+        <y>0.186033115</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -4791,7 +4791,7 @@
         <height>530.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.125470355</x>
-        <y>0.414617270</y>
+        <y>0.386400253</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -4802,7 +4802,7 @@
         <height>586.700012207</height>
         <diameter>18.222221375</diameter>
         <x>0.181726769</x>
-        <y>0.308337778</y>
+        <y>0.287353694</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -4813,7 +4813,7 @@
         <height>288.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.757165551</x>
-        <y>0.411137074</y>
+        <y>0.383156925</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -4824,7 +4824,7 @@
         <height>571.299987793</height>
         <diameter>11.777778625</diameter>
         <x>0.475014120</x>
-        <y>0.154005975</y>
+        <y>0.143525019</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -4835,7 +4835,7 @@
         <height>667.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.571485341</x>
-        <y>0.212239608</y>
+        <y>0.197795525</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -4846,7 +4846,7 @@
         <height>499.299987793</height>
         <diameter>18.222221375</diameter>
         <x>0.212533325</x>
-        <y>0.148726434</y>
+        <y>0.138604775</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -4857,7 +4857,7 @@
         <height>478.600006104</height>
         <diameter>18.222221375</diameter>
         <x>0.751687348</x>
-        <y>0.310441017</y>
+        <y>0.289313793</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -4868,7 +4868,7 @@
         <height>441.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.400591850</x>
-        <y>0.166928828</y>
+        <y>0.155568391</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -4879,7 +4879,7 @@
         <height>805.599975586</height>
         <diameter>18.222221375</diameter>
         <x>0.622792721</x>
-        <y>0.612555623</y>
+        <y>0.570867777</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -4890,7 +4890,7 @@
         <height>606.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.094506882</x>
-        <y>0.673030853</y>
+        <y>0.627227366</y>
         <element>1</element>
         <oc>0</oc>
     </tube>
@@ -4901,7 +4901,7 @@
         <height>625.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.635597110</x>
-        <y>0.216381133</y>
+        <y>0.201655194</y>
         <element>9</element>
         <oc>0</oc>
     </tube>
@@ -4912,7 +4912,7 @@
         <height>507.200012207</height>
         <diameter>14.722222328</diameter>
         <x>0.201850727</x>
-        <y>0.191774264</y>
+        <y>0.178722948</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -4923,7 +4923,7 @@
         <height>453.700012207</height>
         <diameter>11.166666985</diameter>
         <x>0.240114257</x>
-        <y>0.521803081</y>
+        <y>0.486291498</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -4934,7 +4934,7 @@
         <height>577.200012207</height>
         <diameter>11.777778625</diameter>
         <x>0.224740118</x>
-        <y>0.321380794</y>
+        <y>0.299509048</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -4945,7 +4945,7 @@
         <height>615.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.183667704</x>
-        <y>0.392447829</y>
+        <y>0.365739554</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -4956,7 +4956,7 @@
         <height>818.299987793</height>
         <diameter>11.777778625</diameter>
         <x>0.643155992</x>
-        <y>0.596415102</y>
+        <y>0.555825770</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -4967,7 +4967,7 @@
         <height>410.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.244467929</x>
-        <y>0.569234967</y>
+        <y>0.530495346</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -4978,7 +4978,7 @@
         <height>675.799987793</height>
         <diameter>11.777778625</diameter>
         <x>0.685958683</x>
-        <y>0.507036328</y>
+        <y>0.472529680</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -4989,7 +4989,7 @@
         <height>455.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.413766205</x>
-        <y>0.125611037</y>
+        <y>0.117062502</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5000,7 +5000,7 @@
         <height>547.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.199550226</x>
-        <y>0.235258937</y>
+        <y>0.219248265</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -5011,7 +5011,7 @@
         <height>441.500000000</height>
         <diameter>18.222221375</diameter>
         <x>0.272672951</x>
-        <y>0.752324164</y>
+        <y>0.701124310</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -5022,7 +5022,7 @@
         <height>572.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.184339881</x>
-        <y>0.257668644</y>
+        <y>0.240132868</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -5033,7 +5033,7 @@
         <height>592.000000000</height>
         <diameter>18.222221375</diameter>
         <x>0.194448858</x>
-        <y>0.445015192</y>
+        <y>0.414729446</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -5044,7 +5044,7 @@
         <height>546.400024414</height>
         <diameter>11.166666985</diameter>
         <x>0.229167074</x>
-        <y>0.261205167</y>
+        <y>0.243428692</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -5055,7 +5055,7 @@
         <height>628.099975586</height>
         <diameter>18.222221375</diameter>
         <x>0.369279206</x>
-        <y>0.669350028</y>
+        <y>0.623796999</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -5066,7 +5066,7 @@
         <height>603.200012207</height>
         <diameter>18.222221375</diameter>
         <x>0.135377795</x>
-        <y>0.806374848</y>
+        <y>0.751496553</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -5077,7 +5077,7 @@
         <height>629.599975586</height>
         <diameter>11.777778625</diameter>
         <x>0.171030447</x>
-        <y>0.806232870</y>
+        <y>0.751364231</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -5088,7 +5088,7 @@
         <height>482.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.217457339</x>
-        <y>0.537023962</y>
+        <y>0.500476480</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -5099,7 +5099,7 @@
         <height>465.299987793</height>
         <diameter>18.222221375</diameter>
         <x>0.694620132</x>
-        <y>0.165851757</y>
+        <y>0.154564619</y>
         <element>9</element>
         <oc>0</oc>
     </tube>
@@ -5110,7 +5110,7 @@
         <height>755.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.623203814</x>
-        <y>0.700986385</y>
+        <y>0.653280318</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -5121,7 +5121,7 @@
         <height>598.400024414</height>
         <diameter>11.166666985</diameter>
         <x>0.203075975</x>
-        <y>0.325852245</y>
+        <y>0.303676188</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -5132,7 +5132,7 @@
         <height>318.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.492057949</x>
-        <y>0.911373973</y>
+        <y>0.849349916</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -5143,7 +5143,7 @@
         <height>701.200012207</height>
         <diameter>18.222221375</diameter>
         <x>0.612129509</x>
-        <y>0.346771926</y>
+        <y>0.323172152</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -5154,7 +5154,7 @@
         <height>318.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.610537887</x>
-        <y>0.750731528</y>
+        <y>0.699640036</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -5165,7 +5165,7 @@
         <height>694.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.387646586</x>
-        <y>0.558295488</y>
+        <y>0.520300388</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -5176,7 +5176,7 @@
         <height>337.100006104</height>
         <diameter>11.777778625</diameter>
         <x>0.277954102</x>
-        <y>0.661789834</y>
+        <y>0.616751373</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -5187,7 +5187,7 @@
         <height>514.599975586</height>
         <diameter>14.722222328</diameter>
         <x>0.223371699</x>
-        <y>0.197296411</y>
+        <y>0.183869302</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -5198,7 +5198,7 @@
         <height>501.899993896</height>
         <diameter>11.166666985</diameter>
         <x>0.339451581</x>
-        <y>0.174943447</y>
+        <y>0.163037568</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5209,7 +5209,7 @@
         <height>325.399993896</height>
         <diameter>11.777778625</diameter>
         <x>0.286331654</x>
-        <y>0.691829562</y>
+        <y>0.644746721</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -5220,7 +5220,7 @@
         <height>648.700012207</height>
         <diameter>11.166666985</diameter>
         <x>0.094485141</x>
-        <y>0.630625248</y>
+        <y>0.587707698</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -5231,7 +5231,7 @@
         <height>736.700012207</height>
         <diameter>11.777778625</diameter>
         <x>0.645293891</x>
-        <y>0.505717039</y>
+        <y>0.471300155</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -5242,7 +5242,7 @@
         <height>726.099975586</height>
         <diameter>18.222221375</diameter>
         <x>0.600207925</x>
-        <y>0.710588992</y>
+        <y>0.662229478</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -5253,7 +5253,7 @@
         <height>556.000000000</height>
         <diameter>11.166666985</diameter>
         <x>0.721851766</x>
-        <y>0.416897357</y>
+        <y>0.388525188</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -5264,7 +5264,7 @@
         <height>691.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.624765754</x>
-        <y>0.489445478</y>
+        <y>0.456135988</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -5275,7 +5275,7 @@
         <height>651.900024414</height>
         <diameter>10.277777672</diameter>
         <x>0.236628562</x>
-        <y>0.355203927</y>
+        <y>0.331030309</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -5286,7 +5286,7 @@
         <height>580.400024414</height>
         <diameter>18.222221375</diameter>
         <x>0.318401217</x>
-        <y>0.239053145</y>
+        <y>0.222784251</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5297,7 +5297,7 @@
         <height>720.299987793</height>
         <diameter>14.722222328</diameter>
         <x>0.387504518</x>
-        <y>0.377869070</y>
+        <y>0.352152973</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -5308,7 +5308,7 @@
         <height>633.900024414</height>
         <diameter>14.722222328</diameter>
         <x>0.215021685</x>
-        <y>0.355677933</y>
+        <y>0.331472069</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -5319,7 +5319,7 @@
         <height>601.599975586</height>
         <diameter>11.777778625</diameter>
         <x>0.378986210</x>
-        <y>0.709060073</y>
+        <y>0.660804570</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -5330,7 +5330,7 @@
         <height>565.500000000</height>
         <diameter>18.222221375</diameter>
         <x>0.489916474</x>
-        <y>0.109177887</y>
+        <y>0.101747721</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5341,7 +5341,7 @@
         <height>617.500000000</height>
         <diameter>10.277777672</diameter>
         <x>0.615725100</x>
-        <y>0.168940589</y>
+        <y>0.157443240</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -5352,7 +5352,7 @@
         <height>492.899993896</height>
         <diameter>14.722222328</diameter>
         <x>0.358511746</x>
-        <y>0.161935359</y>
+        <y>0.150914758</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5363,7 +5363,7 @@
         <height>619.000000000</height>
         <diameter>18.111110687</diameter>
         <x>0.112396762</x>
-        <y>0.536748827</y>
+        <y>0.500220060</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -5374,7 +5374,7 @@
         <height>428.200012207</height>
         <diameter>18.222221375</diameter>
         <x>0.234733492</x>
-        <y>0.707142234</y>
+        <y>0.659017265</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -5385,7 +5385,7 @@
         <height>588.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.244494200</x>
-        <y>0.215999171</y>
+        <y>0.201299220</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -5396,7 +5396,7 @@
         <height>657.200012207</height>
         <diameter>18.222221375</diameter>
         <x>0.644792378</x>
-        <y>0.452885270</y>
+        <y>0.422063917</y>
         <element>8</element>
         <oc>1</oc>
     </tube>
@@ -5407,7 +5407,7 @@
         <height>686.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.474991262</x>
-        <y>0.302020371</y>
+        <y>0.281466216</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -5418,7 +5418,7 @@
         <height>730.299987793</height>
         <diameter>10.277777672</diameter>
         <x>0.430381626</x>
-        <y>0.356501311</y>
+        <y>0.332239419</y>
         <element>5</element>
         <oc>1</oc>
     </tube>
@@ -5429,7 +5429,7 @@
         <height>609.500000000</height>
         <diameter>14.722222328</diameter>
         <x>0.247659281</x>
-        <y>0.258568585</y>
+        <y>0.240971550</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -5440,7 +5440,7 @@
         <height>470.100006104</height>
         <diameter>14.722222328</diameter>
         <x>0.381758392</x>
-        <y>0.178748593</y>
+        <y>0.166583762</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5451,7 +5451,7 @@
         <height>632.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.516564071</x>
-        <y>0.108166441</y>
+        <y>0.100805111</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5462,7 +5462,7 @@
         <height>521.500000000</height>
         <diameter>14.722222328</diameter>
         <x>0.735646784</x>
-        <y>0.390813559</y>
+        <y>0.364216536</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -5473,7 +5473,7 @@
         <height>779.099975586</height>
         <diameter>10.277777672</diameter>
         <x>0.434057415</x>
-        <y>0.392696649</y>
+        <y>0.365971446</y>
         <element>5</element>
         <oc>1</oc>
     </tube>
@@ -5484,7 +5484,7 @@
         <height>553.900024414</height>
         <diameter>18.222221375</diameter>
         <x>0.719953179</x>
-        <y>0.241980016</y>
+        <y>0.225511938</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -5495,7 +5495,7 @@
         <height>613.700012207</height>
         <diameter>14.722222328</diameter>
         <x>0.129691198</x>
-        <y>0.588455558</y>
+        <y>0.548407853</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -5506,7 +5506,7 @@
         <height>664.599975586</height>
         <diameter>11.777778625</diameter>
         <x>0.194603398</x>
-        <y>0.361014426</y>
+        <y>0.336445391</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -5517,7 +5517,7 @@
         <height>736.200012207</height>
         <diameter>14.722222328</diameter>
         <x>0.104037546</x>
-        <y>0.754336059</y>
+        <y>0.702999353</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -5528,7 +5528,7 @@
         <height>601.599975586</height>
         <diameter>14.722222328</diameter>
         <x>0.172488123</x>
-        <y>0.353061050</y>
+        <y>0.329033285</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -5539,7 +5539,7 @@
         <height>562.900024414</height>
         <diameter>18.222221375</diameter>
         <x>0.205829948</x>
-        <y>0.279990971</y>
+        <y>0.260936022</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -5550,7 +5550,7 @@
         <height>669.400024414</height>
         <diameter>11.166666985</diameter>
         <x>0.624546885</x>
-        <y>0.255809426</y>
+        <y>0.238400191</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -5561,7 +5561,7 @@
         <height>637.599975586</height>
         <diameter>18.222221375</diameter>
         <x>0.100551888</x>
-        <y>0.587736905</y>
+        <y>0.547738135</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -5572,7 +5572,7 @@
         <height>688.500000000</height>
         <diameter>11.166666985</diameter>
         <x>0.581279457</x>
-        <y>0.787610650</y>
+        <y>0.734009385</y>
         <element>7</element>
         <oc>1</oc>
     </tube>
@@ -5583,7 +5583,7 @@
         <height>663.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.439221799</x>
-        <y>0.324958682</y>
+        <y>0.302843422</y>
         <element>5</element>
         <oc>1</oc>
     </tube>
@@ -5594,7 +5594,7 @@
         <height>527.900024414</height>
         <diameter>11.777778625</diameter>
         <x>0.435771555</x>
-        <y>0.111956440</y>
+        <y>0.104337186</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5605,7 +5605,7 @@
         <height>487.600006104</height>
         <diameter>14.722222328</diameter>
         <x>0.410661876</x>
-        <y>0.239861339</y>
+        <y>0.223537445</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5616,7 +5616,7 @@
         <height>537.400024414</height>
         <diameter>14.722222328</diameter>
         <x>0.431111038</x>
-        <y>0.217724681</y>
+        <y>0.202907309</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5627,7 +5627,7 @@
         <height>370.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.295372188</x>
-        <y>0.646295965</y>
+        <y>0.602311909</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -5638,7 +5638,7 @@
         <height>601.599975586</height>
         <diameter>14.722222328</diameter>
         <x>0.268678725</x>
-        <y>0.211259007</y>
+        <y>0.196881652</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -5649,7 +5649,7 @@
         <height>484.399993896</height>
         <diameter>11.777778625</diameter>
         <x>0.285023957</x>
-        <y>0.724564910</y>
+        <y>0.675254226</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -5660,7 +5660,7 @@
         <height>587.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.430027783</x>
-        <y>0.264073104</y>
+        <y>0.246101469</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5671,7 +5671,7 @@
         <height>556.500000000</height>
         <diameter>18.222221375</diameter>
         <x>0.461058795</x>
-        <y>0.118074827</y>
+        <y>0.110039182</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5682,7 +5682,7 @@
         <height>484.399993896</height>
         <diameter>14.722222328</diameter>
         <x>0.710316062</x>
-        <y>0.299883872</y>
+        <y>0.279475093</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -5693,7 +5693,7 @@
         <height>478.100006104</height>
         <diameter>18.222221375</diameter>
         <x>0.244920298</x>
-        <y>0.757278383</y>
+        <y>0.705741346</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -5704,7 +5704,7 @@
         <height>667.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.084728934</x>
-        <y>0.726126909</y>
+        <y>0.676709890</y>
         <element>1</element>
         <oc>0</oc>
     </tube>
@@ -5715,7 +5715,7 @@
         <height>533.200012207</height>
         <diameter>14.722222328</diameter>
         <x>0.370137930</x>
-        <y>0.243349835</y>
+        <y>0.226788521</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5726,7 +5726,7 @@
         <height>706.000000000</height>
         <diameter>11.166666985</diameter>
         <x>0.115529820</x>
-        <y>0.786538422</y>
+        <y>0.733010113</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -5737,7 +5737,7 @@
         <height>506.200012207</height>
         <diameter>11.166666985</diameter>
         <x>0.213986546</x>
-        <y>0.457234681</y>
+        <y>0.426117331</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -5748,7 +5748,7 @@
         <height>600.500000000</height>
         <diameter>18.222221375</diameter>
         <x>0.547233224</x>
-        <y>0.104564369</y>
+        <y>0.097448178</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -5759,7 +5759,7 @@
         <height>397.500000000</height>
         <diameter>11.777778625</diameter>
         <x>0.305668950</x>
-        <y>0.718040109</y>
+        <y>0.669173539</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -5770,7 +5770,7 @@
         <height>400.000000000</height>
         <diameter>11.166666985</diameter>
         <x>0.309671044</x>
-        <y>0.658242404</y>
+        <y>0.613445342</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -5781,7 +5781,7 @@
         <height>683.700012207</height>
         <diameter>14.722222328</diameter>
         <x>0.096412376</x>
-        <y>0.803543925</y>
+        <y>0.748858333</y>
         <element>1</element>
         <oc>0</oc>
     </tube>
@@ -5792,7 +5792,7 @@
         <height>772.700012207</height>
         <diameter>11.777778625</diameter>
         <x>0.420150191</x>
-        <y>0.411973923</y>
+        <y>0.383936822</y>
         <element>5</element>
         <oc>1</oc>
     </tube>
@@ -5803,7 +5803,7 @@
         <height>508.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.361042440</x>
-        <y>0.278079480</y>
+        <y>0.259154648</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5814,7 +5814,7 @@
         <height>699.599975586</height>
         <diameter>11.777778625</diameter>
         <x>0.204623058</x>
-        <y>0.393539995</y>
+        <y>0.366757423</y>
         <element>3</element>
         <oc>1</oc>
     </tube>
@@ -5825,7 +5825,7 @@
         <height>570.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.216800064</x>
-        <y>0.758613050</y>
+        <y>0.706985235</y>
         <element>2</element>
         <oc>1</oc>
     </tube>
@@ -5836,7 +5836,7 @@
         <height>681.599975586</height>
         <diameter>18.222221375</diameter>
         <x>0.355365098</x>
-        <y>0.733031571</y>
+        <y>0.683144689</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -5847,7 +5847,7 @@
         <height>540.599975586</height>
         <diameter>14.722222328</diameter>
         <x>0.388462961</x>
-        <y>0.223102733</y>
+        <y>0.207919359</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5858,7 +5858,7 @@
         <height>605.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.661877155</x>
-        <y>0.211750224</y>
+        <y>0.197339445</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -5869,7 +5869,7 @@
         <height>602.599975586</height>
         <diameter>10.277777672</diameter>
         <x>0.699900210</x>
-        <y>0.265737444</y>
+        <y>0.247652546</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -5880,7 +5880,7 @@
         <height>715.500000000</height>
         <diameter>14.722222328</diameter>
         <x>0.455473036</x>
-        <y>0.347007930</y>
+        <y>0.323392093</y>
         <element>5</element>
         <oc>1</oc>
     </tube>
@@ -5891,7 +5891,7 @@
         <height>581.900024414</height>
         <diameter>11.166666985</diameter>
         <x>0.740579903</x>
-        <y>0.353866726</y>
+        <y>0.329784125</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -5902,7 +5902,7 @@
         <height>450.000000000</height>
         <diameter>11.166666985</diameter>
         <x>0.493716002</x>
-        <y>0.810249686</y>
+        <y>0.755107701</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -5913,7 +5913,7 @@
         <height>703.299987793</height>
         <diameter>27.222221375</diameter>
         <x>0.132426888</x>
-        <y>0.661005735</y>
+        <y>0.616020620</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -5924,7 +5924,7 @@
         <height>589.400024414</height>
         <diameter>18.222221375</diameter>
         <x>0.691410422</x>
-        <y>0.228891164</y>
+        <y>0.213313848</y>
         <element>9</element>
         <oc>0</oc>
     </tube>
@@ -5935,7 +5935,7 @@
         <height>683.200012207</height>
         <diameter>27.222221375</diameter>
         <x>0.179591224</x>
-        <y>0.750273049</y>
+        <y>0.699212790</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -5946,7 +5946,7 @@
         <height>566.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.393355995</x>
-        <y>0.262161791</y>
+        <y>0.244320214</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -5957,7 +5957,7 @@
         <height>604.700012207</height>
         <diameter>18.222221375</diameter>
         <x>0.715459824</x>
-        <y>0.365358829</y>
+        <y>0.340494126</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -5968,7 +5968,7 @@
         <height>633.400024414</height>
         <diameter>18.222221375</diameter>
         <x>0.665911376</x>
-        <y>0.310770899</y>
+        <y>0.289621234</y>
         <element>9</element>
         <oc>1</oc>
     </tube>
@@ -5979,7 +5979,7 @@
         <height>729.299987793</height>
         <diameter>18.222221375</diameter>
         <x>0.363597244</x>
-        <y>0.787866354</y>
+        <y>0.734247684</y>
         <element>4</element>
         <oc>1</oc>
     </tube>
@@ -5990,7 +5990,7 @@
         <height>614.799987793</height>
         <diameter>14.722222328</diameter>
         <x>0.412629187</x>
-        <y>0.336774081</y>
+        <y>0.313854724</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -6001,7 +6001,7 @@
         <height>693.799987793</height>
         <diameter>18.222221375</diameter>
         <x>0.585983455</x>
-        <y>0.400615036</y>
+        <y>0.373350948</y>
         <element>0</element>
         <oc>1</oc>
     </tube>
@@ -6012,7 +6012,7 @@
         <height>807.700012207</height>
         <diameter>27.222221375</diameter>
         <x>0.135501474</x>
-        <y>0.739174247</y>
+        <y>0.688869298</y>
         <element>1</element>
         <oc>1</oc>
     </tube>
@@ -6023,7 +6023,7 @@
         <height>673.099975586</height>
         <diameter>18.222221375</diameter>
         <x>0.380885899</x>
-        <y>0.327518821</y>
+        <y>0.305229366</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -6034,7 +6034,7 @@
         <height>530.000000000</height>
         <diameter>18.222221375</diameter>
         <x>0.690346658</x>
-        <y>0.332446635</y>
+        <y>0.309821784</y>
         <element>12</element>
         <oc>1</oc>
     </tube>
@@ -6045,7 +6045,7 @@
         <height>599.400024414</height>
         <diameter>10.277777672</diameter>
         <x>0.379675478</x>
-        <y>0.280250758</y>
+        <y>0.261178136</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -6056,7 +6056,7 @@
         <height>637.099975586</height>
         <diameter>14.722222328</diameter>
         <x>0.402497292</x>
-        <y>0.297441930</y>
+        <y>0.277199328</y>
         <element>6</element>
         <oc>1</oc>
     </tube>
@@ -6067,7 +6067,7 @@
         <height>340.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.283939540</x>
-        <y>0.595294774</y>
+        <y>0.554781616</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6078,7 +6078,7 @@
         <height>350.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.298379242</x>
-        <y>0.612049043</y>
+        <y>0.570395708</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6089,7 +6089,7 @@
         <height>360.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.312818944</x>
-        <y>0.628803313</y>
+        <y>0.586009741</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6100,7 +6100,7 @@
         <height>370.000000000</height>
         <diameter>10.277777672</diameter>
         <x>0.329525948</x>
-        <y>0.633674502</y>
+        <y>0.590549409</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6111,7 +6111,7 @@
         <height>504.200012207</height>
         <diameter>10.277777672</diameter>
         <x>0.468552440</x>
-        <y>0.736930668</y>
+        <y>0.686778426</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6122,7 +6122,7 @@
         <height>493.399993896</height>
         <diameter>11.166666985</diameter>
         <x>0.271240294</x>
-        <y>0.310602963</y>
+        <y>0.289464682</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6133,7 +6133,7 @@
         <height>578.599975586</height>
         <diameter>11.166666985</diameter>
         <x>0.406259060</x>
-        <y>0.693679750</y>
+        <y>0.646470964</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6144,7 +6144,7 @@
         <height>650.000000000</height>
         <diameter>11.166666985</diameter>
         <x>0.695980549</x>
-        <y>0.524760485</y>
+        <y>0.489047617</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6155,7 +6155,7 @@
         <height>527.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.383586109</x>
-        <y>0.812510669</y>
+        <y>0.757214785</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6166,7 +6166,7 @@
         <height>625.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.422175825</x>
-        <y>0.314469248</y>
+        <y>0.293067873</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6177,7 +6177,7 @@
         <height>577.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.738750041</x>
-        <y>0.466983289</y>
+        <y>0.435202479</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6188,7 +6188,7 @@
         <height>597.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.721779644</x>
-        <y>0.334084898</y>
+        <y>0.311348557</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6199,7 +6199,7 @@
         <height>500.000000000</height>
         <diameter>11.777778625</diameter>
         <x>0.274847448</x>
-        <y>0.790841520</y>
+        <y>0.737020373</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6210,7 +6210,7 @@
         <height>680.000000000</height>
         <diameter>14.722222328</diameter>
         <x>0.663711667</x>
-        <y>0.435069382</y>
+        <y>0.405460477</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6221,7 +6221,7 @@
         <height>578.599975586</height>
         <diameter>14.722222328</diameter>
         <x>0.409934819</x>
-        <y>0.729875088</y>
+        <y>0.680203021</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6232,7 +6232,7 @@
         <height>750.000000000</height>
         <diameter>18.222221375</diameter>
         <x>0.629679382</x>
-        <y>0.761330187</y>
+        <y>0.709517419</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6243,7 +6243,7 @@
         <height>450.000000000</height>
         <diameter>12.111110687</diameter>
         <x>0.442318112</x>
-        <y>0.079494156</y>
+        <y>0.074084133</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
@@ -6254,7 +6254,7 @@
         <height>550.000000000</height>
         <diameter>12.111110687</diameter>
         <x>0.741303563</x>
-        <y>0.435112983</y>
+        <y>0.405501127</y>
         <element>15</element>
         <oc>2</oc>
     </tube>
