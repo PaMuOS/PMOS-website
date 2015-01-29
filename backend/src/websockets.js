@@ -16,8 +16,8 @@ exports.stop = function(done) {
 }
 
 var _onConnection = function(socket) {
-
   socket.on('message', function(msg) {
+    console.log('MSG', msg)
     // Save the event to the database
     var event = new models.Event(JSON.parse(msg))
     event.save(function (err) {

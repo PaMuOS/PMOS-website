@@ -41,7 +41,6 @@ $(function() {
   }
 
   var peformLiveEvents = function(event) {
-    console.log(event)
     tubeViews.perform([event])
   }
 
