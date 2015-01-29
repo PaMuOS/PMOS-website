@@ -16,7 +16,7 @@ exports.stop = function(done) {
 }
 
 var _onConnection = function(socket) {
-  console.log(socket._socket.address())
+  
   socket.on('message', function(msg) {
     // Save the event to the database
     var event = new models.Event(JSON.parse(msg))
@@ -28,11 +28,9 @@ var _onConnection = function(socket) {
     msg = JSON.stringify(event.toJSON())
     wsServer.clients
       .filter(function(s) { return s !== socket })
-      .forEach(function(s) { s.send(msg) })
-  .forEach(function(s) {
-    console.log(s._socket.address())
-  })
-    
+      .forEach(function(s) {
+        s.send(msg, function(err) { console.error('send error', err) })
+      })  
   })
 
   socket.on('close', function() {
@@ -40,7 +38,7 @@ var _onConnection = function(socket) {
   })
 
   socket.on('error', function() {
-    console.log('error', 'Socket error')
+    console.error('error', 'Socket error')
   })
 
 }

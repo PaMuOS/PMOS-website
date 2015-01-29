@@ -1,7 +1,8 @@
 frontend
 
-- in XML : some tubes have frequency 0
-- in XML : some tubes have same num (ex : 1000)
+- stop audio engine
+- installation node script debug
+- server ws not sending
 - archive mode
 - video
 - pirka's tweaks
