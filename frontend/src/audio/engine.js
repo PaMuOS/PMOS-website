@@ -2,7 +2,7 @@ var EventEmitter = require('events').EventEmitter
   , async = require('async')
   , _ = require('underscore')
   , WAAWhiteNoise = require('waawhitenoise')
-  , debug = require('debug')('tubes.audio')
+  , debug = require('debug')('audio.engine')
   , patch
 
 /*

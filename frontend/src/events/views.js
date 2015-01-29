@@ -5,6 +5,18 @@ var _ = require('underscore')
   , eventModels = require('../events/models')
   , config = require('../../config')
 
+exports.render = function() {
+  var lineSvg = d3.select('#timeline svg.line')
+    , timeDiv = d3.select('#timeline .time')
+    , cursor = d3.select('#timeline svg.line rect')
+    , axis = d3.select('#timeline svg.line path')
+    , cursorHeight = parseInt(cursor.attr('height'), 10)
+    , timelineWidth = $('#timeline').width()
+  axis.attr('d', 'M 0 ' + cursorHeight / 2 + ' T ' + timelineWidth + ' ' + cursorHeight / 2)
+
+  //d="M 0 0 T 100 100"
+}
+
 var perform = exports.perform = function(events) {
   tubeViews.perform(events)
 }

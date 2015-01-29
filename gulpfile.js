@@ -9,9 +9,9 @@ var path = require('path')
   , source = require('vinyl-source-stream')
 
 var watcher = gulp.watch(['./frontend/*.js', './frontend/style.less', './frontend/src/**/*.js'], ['default'])
-watcher.on('change', function(event) {
+/*watcher.on('change', function(event) {
   console.log('File '+event.path+' was '+event.type+', running tasks...')
-})
+})*/
 
 gulp.task('browserify', function() {
   return browserify({ entries: './frontend/main.js' })
@@ -44,6 +44,7 @@ gulp.task('uglify', function() {
 gulp.task('less', function () {
   return gulp.src('./frontend/style.less')
     .pipe(less())
+    .on('error', gutil.log)
     .pipe(gulp.dest('./dist/css'))
 })
 

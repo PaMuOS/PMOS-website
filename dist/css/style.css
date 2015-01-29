@@ -143,6 +143,21 @@ header nav h2 {
 #tubesContainer #volume rect.active {
   fill: black;
 }
+#tubesContainer #timeline {
+  position: fixed;
+  bottom: 1em;
+  left: 0;
+  width: 100%;
+}
+#tubesContainer #timeline svg.line {
+  width: 100%;
+}
+#tubesContainer #timeline svg.line path {
+  stroke: black;
+}
+#tubesContainer #timeline svg.line rect {
+  fill: black;
+}
 #tubesContainer #noAudio {
   display: none;
   color: red;

@@ -1,8 +1,8 @@
-var _ = require('underscore')
+var EventEmitter = require('events').EventEmitter
+  , _ = require('underscore')
   , tubeModels = require('./models')
   , debug = require('debug')('tubes.views')
   , config = require('../../config')
-  , audioEngine = require('../audio/engine')
   , isPlayable = false
 
 // This performs a list of events, putting the tubes on and off accordingly.
@@ -30,8 +30,7 @@ exports.perform = function(events) {
 var performEvent = function(event) {
   if (event.frequency) exports.setPlaying(event.channel, event.num)
   else exports.setIdle(event.num)
-  audioEngine.setFrequency(event.channel || 0, event.frequency)
-  audioEngine.setDiameter(event.channel || 0, event.diameter)
+  exports.events.emit('play', event.channel, event.frequency, event.diameter)
 }
 
 // Create all the tube views. Must be called after the tube models have been fetched.
@@ -39,21 +38,21 @@ exports.render = function() {
   var tubesSvg = d3.select('svg#tubes')
     , width = window.screen.width / 2
     , height = width / config.tubes.originalRatio
-  tubesSvg.attr('width', width)
-  tubesSvg.attr('height', height)
+  tubesSvg.attr('width', width + 20)
+  tubesSvg.attr('height', height + 20)
 
   tubesSvg.selectAll('circle.tube').data(tubeModels.all)
     .enter().append('circle').classed({'tube': true})
     .attr('cx', function(t) { return t.x * width })
     .attr('cy', function(t) { return t.y * height })
     .attr('r', function(t) { return t.diameter * width / config.tubes.originalWidth })
-    .on('mouseover', function() { 
+    .on('mouseover', function() {
       if (isPlayable) {
         performEvent(d3.select(this).datum())
       }
     })
     .on('mouseout', function() {
-      performEvent(_.extend(d3.select(this).datum(), {frequency: 0}))
+      performEvent(_.extend({}, d3.select(this).datum(), {frequency: 0}))
     })
 
   debug('rendered')
@@ -78,3 +77,5 @@ exports.setAllIdle = function() {
   d3.selectAll('circle.tube')
     .classed('playing', false)
 }
+
+exports.events = new EventEmitter

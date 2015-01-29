@@ -18532,10 +18532,21 @@ $(function() {
     _.bind(audioEngine.load, audioEngine),
   ], function(err) {
     if (err) throw err
+
+    // Render views
     tubeViews.render()
     audioViews.render()
+    eventViews.render()
+
+    // Tie up models <-> views
     audioViews.events.on('volume', audioEngine.setVolume)
     audioEngine.events.on('volume', audioViews.setVolume)
+    tubeViews.events.on('play', function(channel, frequency, diameter) {
+      audioEngine.setFrequency(channel || 0, frequency)
+      audioEngine.setDiameter(channel || 0, diameter)
+    })
+
+    // Final things
     if (!waaSupported) $('#noAudio').show()
     page.start()
     $('body').fadeIn()
@@ -18574,7 +18585,7 @@ var EventEmitter = require('events').EventEmitter
   , async = require('async')
   , _ = require('underscore')
   , WAAWhiteNoise = require('waawhitenoise')
-  , debug = require('debug')('tubes.audio')
+  , debug = require('debug')('audio.engine')
   , patch
 
 /*
@@ -18868,6 +18879,18 @@ var _ = require('underscore')
   , eventModels = require('../events/models')
   , config = require('../../config')
 
+exports.render = function() {
+  var lineSvg = d3.select('#timeline svg.line')
+    , timeDiv = d3.select('#timeline .time')
+    , cursor = d3.select('#timeline svg.line rect')
+    , axis = d3.select('#timeline svg.line path')
+    , cursorHeight = parseInt(cursor.attr('height'), 10)
+    , timelineWidth = $('#timeline').width()
+  axis.attr('d', 'M 0 ' + cursorHeight / 2 + ' T ' + timelineWidth + ' ' + cursorHeight / 2)
+
+  //d="M 0 0 T 100 100"
+}
+
 var perform = exports.perform = function(events) {
   tubeViews.perform(events)
 }
@@ -18964,11 +18987,11 @@ exports.load = function(done) {
 
 exports.all = []
 },{"../../config":2,"debug":16,"underscore":22,"url-join":23}],8:[function(require,module,exports){
-var _ = require('underscore')
+var EventEmitter = require('events').EventEmitter
+  , _ = require('underscore')
   , tubeModels = require('./models')
   , debug = require('debug')('tubes.views')
   , config = require('../../config')
-  , audioEngine = require('../audio/engine')
   , isPlayable = false
 
 // This performs a list of events, putting the tubes on and off accordingly.
@@ -18996,8 +19019,7 @@ exports.perform = function(events) {
 var performEvent = function(event) {
   if (event.frequency) exports.setPlaying(event.channel, event.num)
   else exports.setIdle(event.num)
-  audioEngine.setFrequency(event.channel || 0, event.frequency)
-  audioEngine.setDiameter(event.channel || 0, event.diameter)
+  exports.events.emit('play', event.channel, event.frequency, event.diameter)
 }
 
 // Create all the tube views. Must be called after the tube models have been fetched.
@@ -19005,21 +19027,21 @@ exports.render = function() {
   var tubesSvg = d3.select('svg#tubes')
     , width = window.screen.width / 2
     , height = width / config.tubes.originalRatio
-  tubesSvg.attr('width', width)
-  tubesSvg.attr('height', height)
+  tubesSvg.attr('width', width + 20)
+  tubesSvg.attr('height', height + 20)
 
   tubesSvg.selectAll('circle.tube').data(tubeModels.all)
     .enter().append('circle').classed({'tube': true})
     .attr('cx', function(t) { return t.x * width })
     .attr('cy', function(t) { return t.y * height })
     .attr('r', function(t) { return t.diameter * width / config.tubes.originalWidth })
-    .on('mouseover', function() { 
+    .on('mouseover', function() {
       if (isPlayable) {
         performEvent(d3.select(this).datum())
       }
     })
     .on('mouseout', function() {
-      performEvent(_.extend(d3.select(this).datum(), {frequency: 0}))
+      performEvent(_.extend({}, d3.select(this).datum(), {frequency: 0}))
     })
 
   debug('rendered')
@@ -19044,7 +19066,9 @@ exports.setAllIdle = function() {
   d3.selectAll('circle.tube')
     .classed('playing', false)
 }
-},{"../../config":2,"../audio/engine":3,"./models":7,"debug":16,"underscore":22}],9:[function(require,module,exports){
+
+exports.events = new EventEmitter
+},{"../../config":2,"./models":7,"debug":16,"events":11,"underscore":22}],9:[function(require,module,exports){
 var EventEmitter = require('events').EventEmitter
   , WebSocket = require('ws')
   , debug = require('debug')('websocket')

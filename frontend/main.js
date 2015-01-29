@@ -127,10 +127,21 @@ $(function() {
     _.bind(audioEngine.load, audioEngine),
   ], function(err) {
     if (err) throw err
+
+    // Render views
     tubeViews.render()
     audioViews.render()
+    eventViews.render()
+
+    // Tie up models <-> views
     audioViews.events.on('volume', audioEngine.setVolume)
     audioEngine.events.on('volume', audioViews.setVolume)
+    tubeViews.events.on('play', function(channel, frequency, diameter) {
+      audioEngine.setFrequency(channel || 0, frequency)
+      audioEngine.setDiameter(channel || 0, diameter)
+    })
+
+    // Final things
     if (!waaSupported) $('#noAudio').show()
     page.start()
     $('body').fadeIn()
