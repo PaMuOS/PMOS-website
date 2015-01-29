@@ -33,8 +33,9 @@ exports.start = function(config, done) {
 
 // Connects to the server and calls `done(err)`
 var connect = function(done) {
-  debug('connecting ...')
-  socket = new WebSocket('ws://' + savedConfig.hostname + ':' + savedConfig.port)
+  var url = 'ws://' + savedConfig.hostname + ':' + savedConfig.port
+  debug('connecting to ' + url)
+  socket = new WebSocket(url)
   socket.onopen = function() { socketEmitter.emit('open') }
   socket.onmessage = function(msg, flags) { socketEmitter.emit('message', msg) }
   socket.onclose = function() { socketEmitter.emit('close') }

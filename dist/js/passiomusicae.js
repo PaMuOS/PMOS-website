@@ -18573,8 +18573,8 @@ var config = module.exports = {
   },
 
   web: {
-    hostname: typeof window !== 'undefined' ? window.location.hostname : 'localhost',
-    port: typeof window !== 'undefined' ? window.location.port : 8000,
+    hostname: 'pmos.fi', //typeof window !== 'undefined' ? window.location.hostname : 'localhost',
+    port: 80,// typeof window !== 'undefined' ? window.location.port : 80,
     reconnectTime: 2000,
     apiRoot: '/',
     dataRoot: '/data'
@@ -19104,8 +19104,9 @@ exports.start = function(config, done) {
 
 // Connects to the server and calls `done(err)`
 var connect = function(done) {
-  debug('connecting ...')
-  socket = new WebSocket('ws://' + savedConfig.hostname + ':' + savedConfig.port)
+  var url = 'ws://' + savedConfig.hostname + ':' + savedConfig.port
+  debug('connecting to ' + url)
+  socket = new WebSocket(url)
   socket.onopen = function() { socketEmitter.emit('open') }
   socket.onmessage = function(msg, flags) { socketEmitter.emit('message', msg) }
   socket.onclose = function() { socketEmitter.emit('close') }
