@@ -16,20 +16,20 @@ exports.stop = function(done) {
 }
 
 var _onConnection = function(socket) {
-  
+
   socket.on('message', function(msg) {
     // Save the event to the database
     var event = new models.Event(JSON.parse(msg))
-    event.save(function (err) {
+    /*event.save(function (err) {
       if (err) return console.error('error saving event: ', err)
-    })
+    })*/
 
     // Send the event to all the sockets currently connected.
     msg = JSON.stringify(event.toJSON())
     wsServer.clients
       .filter(function(s) { return s !== socket })
       .forEach(function(s) {
-        s.send(msg, function(err) { console.error('send error', err) })
+        s.send(msg, function(err) { if (err) console.error('send error', err) })
       })  
   })
 
