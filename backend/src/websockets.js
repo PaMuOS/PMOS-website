@@ -1,4 +1,5 @@
 var async = require('async')
+  , debug = require('debug')('pmos.websockets')
   , ws = require('ws')
   , models = require('./models')
   , wsServer
@@ -16,6 +17,7 @@ exports.stop = function(done) {
 }
 
 var _onConnection = function(socket) {
+  debug('connected ' + wsServer.clients.length)
 
   socket.on('message', function(msg) {
     // Save the event to the database

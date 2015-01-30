@@ -41,8 +41,10 @@ $(function() {
     })
   }
 
-  var peformLiveEvents = function(event) {
+  var performLiveEvents = function(event) {
     tubeViews.perform([event])
+    audioEngine.setDiameter(event.channel || 0, event.diameter)
+    audioEngine.setFrequency(event.channel || 0, event.frequency)
   }
 
   // Routing
@@ -75,7 +77,7 @@ $(function() {
       $('.live').fadeIn()
       audioEngine.start()
       tubeViews.setPlayable(false)
-      websocket.events.on('message', peformLiveEvents)
+      websocket.events.on('message', performLiveEvents)
     })
   })
 

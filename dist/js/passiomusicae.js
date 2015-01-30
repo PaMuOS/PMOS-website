@@ -18446,8 +18446,10 @@ $(function() {
     })
   }
 
-  var peformLiveEvents = function(event) {
+  var performLiveEvents = function(event) {
     tubeViews.perform([event])
+    audioEngine.setDiameter(event.channel || 0, event.diameter)
+    audioEngine.setFrequency(event.channel || 0, event.frequency)
   }
 
   // Routing
@@ -18480,7 +18482,7 @@ $(function() {
       $('.live').fadeIn()
       audioEngine.start()
       tubeViews.setPlayable(false)
-      websocket.events.on('message', peformLiveEvents)
+      websocket.events.on('message', performLiveEvents)
     })
   })
 
@@ -18572,6 +18574,7 @@ $(function() {
   })
 
 })
+
 },{"./config":2,"./src/audio/engine":3,"./src/audio/views":4,"./src/events/models":5,"./src/events/views":6,"./src/tubes/models":7,"./src/tubes/views":8,"./src/websocket":9,"async":10,"debug":16,"page":19,"querystring":15,"underscore":22}],2:[function(require,module,exports){
 var config = module.exports = {
   
