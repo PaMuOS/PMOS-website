@@ -17,7 +17,7 @@ var config = module.exports = {
   },
 
   web: {
-    hostname: 'pmos.fi', //typeof window !== 'undefined' ? window.location.hostname : 'localhost',
+    hostname: 'versificator.fm', //typeof window !== 'undefined' ? window.location.hostname : 'localhost',
     port: 80,// typeof window !== 'undefined' ? window.location.port : 80,
     reconnectTime: 2000,
     apiRoot: '/',

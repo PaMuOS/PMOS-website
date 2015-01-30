@@ -29,7 +29,7 @@ var _onConnection = function(socket) {
     wsServer.clients
       .filter(function(s) { return s !== socket })
       .forEach(function(s) {
-        s.send(msg, function(err) { console.error('send error', err) })
+        s.send(msg, function(err) { if(err) console.error('send error', err) })
       })  
   })
 

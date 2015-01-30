@@ -7,7 +7,7 @@ module.exports = {
   },
   web: {
     hostname: 'pmos-website.jit.su',
-    port: 8000,
+    port: 80,
     rootPath: path.resolve(__dirname, '..', 'dist')
   },
   api: {
