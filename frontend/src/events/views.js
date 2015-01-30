@@ -2,10 +2,13 @@ var EventEmitter = require('events').EventEmitter
   , _ = require('underscore')
   , async = require('async')
   , debug = require('debug')('events.views')
-  , tubeViews = require('./views')
-  , eventModels = require('../events/models')
+  , eventModels = require('./models')
   , config = require('../../config')
 
+// Events :
+//    - setTime : timeline moved and released to another date
+//    - play (events) : list of events to be played
+//    - performanceOver : a performance has ended. Reinitialize the UI
 exports.events = new EventEmitter
 
 exports.render = function() {
@@ -31,15 +34,10 @@ exports.render = function() {
         , maxPos = $('#timeline').width() - cursorPad - cursorWidth
       pos = Math.max(Math.min(pos, maxPos), cursorPad)
       ratio = pos / maxPos
-      exports.events.emit('browseTime', ratio)
       cursor.css({ left: pos })
     }
   })
 
-}
-
-var perform = exports.perform = function(events) {
-  tubeViews.perform(events)
 }
 
 exports.startPerformance = function(fromTime, toTime) { 
@@ -91,7 +89,7 @@ _.extend(Performance.prototype, {
         events = []
         while (self.queue[0].timestamp + self.timeOffset < +(Date.now()))
           events.push(self.queue.shift())
-        perform(events)
+        exports.events.emit('play', events)
       }
 
     }, config.performance.granularity)
@@ -100,7 +98,7 @@ _.extend(Performance.prototype, {
   // Clear the performance, stopping the interval and so on
   clear: function() {
     clearInterval(this.intervalHandle)
-    tubeViews.setAllIdle()
+    exports.events.emit('performanceOver')
     Performance.current = null
     document.getElementById('performanceClock').innerHTML = ''
   }

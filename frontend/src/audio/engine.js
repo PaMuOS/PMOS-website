@@ -119,7 +119,7 @@ exports.setVolume = function(ratio) {
 }
 
 var mapVolume = function(ratio) {
-  return Math.exp(2.5 * ratio) - 1
+  return (Math.exp(2.5 * ratio) - 1) * 5
 }
 
 var createPatch = function() {

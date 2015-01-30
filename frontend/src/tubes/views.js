@@ -5,6 +5,11 @@ var EventEmitter = require('events').EventEmitter
   , config = require('../../config')
   , isPlayable = false
 
+
+// Events :
+//    - play (events) : list of events to be played
+exports.events = new EventEmitter
+
 // This performs a list of events, putting the tubes on and off accordingly.
 exports.perform = function(events) {
   // Tubes can have only one state at the time, so if several events
@@ -30,7 +35,6 @@ exports.perform = function(events) {
 var performEvent = function(event) {
   if (event.frequency) exports.setPlaying(event.channel, event.num)
   else exports.setIdle(event.num)
-  exports.events.emit('play', event.channel, event.frequency, event.diameter)
 }
 
 // Create all the tube views. Must be called after the tube models have been fetched.
@@ -48,11 +52,15 @@ exports.render = function() {
     .attr('r', function(t) { return t.diameter * width / config.tubes.originalWidth })
     .on('mouseover', function() {
       if (isPlayable) {
-        performEvent(d3.select(this).datum())
+        var event = d3.select(this).datum()
+        performEvent(event)
+        exports.events.emit('play', [event])
       }
     })
     .on('mouseout', function() {
-      performEvent(_.extend({}, d3.select(this).datum(), {frequency: 0}))
+      var event = _.extend({}, d3.select(this).datum(), {frequency: 0})
+      performEvent(event)
+      exports.events.emit('play', [event])
     })
 
   debug('rendered')
@@ -77,5 +85,3 @@ exports.setAllIdle = function() {
   d3.selectAll('circle.tube')
     .classed('playing', false)
 }
-
-exports.events = new EventEmitter

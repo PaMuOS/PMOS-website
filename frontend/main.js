@@ -134,15 +134,26 @@ $(function() {
     audioViews.render()
     eventViews.render()
 
-    // Tie up models <-> views
+    // Sync models <-> views
     audioViews.events.on('volume', audioEngine.setVolume)
     audioEngine.events.on('volume', audioViews.setVolume)
-    tubeViews.events.on('play', function(channel, frequency, diameter) {
-      audioEngine.setFrequency(channel || 0, frequency)
-      audioEngine.setDiameter(channel || 0, diameter)
+    tubeViews.events.on('play', function(events) {
+      events.forEach(function(event) {
+        audioEngine.setDiameter(event.channel || 0, event.diameter)
+        audioEngine.setFrequency(event.channel || 0, event.frequency)
+      })
     })
     eventViews.events.on('setTime', function(ratio) { console.log('set', ratio) })
-    eventViews.events.on('browseTime', function(ratio) { console.log('browse', ratio) })
+    eventViews.events.on('play', function(events) {
+      tubeViews.perform(events)
+      events.forEach(function(event) {
+        audioEngine.setDiameter(event.channel || 0, event.diameter)
+        audioEngine.setFrequency(event.channel || 0, event.frequency)
+      })
+    })
+    eventViews.events.on('performanceOver', function() {
+      tubeViews.setAllIdle()
+    })
 
     // Final things
     if (!waaSupported) $('#noAudio').show()

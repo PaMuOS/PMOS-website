@@ -1,6 +1,9 @@
 var EventEmitter = require('events').EventEmitter
   , debug = require('debug')('audio.views')
 
+// Events:
+//    - volume (value) : volume changed
+exports.events = new EventEmitter
 
 exports.render = function() {
   var volumeChanging = false
@@ -52,5 +55,3 @@ exports.render = function() {
 }
 
 exports.setVolume = null // Initialized in 'render'
-
-exports.events = new EventEmitter

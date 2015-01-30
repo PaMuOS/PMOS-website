@@ -18539,15 +18539,26 @@ $(function() {
     audioViews.render()
     eventViews.render()
 
-    // Tie up models <-> views
+    // Sync models <-> views
     audioViews.events.on('volume', audioEngine.setVolume)
     audioEngine.events.on('volume', audioViews.setVolume)
-    tubeViews.events.on('play', function(channel, frequency, diameter) {
-      audioEngine.setFrequency(channel || 0, frequency)
-      audioEngine.setDiameter(channel || 0, diameter)
+    tubeViews.events.on('play', function(events) {
+      events.forEach(function(event) {
+        audioEngine.setDiameter(event.channel || 0, event.diameter)
+        audioEngine.setFrequency(event.channel || 0, event.frequency)
+      })
     })
     eventViews.events.on('setTime', function(ratio) { console.log('set', ratio) })
-    eventViews.events.on('browseTime', function(ratio) { console.log('browse', ratio) })
+    eventViews.events.on('play', function(events) {
+      tubeViews.perform(events)
+      events.forEach(function(event) {
+        audioEngine.setDiameter(event.channel || 0, event.diameter)
+        audioEngine.setFrequency(event.channel || 0, event.frequency)
+      })
+    })
+    eventViews.events.on('performanceOver', function() {
+      tubeViews.setAllIdle()
+    })
 
     // Final things
     if (!waaSupported) $('#noAudio').show()
@@ -18705,7 +18716,7 @@ exports.setVolume = function(ratio) {
 }
 
 var mapVolume = function(ratio) {
-  return Math.exp(2.5 * ratio) - 1
+  return (Math.exp(2.5 * ratio) - 1) * 5
 }
 
 var createPatch = function() {
@@ -18780,6 +18791,9 @@ exports.events = new EventEmitter
 var EventEmitter = require('events').EventEmitter
   , debug = require('debug')('audio.views')
 
+// Events:
+//    - volume (value) : volume changed
+exports.events = new EventEmitter
 
 exports.render = function() {
   var volumeChanging = false
@@ -18831,8 +18845,6 @@ exports.render = function() {
 }
 
 exports.setVolume = null // Initialized in 'render'
-
-exports.events = new EventEmitter
 },{"debug":16,"events":11}],5:[function(require,module,exports){
 var querystring = require('querystring')
   , _ = require('underscore')
@@ -18879,10 +18891,13 @@ var EventEmitter = require('events').EventEmitter
   , _ = require('underscore')
   , async = require('async')
   , debug = require('debug')('events.views')
-  , tubeViews = require('./views')
-  , eventModels = require('../events/models')
+  , eventModels = require('./models')
   , config = require('../../config')
 
+// Events :
+//    - setTime : timeline moved and released to another date
+//    - play (events) : list of events to be played
+//    - performanceOver : a performance has ended. Reinitialize the UI
 exports.events = new EventEmitter
 
 exports.render = function() {
@@ -18908,15 +18923,10 @@ exports.render = function() {
         , maxPos = $('#timeline').width() - cursorPad - cursorWidth
       pos = Math.max(Math.min(pos, maxPos), cursorPad)
       ratio = pos / maxPos
-      exports.events.emit('browseTime', ratio)
       cursor.css({ left: pos })
     }
   })
 
-}
-
-var perform = exports.perform = function(events) {
-  tubeViews.perform(events)
 }
 
 exports.startPerformance = function(fromTime, toTime) { 
@@ -18968,7 +18978,7 @@ _.extend(Performance.prototype, {
         events = []
         while (self.queue[0].timestamp + self.timeOffset < +(Date.now()))
           events.push(self.queue.shift())
-        perform(events)
+        exports.events.emit('play', events)
       }
 
     }, config.performance.granularity)
@@ -18977,14 +18987,14 @@ _.extend(Performance.prototype, {
   // Clear the performance, stopping the interval and so on
   clear: function() {
     clearInterval(this.intervalHandle)
-    tubeViews.setAllIdle()
+    exports.events.emit('performanceOver')
     Performance.current = null
     document.getElementById('performanceClock').innerHTML = ''
   }
 
 })
 
-},{"../../config":2,"../events/models":5,"./views":6,"async":10,"debug":16,"events":11,"underscore":22}],7:[function(require,module,exports){
+},{"../../config":2,"./models":5,"async":10,"debug":16,"events":11,"underscore":22}],7:[function(require,module,exports){
 var _ = require('underscore')
   , urljoin = require('url-join')
   , debug = require('debug')('tubes.models')
@@ -19018,6 +19028,11 @@ var EventEmitter = require('events').EventEmitter
   , config = require('../../config')
   , isPlayable = false
 
+
+// Events :
+//    - play (events) : list of events to be played
+exports.events = new EventEmitter
+
 // This performs a list of events, putting the tubes on and off accordingly.
 exports.perform = function(events) {
   // Tubes can have only one state at the time, so if several events
@@ -19043,7 +19058,6 @@ exports.perform = function(events) {
 var performEvent = function(event) {
   if (event.frequency) exports.setPlaying(event.channel, event.num)
   else exports.setIdle(event.num)
-  exports.events.emit('play', event.channel, event.frequency, event.diameter)
 }
 
 // Create all the tube views. Must be called after the tube models have been fetched.
@@ -19061,11 +19075,15 @@ exports.render = function() {
     .attr('r', function(t) { return t.diameter * width / config.tubes.originalWidth })
     .on('mouseover', function() {
       if (isPlayable) {
-        performEvent(d3.select(this).datum())
+        var event = d3.select(this).datum()
+        performEvent(event)
+        exports.events.emit('play', [event])
       }
     })
     .on('mouseout', function() {
-      performEvent(_.extend({}, d3.select(this).datum(), {frequency: 0}))
+      var event = _.extend({}, d3.select(this).datum(), {frequency: 0})
+      performEvent(event)
+      exports.events.emit('play', [event])
     })
 
   debug('rendered')
@@ -19090,8 +19108,6 @@ exports.setAllIdle = function() {
   d3.selectAll('circle.tube')
     .classed('playing', false)
 }
-
-exports.events = new EventEmitter
 },{"../../config":2,"./models":7,"debug":16,"events":11,"underscore":22}],9:[function(require,module,exports){
 var EventEmitter = require('events').EventEmitter
   , WebSocket = require('ws')
