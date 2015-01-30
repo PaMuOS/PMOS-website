@@ -44,21 +44,21 @@ exports.declare = function(app, config) {
     })
   })
 
-  app.get('/timeline/', function(req, res) {
-    var sendTimeline = function() {
-      res.set('Content-Type', 'application/json')
-      res.status(200)
-      res.end(JSON.stringify(_cachedTimeline.timeline))
-    }
+  app.get('/bounds/', function(req, res) {
 
-    // Regenerate the timeline if the caching time has expired 
-    if (+(new Date) - _cachedTimeline.timestamp > config.timeline.cacheTime) {
-      models.Event.timeline({ clusterTime: config.timeline.clusterTime }, function(err, timeline) {
-        _cachedTimeline = { timeline: timeline, timestamp: +(new Date) }
-        sendTimeline()
-      })
-    } else sendTimeline()
+    models.Event.aggregate(
+      { '$group': {
+        _id: null, 
+        maxTimestamp: { '$max': '$timestamp' },
+        minTimestamp: { '$min': '$timestamp' }
+      }},
+      function(err, results) {
+        if (err) throw err
+        res.set('Content-Type', 'application/json')
+        res.status(200)
+        res.end(JSON.stringify([results[0].minTimestamp, results[0].maxTimestamp]))
+      }
+    )
   })
-  var _cachedTimeline = { timestamp: -Infinity }
 
 }

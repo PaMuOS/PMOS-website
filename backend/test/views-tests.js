@@ -171,4 +171,22 @@ describe('views', function() {
 
   })
 
+
+  describe('bounds', function() {
+
+    it('should return the bounds [<min event timestamp>, <max event timestamp>]', function(done) {
+      request(app)
+        .get('/bounds/')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) throw err
+          assert.deepEqual(res.body, [1000, 5000])
+          done()
+        })
+    })
+
+  })
+
+
 })
