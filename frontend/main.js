@@ -84,6 +84,7 @@ $(function() {
     fadeAllPages(function() {
       $('#tubesContainer').fadeIn()
       $('.archive').fadeIn()
+      $('#timeline').fadeIn()
       audioEngine.start()
       tubeViews.setPlayable(false)
     })
@@ -140,6 +141,8 @@ $(function() {
       audioEngine.setFrequency(channel || 0, frequency)
       audioEngine.setDiameter(channel || 0, diameter)
     })
+    eventViews.events.on('setTime', function(ratio) { console.log('set', ratio) })
+    eventViews.events.on('browseTime', function(ratio) { console.log('browse', ratio) })
 
     // Final things
     if (!waaSupported) $('#noAudio').show()

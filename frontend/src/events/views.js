@@ -1,20 +1,41 @@
-var _ = require('underscore')
+var EventEmitter = require('events').EventEmitter
+  , _ = require('underscore')
   , async = require('async')
   , debug = require('debug')('events.views')
   , tubeViews = require('./views')
   , eventModels = require('../events/models')
   , config = require('../../config')
 
-exports.render = function() {
-  var lineSvg = d3.select('#timeline svg.line')
-    , timeDiv = d3.select('#timeline .time')
-    , cursor = d3.select('#timeline svg.line rect')
-    , axis = d3.select('#timeline svg.line path')
-    , cursorHeight = parseInt(cursor.attr('height'), 10)
-    , timelineWidth = $('#timeline').width()
-  axis.attr('d', 'M 0 ' + cursorHeight / 2 + ' T ' + timelineWidth + ' ' + cursorHeight / 2)
+exports.events = new EventEmitter
 
-  //d="M 0 0 T 100 100"
+exports.render = function() {
+  var cursor = $('#timeline .cursor')
+    , cursorWidth = cursor.width()
+    , cursorPad = 0
+    , dragging = false
+    , ratio
+  cursor.css({ left: cursorPad })
+  
+  // Interaction for moving the cursor
+  cursor.on('mousedown', function() { dragging = true })
+  
+  $(window).on('mouseup', function() {
+    if (dragging === true)
+      exports.events.emit('setTime', ratio)
+    dragging = false
+  })
+  .on('mousemove', function(event) {
+    if (dragging === true) {
+      var timelineX = $('#timeline').offset().left
+        , pos = event.pageX - cursorWidth / 2 - timelineX
+        , maxPos = $('#timeline').width() - cursorPad - cursorWidth
+      pos = Math.max(Math.min(pos, maxPos), cursorPad)
+      ratio = pos / maxPos
+      exports.events.emit('browseTime', ratio)
+      cursor.css({ left: pos })
+    }
+  })
+
 }
 
 var perform = exports.perform = function(events) {

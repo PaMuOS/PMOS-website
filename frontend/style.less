@@ -170,19 +170,25 @@ header {
   }
 
   #timeline {
-    position: fixed;
-    bottom: 1em;
-    left: 0;
-    width: 100%;
+    @timelineHeight: 4em;
+    @timelineMargin: 7%;
+    width: 100% - 2*@timelineMargin;
+    margin: 0 @timelineMargin;
+    height: @timelineHeight;
 
-    svg.line {
-      width: 100%;
-      path {
-        stroke: black;
-      }
-      rect {
-        fill: black;
-      }
+    .line {
+      height: @timelineHeight / 2;
+      border-bottom: 1px solid black;
+    }
+
+    .cursor {
+      @cursorHeight: 2em;
+      height: @cursorHeight;
+      width: @cursorHeight;
+      background-color: black;
+      position: relative;
+      bottom: @cursorHeight / 2;
+      cursor: pointer;
     }
   }
 

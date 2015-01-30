@@ -144,19 +144,21 @@ header nav h2 {
   fill: black;
 }
 #tubesContainer #timeline {
-  position: fixed;
+  width: 86%;
+  margin: 0 7%;
+  height: 4em;
+}
+#tubesContainer #timeline .line {
+  height: 2em;
+  border-bottom: 1px solid black;
+}
+#tubesContainer #timeline .cursor {
+  height: 2em;
+  width: 2em;
+  background-color: black;
+  position: relative;
   bottom: 1em;
-  left: 0;
-  width: 100%;
-}
-#tubesContainer #timeline svg.line {
-  width: 100%;
-}
-#tubesContainer #timeline svg.line path {
-  stroke: black;
-}
-#tubesContainer #timeline svg.line rect {
-  fill: black;
+  cursor: pointer;
 }
 #tubesContainer #noAudio {
   display: none;
