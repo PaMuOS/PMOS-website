@@ -8,11 +8,13 @@ mongoose.connect(config.db.url, function(err) {
   if (err) throw err
   async.series([
     models.Event.count.bind(models.Event),
-    models.Event.remove.bind(models.Event, {}),
+    models.Event.remove.bind(models.Event, {timestamp: {'$lt': 1421881200000}}),
     models.Event.count.bind(models.Event)
   ], function(err, results) {
-    assert.equal(results.pop(), 0)
-    console.log('removed ' + results.shift() + ' events from ' + config.db.url)
+    var countBefore = results.shift()
+      , countAfter = results.pop()
+    console.log('' + countAfter + ' events left in ' + config.db.url)
+    console.log('removed ' + (countBefore - countAfter) + ' events from ' + config.db.url)
     process.exit(0)
   })
 })

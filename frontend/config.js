@@ -1,7 +1,7 @@
 var config = module.exports = {
   
   performance: {
-    granularity: 500, // milliseconds
+    granularity: 100, // milliseconds
     channels: [
       {id: 0, color: 'red'}, {id: 1, color: 'blue'},
       {id: 2, color: 'green'}, {id: 3, color: 'yellow'},

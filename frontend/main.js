@@ -51,6 +51,7 @@ $(function() {
   page.redirect('/', '/about')
   page('/about', function() {
     websocket.events.removeAllListeners('message')
+    eventViews.clearPerformance()
     $('nav a').removeClass('active')
     $('nav a[href="./about"]').addClass('active')
 
@@ -65,6 +66,7 @@ $(function() {
 
   page('/live', function() {
     websocket.events.removeAllListeners('message')
+    eventViews.clearPerformance()
     $('nav a').removeClass('active')
     $('nav a[href="./live"]').addClass('active')
 
@@ -93,6 +95,7 @@ $(function() {
 
   page('/demo', function() {
     websocket.events.removeAllListeners('message')
+    eventViews.clearPerformance()
     $('nav a').removeClass('active')
     $('nav a[href="./demo"]').addClass('active')
 
@@ -106,6 +109,7 @@ $(function() {
 
   page('/video', function() {
     websocket.events.removeAllListeners('message')
+    eventViews.clearPerformance()
     $('nav a').removeClass('active')
     $('nav a[href="./video"]').addClass('active')
     async.parallel([
@@ -145,7 +149,6 @@ $(function() {
         audioEngine.setFrequency(event.channel || 0, event.frequency)
       })
     })
-    eventViews.events.on('setTime', function(timestamp) { console.log('set', timestamp) })
     eventViews.events.on('play', function(events) {
       tubeViews.perform(events)
       events.forEach(function(event) {
