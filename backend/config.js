@@ -6,8 +6,8 @@ module.exports = {
     //url: 'mongodb://localhost:27017/pmos-test'
   },
   web: {
-    hostname: 'versificator.fm',
-    port: 80,
+    hostname: 'localhost',
+    port: 8000,
     rootPath: path.resolve(__dirname, '..', 'dist')
   },
   api: {

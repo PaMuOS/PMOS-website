@@ -20,9 +20,9 @@ var _onConnection = function(socket) {
   socket.on('message', function(msg) {
     // Save the event to the database
     var event = new models.Event(JSON.parse(msg))
-    /*event.save(function (err) {
+    event.save(function (err) {
       if (err) return console.error('error saving event: ', err)
-    })*/
+    })
 
     // Send the event to all the sockets currently connected.
     msg = JSON.stringify(event.toJSON())

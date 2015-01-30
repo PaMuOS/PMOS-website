@@ -11,7 +11,7 @@ socket.on('open', function() {
     timestamp: 1234,
     x: 0.1223,
     y: 0.7,
-    num: 54,
+    num: 1045,
     frequency: 440,
     diameter: 50
   }))

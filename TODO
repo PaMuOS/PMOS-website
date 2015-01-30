@@ -1,10 +1,8 @@
 frontend
 
-- stop audio engine
-- installation node script debug
+- OF install script debug
 - server ws not sending
 - archive mode
-- video
 - pirka's tweaks
 
 backend
