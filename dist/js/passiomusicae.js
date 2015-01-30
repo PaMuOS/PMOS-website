@@ -18593,12 +18593,13 @@ var config = module.exports = {
 
   web: {
     hostname: typeof window !== 'undefined' ? window.location.hostname : 'localhost',
-    port: typeof window !== 'undefined' ? window.location.port : 8000,
+    port: typeof window !== 'undefined' ? window.location.port : 80,
     reconnectTime: 2000,
     apiRoot: '/',
     dataRoot: '/data'
   }
 }
+
 },{}],3:[function(require,module,exports){
 var EventEmitter = require('events').EventEmitter
   , async = require('async')
