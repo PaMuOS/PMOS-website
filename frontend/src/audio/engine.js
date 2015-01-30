@@ -90,6 +90,7 @@ exports.stop = function() {
     isStarted = false
     volumeGain.disconnect()
     context = null
+    channels = []
   }
 }
 

@@ -30,7 +30,9 @@ var _onConnection = function(socket) {
     msg = JSON.stringify(event.toJSON())
     wsServer.clients
       .filter(function(s) { return s !== socket })
-      .forEach(function(s) { s.send(msg) })
+      .forEach(function(s) {
+        s.send(msg, function(err) { if (err) console.error('send error', err) })
+      })  
   })
 
   socket.on('close', function() {
@@ -38,7 +40,7 @@ var _onConnection = function(socket) {
   })
 
   socket.on('error', function() {
-    console.log('error', 'Socket error')
+    console.error('error', 'Socket error')
   })
 
 }
