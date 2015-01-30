@@ -56,6 +56,7 @@ exports.declare = function(app, config) {
         if (err) throw err
         res.set('Content-Type', 'application/json')
         res.status(200)
+        if (!results[0]) throw new Error('it seems db is empty so couldnt find bounds')
         res.end(JSON.stringify([results[0].minTimestamp, results[0].maxTimestamp]))
       }
     )

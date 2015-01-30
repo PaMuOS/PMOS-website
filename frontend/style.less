@@ -61,6 +61,15 @@ ul {
   clear: both;
 }
 
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 header {
 
   #title {
@@ -170,6 +179,7 @@ header {
   }
 
   #timeline {
+    .noselect;
     @timelineHeight: 4em;
     @timelineMargin: 7%;
     width: 100% - 2*@timelineMargin;
@@ -189,6 +199,12 @@ header {
       position: relative;
       bottom: @cursorHeight / 2;
       cursor: pointer;
+
+
+      .date, .time {
+        position: relative;
+        bottom: @cursorHeight * 2;        
+      } 
     }
   }
 

@@ -6,7 +6,7 @@ var EventEmitter = require('events').EventEmitter
   , config = require('../../config')
 
 // Events :
-//    - setTime : timeline moved and released to another date
+//    - setTime (timestamp) : timeline moved and released to another date
 //    - play (events) : list of events to be played
 //    - performanceOver : a performance has ended. Reinitialize the UI
 exports.events = new EventEmitter
@@ -18,13 +18,14 @@ exports.render = function() {
     , dragging = false
     , ratio
   cursor.css({ left: cursorPad })
-  
+  setCursorTime(eventModels.bounds[0])
+
   // Interaction for moving the cursor
   cursor.on('mousedown', function() { dragging = true })
   
   $(window).on('mouseup', function() {
     if (dragging === true)
-      exports.events.emit('setTime', ratio)
+      exports.events.emit('setTime', ratioToTimestamp(ratio))
     dragging = false
   })
   .on('mousemove', function(event) {
@@ -34,12 +35,47 @@ exports.render = function() {
         , maxPos = $('#timeline').width() - cursorPad - cursorWidth
       pos = Math.max(Math.min(pos, maxPos), cursorPad)
       ratio = pos / maxPos
+      setCursorTime(ratioToTimestamp(ratio))
       cursor.css({ left: pos })
     }
   })
 
 }
 
+// Set the date / time feedback on the cursor
+var setCursorTime = function(timestamp) {
+  var dateDiv = $('#timeline .date')
+    , timeDiv = $('#timeline .time')
+    , formattedTime = formatTime(timestamp)
+  dateDiv.html(formattedTime[0])
+  timeDiv.html(formattedTime[1])
+}
+
+// Convert a ratio to a timestamp according to the bounds [<min timestamp>, <max timestamp>]
+var ratioToTimestamp = function(ratio) {
+  return Math.round((eventModels.bounds[1] - eventModels.bounds[0]) * ratio + eventModels.bounds[0])
+}
+
+// Takes a timestamp and returns a nicely human-readable date&time list `[<date>, <time>]` 
+var formatTime = function(timestamp) {
+  var date = new Date(timestamp)
+    , dateElems = [date.getDate(), date.getMonth() + 1, date.getFullYear()]
+    , timeElems = [date.getHours(), date.getMinutes(), date.getSeconds()]
+  
+  var fixElems = function(el) {
+    el = el.toString()
+    if (el.length === 1) el = '0' + el
+    return el
+  }
+
+  return [
+    _.map(dateElems, fixElems).join('/'), 
+    _.map(timeElems, fixElems).join(':')
+  ]
+}
+
+// Objects and methods to perform a group of events,
+// handling time and scheduling
 exports.startPerformance = function(fromTime, toTime) { 
   return new Performance(fromTime, toTime)
 }

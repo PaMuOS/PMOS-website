@@ -49,6 +49,14 @@ ul {
   height: 0;
   clear: both;
 }
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 header #title {
   color: white;
   font-family: 'League Gothic';
@@ -144,6 +152,12 @@ header nav h2 {
   fill: black;
 }
 #tubesContainer #timeline {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   width: 86%;
   margin: 0 7%;
   height: 4em;
@@ -159,6 +173,11 @@ header nav h2 {
   position: relative;
   bottom: 1em;
   cursor: pointer;
+}
+#tubesContainer #timeline .cursor .date,
+#tubesContainer #timeline .cursor .time {
+  position: relative;
+  bottom: 4em;
 }
 #tubesContainer #noAudio {
   display: none;

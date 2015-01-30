@@ -11,6 +11,7 @@ var querystring = require('querystring')
   , tubeModels = require('./src/tubes/models')
   , audioEngine = require('./src/audio/engine')
   , audioViews = require('./src/audio/views')
+  , eventModels = require('./src/events/models')
   , eventViews = require('./src/events/views')
   , websocket = require('./src/websocket')
   , config = require('./config')
@@ -123,8 +124,9 @@ $(function() {
   })
 
   // Loading
-  async.series([
+  async.parallel([
     _.bind(tubeModels.load, tubeModels),
+    _.bind(eventModels.loadBounds, eventModels),
     _.bind(audioEngine.load, audioEngine),
   ], function(err) {
     if (err) throw err
@@ -143,7 +145,7 @@ $(function() {
         audioEngine.setFrequency(event.channel || 0, event.frequency)
       })
     })
-    eventViews.events.on('setTime', function(ratio) { console.log('set', ratio) })
+    eventViews.events.on('setTime', function(timestamp) { console.log('set', timestamp) })
     eventViews.events.on('play', function(events) {
       tubeViews.perform(events)
       events.forEach(function(event) {

@@ -1,4 +1,5 @@
 var querystring = require('querystring')
+  , async = require('async')
   , _ = require('underscore')
   , urljoin = require('url-join')
   , debug = require('debug')('events.models')
@@ -16,6 +17,16 @@ exports.load = function(fromTime, toTime, done) {
     done(null, events)
   })
 }
+
+// Load the bounds of the timestamps of all events recorded in db
+exports.loadBounds = function(done) {
+  var url = urljoin(config.web.apiRoot, 'bounds')
+  $.getJSON(url, function(bounds) {
+    exports.bounds = bounds
+    done(null, bounds)
+  })
+}
+exports.bounds = null
 
 // Load next batch of events. This requires `load` to be called first in order
 // to initialize the pagination.

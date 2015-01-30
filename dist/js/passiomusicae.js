@@ -18416,6 +18416,7 @@ var querystring = require('querystring')
   , tubeModels = require('./src/tubes/models')
   , audioEngine = require('./src/audio/engine')
   , audioViews = require('./src/audio/views')
+  , eventModels = require('./src/events/models')
   , eventViews = require('./src/events/views')
   , websocket = require('./src/websocket')
   , config = require('./config')
@@ -18528,8 +18529,9 @@ $(function() {
   })
 
   // Loading
-  async.series([
+  async.parallel([
     _.bind(tubeModels.load, tubeModels),
+    _.bind(eventModels.loadBounds, eventModels),
     _.bind(audioEngine.load, audioEngine),
   ], function(err) {
     if (err) throw err
@@ -18548,7 +18550,7 @@ $(function() {
         audioEngine.setFrequency(event.channel || 0, event.frequency)
       })
     })
-    eventViews.events.on('setTime', function(ratio) { console.log('set', ratio) })
+    eventViews.events.on('setTime', function(timestamp) { console.log('set', timestamp) })
     eventViews.events.on('play', function(events) {
       tubeViews.perform(events)
       events.forEach(function(event) {
@@ -18567,7 +18569,7 @@ $(function() {
   })
 
 })
-},{"./config":2,"./src/audio/engine":3,"./src/audio/views":4,"./src/events/views":6,"./src/tubes/models":7,"./src/tubes/views":8,"./src/websocket":9,"async":10,"debug":16,"page":19,"querystring":15,"underscore":22}],2:[function(require,module,exports){
+},{"./config":2,"./src/audio/engine":3,"./src/audio/views":4,"./src/events/models":5,"./src/events/views":6,"./src/tubes/models":7,"./src/tubes/views":8,"./src/websocket":9,"async":10,"debug":16,"page":19,"querystring":15,"underscore":22}],2:[function(require,module,exports){
 var config = module.exports = {
   
   performance: {
@@ -18847,6 +18849,7 @@ exports.render = function() {
 exports.setVolume = null // Initialized in 'render'
 },{"debug":16,"events":11}],5:[function(require,module,exports){
 var querystring = require('querystring')
+  , async = require('async')
   , _ = require('underscore')
   , urljoin = require('url-join')
   , debug = require('debug')('events.models')
@@ -18864,6 +18867,16 @@ exports.load = function(fromTime, toTime, done) {
     done(null, events)
   })
 }
+
+// Load the bounds of the timestamps of all events recorded in db
+exports.loadBounds = function(done) {
+  var url = urljoin(config.web.apiRoot, 'bounds')
+  $.getJSON(url, function(bounds) {
+    exports.bounds = bounds
+    done(null, bounds)
+  })
+}
+exports.bounds = null
 
 // Load next batch of events. This requires `load` to be called first in order
 // to initialize the pagination.
@@ -18886,7 +18899,7 @@ exports.next = function(done) {
 
 // Remember the last event received for pagination
 var lastEvent = null
-},{"../../config":2,"debug":16,"querystring":15,"underscore":22,"url-join":23}],6:[function(require,module,exports){
+},{"../../config":2,"async":10,"debug":16,"querystring":15,"underscore":22,"url-join":23}],6:[function(require,module,exports){
 var EventEmitter = require('events').EventEmitter
   , _ = require('underscore')
   , async = require('async')
@@ -18895,7 +18908,7 @@ var EventEmitter = require('events').EventEmitter
   , config = require('../../config')
 
 // Events :
-//    - setTime : timeline moved and released to another date
+//    - setTime (timestamp) : timeline moved and released to another date
 //    - play (events) : list of events to be played
 //    - performanceOver : a performance has ended. Reinitialize the UI
 exports.events = new EventEmitter
@@ -18907,13 +18920,14 @@ exports.render = function() {
     , dragging = false
     , ratio
   cursor.css({ left: cursorPad })
-  
+  setCursorTime(eventModels.bounds[0])
+
   // Interaction for moving the cursor
   cursor.on('mousedown', function() { dragging = true })
   
   $(window).on('mouseup', function() {
     if (dragging === true)
-      exports.events.emit('setTime', ratio)
+      exports.events.emit('setTime', ratioToTimestamp(ratio))
     dragging = false
   })
   .on('mousemove', function(event) {
@@ -18923,12 +18937,47 @@ exports.render = function() {
         , maxPos = $('#timeline').width() - cursorPad - cursorWidth
       pos = Math.max(Math.min(pos, maxPos), cursorPad)
       ratio = pos / maxPos
+      setCursorTime(ratioToTimestamp(ratio))
       cursor.css({ left: pos })
     }
   })
 
 }
 
+// Set the date / time feedback on the cursor
+var setCursorTime = function(timestamp) {
+  var dateDiv = $('#timeline .date')
+    , timeDiv = $('#timeline .time')
+    , formattedTime = formatTime(timestamp)
+  dateDiv.html(formattedTime[0])
+  timeDiv.html(formattedTime[1])
+}
+
+// Convert a ratio to a timestamp according to the bounds [<min timestamp>, <max timestamp>]
+var ratioToTimestamp = function(ratio) {
+  return Math.round((eventModels.bounds[1] - eventModels.bounds[0]) * ratio + eventModels.bounds[0])
+}
+
+// Takes a timestamp and returns a nicely human-readable date&time list `[<date>, <time>]` 
+var formatTime = function(timestamp) {
+  var date = new Date(timestamp)
+    , dateElems = [date.getDate(), date.getMonth() + 1, date.getFullYear()]
+    , timeElems = [date.getHours(), date.getMinutes(), date.getSeconds()]
+  
+  var fixElems = function(el) {
+    el = el.toString()
+    if (el.length === 1) el = '0' + el
+    return el
+  }
+
+  return [
+    _.map(dateElems, fixElems).join('/'), 
+    _.map(timeElems, fixElems).join(':')
+  ]
+}
+
+// Objects and methods to perform a group of events,
+// handling time and scheduling
 exports.startPerformance = function(fromTime, toTime) { 
   return new Performance(fromTime, toTime)
 }
