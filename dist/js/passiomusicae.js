@@ -18826,14 +18826,16 @@ exports.render = function() {
 
   d3.selectAll('svg#volume')
     .on('mousedown', function() {
-      var ratio = (volumeHeight - d3.event.offsetY) / volumeHeight
+      var offsetY = d3.event.pageY - $('svg#volume').offset().top
+        , ratio = (volumeHeight - offsetY) / volumeHeight
       volumeChanging = true
       exports.setVolume(ratio)
       exports.events.emit('volume', ratio)
     })
     .on('mousemove', function(event) {
       if (volumeChanging) { 
-        var ratio = (volumeHeight - d3.event.offsetY) / volumeHeight
+        var offsetY = d3.event.pageY - $('svg#volume').offset().top
+          , ratio = (volumeHeight - offsetY) / volumeHeight
         exports.setVolume(ratio)
         exports.events.emit('volume', ratio)
       }
