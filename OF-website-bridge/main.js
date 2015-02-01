@@ -23,22 +23,34 @@ var connectWS = function() {
 
   websocket.once('open', function() {
     debugWS('websocket open')
+    websocket.removeAllListeners('error')
+
+    websocket.once('close', function() {
+      debugWS('websocket closed')
+      reconnect()
+    })
+ 
+    websocket.on('error', function(err) {
+      console.error('ERROR: ', err)
+    })
+ 
+    websocket.on('message', function(echoed) {
+      console.log('ECHOED: ', echoed)
+    })
   })
 
-  websocket.once('close', function() {
-    debugWS('websocket closed')
-    websocket.removeAllListeners()
-    websocket = null
-    setTimeout(function() { connectWS() }, settings.websocket.retry)
+  websocket.once('error', function(err) {
+    console.log('connection failed ' + err)
+    reconnect()
   })
 
-  websocket.on('error', function(err) {
-    console.error('ERROR: ', err)
-  })
+}
 
-  websocket.on('message', function(echoed) {
-    console.log('ECHOED: ', echoed)
-  })
+var reconnect = function() {
+  debugWS('reconnecting ...')
+  websocket.removeAllListeners()
+  websocket = null
+  setTimeout(function() { connectWS() }, settings.websocket.retry)
 }
 
 var connectOF = function() {
@@ -67,7 +79,7 @@ var connectOF = function() {
     }
 
     var msg = JSON.stringify(jsonOut)
-    debugOF('json: ' + msg)
+    debugOF('msg')
     if (websocket)
       websocket.send(msg, function(err) { if (err) console.error(err) })
   })
