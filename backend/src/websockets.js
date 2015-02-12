@@ -36,6 +36,7 @@ var _onConnection = function(socket) {
   })
 
   socket.on('close', function() {
+    debug('closed ' + wsServer.clients.length)
     socket.removeAllListeners()
   })
 

@@ -1,5 +1,5 @@
 var EventEmitter = require('events').EventEmitter
-  , WebSocket = require('ws')
+  , WebSocket = typeof window !== undefined ? window.WebSocket : require('ws')
   , debug = require('debug')('websocket')
 
 var socketEmitter = new EventEmitter()

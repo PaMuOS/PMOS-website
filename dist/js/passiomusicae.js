@@ -19194,7 +19194,7 @@ exports.setAllIdle = function() {
 }
 },{"../../config":2,"./models":7,"debug":16,"events":11,"underscore":22}],9:[function(require,module,exports){
 var EventEmitter = require('events').EventEmitter
-  , WebSocket = require('ws')
+  , WebSocket = typeof window !== undefined ? window.WebSocket : require('ws')
   , debug = require('debug')('websocket')
 
 var socketEmitter = new EventEmitter()
