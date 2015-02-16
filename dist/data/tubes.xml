@@ -1397,7 +1397,7 @@
         <oc>1</oc>
     </tube>
     <tube>
-        <num>1025</num>
+        <num>10251</num>
         <frequency>107.547164917</frequency>
         <length>159.000000000</length>
         <height>577.200012207</height>
@@ -2057,7 +2057,7 @@
         <oc>1</oc>
     </tube>
     <tube>
-        <num>5035</num>
+        <num>50351</num>
         <frequency>95.000000000</frequency>
         <length>180.000000000</length>
         <height>383.700012207</height>
@@ -3010,7 +3010,7 @@
         <diameter>14.722222328</diameter>
         <x>0.865615547</x>
         <y>0.435772419</y>
-        <element>14</element>
+        <element>14</element>f
         <oc>1</oc>
     </tube>
     <tube>
