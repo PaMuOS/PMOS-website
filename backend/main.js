@@ -42,6 +42,7 @@ var start = exports.start = function(config, done) {
 
   // Start everything
   async.parallel([
+    models.fetchEventBounds.bind(models),
     websockets.start.bind(websockets, wsConfig),
     httpServer.listen.bind(httpServer, config.web.port)
   ], done)

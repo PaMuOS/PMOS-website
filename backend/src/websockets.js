@@ -26,6 +26,10 @@ var _onConnection = function(socket) {
       if (err) return console.error('error saving event: ', err)
     })
 
+    // Update the event bounds
+    if (models.eventBounds !== null && models.eventBounds[1] < event.timestamp)
+      models.eventBounds[1] = event.timestamp
+
     // Send the event to all the sockets currently connected.
     msg = JSON.stringify(event.toJSON())
     wsServer.clients

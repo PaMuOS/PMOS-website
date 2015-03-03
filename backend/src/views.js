@@ -45,21 +45,9 @@ exports.declare = function(app, config) {
   })
 
   app.get('/bounds/', function(req, res) {
-
-    models.Event.aggregate(
-      { '$group': {
-        _id: null, 
-        maxTimestamp: { '$max': '$timestamp' },
-        minTimestamp: { '$min': '$timestamp' }
-      }},
-      function(err, results) {
-        if (err) throw err
-        res.set('Content-Type', 'application/json')
-        res.status(200)
-        if (!results[0]) throw new Error('it seems db is empty so couldnt find bounds')
-        res.end(JSON.stringify([results[0].minTimestamp, results[0].maxTimestamp]))
-      }
-    )
+    res.set('Content-Type', 'application/json')
+    res.status(200)
+    res.end(JSON.stringify(models.eventBounds))
   })
 
 }

@@ -21,3 +21,24 @@ EventSchema.methods.toJSON = function() {
 EventSchema.index({'timestamp': 1, '_id': 1})
 
 exports.Event = mongoose.model('Event', EventSchema)
+
+// Cache the max and min timestamp of events, as the aggregate is quite slow
+exports.eventBounds = null
+
+exports.fetchEventBounds = function(done) {
+  exports.Event.aggregate(
+    { '$group': {
+      _id: null, 
+      maxTimestamp: { '$max': '$timestamp' },
+      minTimestamp: { '$min': '$timestamp' }
+    }},
+    function(err, results) {
+      if (err) done(err)
+      else if (!results[0]) done(new Error('it seems db is empty so couldnt find bounds'))
+      else {
+        exports.eventBounds = [results[0].minTimestamp, results[0].maxTimestamp]
+        done()
+      }
+    }
+  )
+}
